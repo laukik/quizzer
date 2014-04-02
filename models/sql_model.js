@@ -7,7 +7,7 @@ module.exports.create_result_table = function ( db, Qid, callback) {
 		Init for result data to be
 		inserted for Quiz Creator 
 	*/
-	db.query("create table " + result_sql.set_name + Qid + "(user varchar(30) primary key, username varchar(30), total);", function  ( err, status) {
+	db.query("create table " + result_sql.set_name + Qid + "(user varchar(30) primary key, username varchar(30), total varchar(5));", function  ( err, status) {
 		if( !err ){
 			/* success in inserting data*/
 			callback( null, 1);
@@ -31,7 +31,7 @@ function add_section_coloumn( db, Qid, section_name, callback) {
 	});
 }
 
-module.exports.add_section_coloumn =  add_section_coloumn();
+module.exports.add_section_coloumn =  add_section_coloumn;
 
 function drop_section_coloumn( db, Qid, section_name ,callback) {
 	db.query("alter table " + result_sql.set_name + Qid + " drop " + section_name + ";", function ( err, status){
@@ -45,7 +45,7 @@ function drop_section_coloumn( db, Qid, section_name ,callback) {
 	});
 }
 
-module.exports.drop_section_coloumn =  drop_section_coloumn();
+module.exports.drop_section_coloumn =  drop_section_coloumn;
 
 
 module.exports.insert_data =  function( db, Qid, user, username, marks, callback) {
