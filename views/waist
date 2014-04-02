@@ -1,0 +1,37 @@
+
+
+
+
+            <canvas id="chart" width="400" height="400"></canvas>
+             
+
+             
+             <script type="text/javascript">
+                
+             </script>
+                
+             <!--        <% var data = { label:[]}; %>
+                    <% var totsec = parseInt( table.length )/5; %>
+                    <% var g=0,w=0,n=0; %>
+                    
+            <%    for( var t=1; t<=totsec;t++) data.label.push("section"+t); %>
+            <%    for( var t=0; t<totsec;t++) {%>
+                    <% for( var z=0;z < table[t+4].length ; z++) { %>
+                        <% if( table[t+4][z] == "success"){ g++; } %> 
+                        <% if ( table[t+4][z] == "danger"){ w++; }else n++; %>
+                    <%}%>
+                     
+                        <% data.datasets.fillColor.push("rgba(220,200,220,.5)"); %>
+                        <% data.datasets.stokeColor.push("rgba(220,200,220,1.0)"); %>
+                        <% data.datasets.data.push(g); %>
+                        <% data.datasets.data.push(w); %>
+                        <% data.datasets.data.push(n); %>
+                        <% g=0;n=0;w=0; %>
+                     
+                <%}%>
+
+
+                
+                
+         <%   var x = new Chart(document.getElementById("chart").getContext("2d")).Bar(data);            %>
+              -->

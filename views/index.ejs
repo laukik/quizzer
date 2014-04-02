@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<title> QATAP </title>
+		<link href="stylesheet/signin.css" rel="stylesheet">
+		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
+	</head>
+	<body>
+		<div class="container">
+				<div class="col-lg-6">
+						<h1> QATAP </h1>	
+				</div>
+				<div class="col-lg-6" >
+					<form role="form" class="form-sign-in" action="/login">
+							<button class="btn btn-lg btn-primary btn-block" type="submit" style="float:right;width:100px">Sign-in</button>	
+					</form>
+				</div>
+				</br></br></br></br></br></br>
+				<form class="form-signin" role="form" action="/signin" method="post">
+					<h2 class="form-signin-heading"> Sign Up</h2>
+					<input type="text" class="form-control" placeholder="pick username"  name="uid" required autofocus>
+					<input type="email" class="form-control" placeholder="email" name="eid" required >
+					<input type="password" class="form-control" placeholder="password" name="passwd" required >
+					<input type="password" class="form-control" placeholder="confirm-password" name="xpasswd" required >
+					<button class="btn btn-lg btn-primary btn-block" type="submit" style="float:middle">login</button>
+				</div>
+		</div>
+	</body>
+	<script src="jquery-1.10.2.min.js"></script>
+	<script src='bootstrap/js/bootstrap.js'></script>
+	
+	<script src="/socket.io/socket.io.js"></script>    
+	<script>
+		var $j = jQuery.noConflict();
+        var socket = io.connect();
+        $j(function(){
+
+        });
+	</script>
+</html>

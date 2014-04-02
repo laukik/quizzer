@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<title> LOG IN </title>
+		<link href="stylesheet/signin.css" rel="stylesheet">
+		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
+	</head>
+	<body background="img/dirty_old_shirt.png">
+		<div class="container">
+			</br></br></br></br></br></br></br>	
+			<div class="row" >
+				<form action='/home' id="f" ></form>
+				<form class="form-signin" role="form">
+					<input type="password" class="form-control" placeholder="oldpasswd" id="old" style="padding:10px;margin-bottom: 10px" required autofocus>
+					<input type="password" class="form-control" placeholder="password" name="passwd" id="pass"  style="padding:10px;margin-bottom: 10px" required >
+					<input type="password" class="form-control" placeholder="confirm password" name="xpasswd" id="xpass"  style="padding:10px;margin-bottom: 10px" required >
+					<button class="btn btn-lg btn-inverse btn-block" type="button" id="but" style="float:middle"><span class="glyphicon glyphicon-edit"></span> Change Password </button>
+				</form>
+			</div>
+				
+		</div>
+		</br>
+		</br></br></br></br></br></br></br>
+			<div class="container marketing" >
+				<div class="row"  style="color:white">
+					<div class="col-lg-2">
+						<img src="icons/cloud-upload-wh.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+						<h2> Upload Questions </h2>
+						<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+					</div>
+					<div class="col-lg-2">
+						<img src="icons/list-ol-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+						<h2> Versetility Of Questions </h2>
+						<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+					</div>
+					<div class="col-lg-2">
+						<img src="icons/calendar-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+						<h2> Fix a Schedule </h2>
+						<p> Provide us a date and time to propell your Quiz</p>
+					</div>
+					<div class="col-lg-2">
+						<img src="icons/rocket-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+						<h2> Launch </h2>
+						<p>  We will Launch it, on schedule provided by you...  </p>	
+					</div><div class="col-lg-2">
+						<img src="icons/bar-chart-o-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+						<h2> Get The Result   </h2>
+						<p> Get the complete statics of evalution </p>
+					</div>
+					<div class="col-lg-2">
+						<img src="icons/thumbs-o-up-wh.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+						<h2> Like Us </h2>
+						<p> Like our official page </p>
+					</div>
+				</div>
+			</div>
+	</body>
+	<script src="jquery-1.10.2.min.js"></script>
+	<script src='bootstrap/js/bootstrap.js'></script>
+	<script src='js/rot.js'></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var $j = jQuery.noConflict();
+		var rotation = function (ele){
+		   $j(ele).rotate({
+		      angle:0, 
+		      animateTo:360, 
+		      callback: rotation,
+		      easing: function (x,t,b,c,d){        // t: current time, b: begInnIng value, c: change In value, d: duration
+		          return c*(t/d)+b;
+		      }
+		   });
+		}
+        var socket = io.connect();
+        socket.on("err",function(){
+        	$j('#old').val('');
+        });
+        socket.on('change',function(){
+        	$j('#f').submit();
+        });
+        $j(function(){
+        	$j('#but').click(function(){
+        		if( $j('#pass').val() == $j('#xpass').val()){
+        			socket.emit('verify-pass','<%= user %>', $j('#old').val(),$j('#pass').val());        			
+        		}else{
+        			$j('#pass').val('');
+        			$j('#xpass').val('');
+        		}
+        		
+        	});
+        });
+	</script>
+</html>

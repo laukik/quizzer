@@ -1,0 +1,202 @@
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<title>Home</title>
+		<link href="stylesheet/button.css" rel="stylesheet">
+		<link href="stylesheet/signin.css" rel="stylesheet">
+		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+		<script src="all.js"></script>
+		<script src="/socket.io/socket.io.v0.9.16.js"></script>
+	</head>
+	<body background="img/escheresque_ste.png">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+						<div class="navbar-header">
+						    <h3 style="color:white" >TestWiz</h3>
+						    <h7 style="color:white" >Quiz and Test Assessment Platform</h7>
+						</div>
+					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					      	<form class="navbar-form navbar-right" action='/login'>
+	      		      		  	<button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
+	      		      		    	<span style="font:Purisa Bold" class="glyphicon glyphicon-user"></span> Guest 
+	      		      		    	<span class="caret"></span>
+	      		      		  	</button>
+	      		      		  	<ul class="dropdown-menu">
+	      		      		    	<li >
+	      		      		    		<a href="/tour" >
+	      		      		    			<span class="glyphicon glyphicon-home"></span> Take A Tour
+	      		      		    		</a>
+	      		      		    	</li>
+	      					  	</ul>
+					      		<button type="submit" class="btn navbar-btn btn-inverse" style="margin-left:7px">
+					      			<span class="glyphicon glyphicon-log-in"></span> Sign In
+					      		</button>
+					      	</form>
+					    </div>
+					</nav>
+				</div>
+			</div>
+			</br></br></br></br></br></br></br></br>
+			<div class="row">
+				<div class="col-lg-2"></div>
+				<div class="col-lg-4" style="color:black" class="heading">
+					<h1> CREATE QUIZ, DEPLOY IT, GET THE RESULTS ALL OF IT WITH GREAT EASE </h1>
+				</div>
+				<div class="col-lg-2"></div>
+				<div class="col-lg-6 has-feedback">
+					<form class="form-signin " role="form" method="post" action="/signin" style="margin-padding: 20px;">
+						<h3 class="form-signin-heading"> <%= title2 %></h3>
+						<div class="has-feedback" id="fullname">
+							<input type="text" placeholder="Enter Your Name" name="fname" id="fname" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#fff" required autofocus>
+						</div>
+						<div class="has-feedback" id="ud">
+							<input type="text" placeholder="Pick A User Name"  name="uid" id="uid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#fff" required>
+						</div>
+						<div class="has-feedback" id="ed">
+							<input type="text" placeholder="Enter your Email Address" name="eid" id="eid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#fff" required>
+						</div>
+						<div class="has-feedback" id="pass">
+							<input type="password" placeholder="Enter Your Password" class="form-control" id="passwd" name="passwd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#fff"required>
+							<input type="password" placeholder="Confirm Your Password" class="form-control" id="xpasswd" name="xpasswd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#fff"required>
+						<div>
+
+						<div style="color:#fff; margin-bottom:10px">
+							Select Role
+						<div class="radio">
+						</br> 
+						    <label style="color:white">
+						    	<input class="radio"  type="radio" style="padding:2px;margin-bottom: 10px;margin-left:10%" name="role" id="role_creator" value="creator" required checked> Quiz Creator
+						    </label>   
+						</br>
+						</div>
+						<div class="radio">
+						</br> 
+						    <label style="color:white">
+						    	<input class="radio"  type="radio" style="padding:2px;margin-bottom: 10px;margin-left:10%" name="role" id="role_participant" value="participant" required > Quiz Participant
+						    </label>   
+						</br>
+						</div>
+						</br>
+						</div>
+						<button type="submit" class=" form-control btn btn-custom" id="siu"> <span class="glyphicon glyphicon-user"></span>  Sign Up </button>
+					</form>	
+				</div>
+			</div>	
+		</div>
+	</div>
+	</br>
+	</br></br></br></br>
+		<div class="container marketing" >
+			<div class="row"  style="color:black">
+				<div class="col-lg-2">
+					<img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Upload Questions </h2>
+					<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+				</div>
+				<div class="col-lg-2">
+					<img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Versetility Of Questions </h2>
+					<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+				</div>
+				<div class="col-lg-2">
+					<img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Fix a Schedule </h2>
+					<p> Provide us a date and time to propell your Quiz</p>
+				</div>
+				<div class="col-lg-2">
+					<img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Launch </h2>
+					<p>  We will Launch it, on schedule provided by you...  </p>	
+				</div><div class="col-lg-2">
+					<img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Get The Result   </h2>
+					<p> Get the complete statics of evalution </p>
+				</div>
+				<div class="col-lg-2">
+					<img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Like Us </h2>
+					<p> Like our official page </p>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+			var $j = jQuery.noConflict();
+			var rotation = function (ele){
+			   $j(ele).rotate({
+			      angle:0, 
+			      animateTo:360, 
+			      callback: rotation,
+			      easing: function (x,t,b,c,d){        // t: current time, b: begInnIng value, c: change In value, d: duration
+			          return c*(t/d)+b;
+			      }
+			   });
+			}
+			
+			
+	        var socket = io.connect();
+	        $j(function(){
+	        	$j('#siu').click(function(){
+	        		var fname = $j('#fname').val();
+	                var user = $j('#uid').val();
+	                var email = $j('#eid').val();
+	                var passwd = $j('#passwd').val();
+	                var passwrd = $j('#xpasswd').val();
+	                var role;
+	                if( $j('#role_creator').is(":checked") ){ // check if the radio is checked
+            			role = "creator"; // retrieve the value
+        			}else role = "participant"; // retrieve the value
+	                if( passwd === passwrd){
+	                	socket.emit('new_user',fname,user,passwd,email, role);
+	                }else{
+	                	$j('#passwd').val('');
+	                    $j('#xpasswd').val('');
+	                }
+	            });
+	            $j('#uid').blur(function(){
+	                    var name = $j('#uid').val();
+	                    socket.emit('check',name);        
+	            });
+	            $j('#eid').blur(function(){
+	                    var email = $j('#eid').val();
+	                    socket.emit('check_email',email);        
+	            });
+	            $j('#uid').click(function (){
+	            	$j('#ud').removeClass('has-error');
+	            	$j('#uid').tooltip('hide');
+	            });
+	        	$j('#eid').click(function(){
+	            	$j('#ed').removeClass('has-error ');
+	            	$j('#eid').tooltip('hide');
+	            });
+
+	        });
+
+	        socket.on('tell',function(val){
+	            $j('#ud').addClass('has-error');
+	            $j('#uid').val('');
+	            $j('#uid').tooltip({
+	            	title:"User ID Already Taken",
+	            	container:'body',
+	            	placement:'auto left',
+	            	html:'height:42px'	
+	            });
+	            $j('#uid').tooltip('show');
+	        });
+	        socket.on('tell_email',function(val){
+	            $j('#ed').addClass('has-error');
+	            $j('#eid').val('');
+	        	$j('#eid').tooltip({
+	        		title:"Email Address Already Registered",
+	        		container:'body',
+	        		placement:'auto left'	
+	        	});
+	        	$j('#eid').tooltip('show');
+	        });
+		    socket.on('forward',function(){
+	            $j('#signup').submit();
+	        });
+		</script>
+</html>

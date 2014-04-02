@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Test Editor</title>
+<link rel="stylesheet" type="text/css" href="qatapeditor/qatapeditor.css">
+<script src="jquery-1.10.2.js"></script>
+<script src="qatapeditor/qatapeditor.min.js"></script>
+</head>
+
+<body>
+<span class="mathquill-editable" id="alpha">f(x)=?</span>
+<button id="but">lelellele</button>
+</body>
+<script type="text/javascript">
+	$(function() {
+		$('#but').click( function  () {
+			alert($('#alpha').val());
+		});
+	});
+</script>
+</html>

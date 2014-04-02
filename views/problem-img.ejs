@@ -1,0 +1,124 @@
+<html>
+    <script src="jquery-1.10.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src='bootstrap/js/bootstrap.js'></script>
+    <script type="text/javascript" src="bootstrap/js/less.js"></script>
+    <script type="text/javascript" src="js/countdown.js"></script>
+    
+    <body background="/img/dirty_old_shirt.png">
+        <head>
+        <meta charset="utf-8"> 
+        <link href="stylesheet/signin.css" rel="stylesheet">
+        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
+        </head>
+          <script>
+
+            var seconds_left;
+            var socket = io.connect();
+
+            function startTime(){
+                // set the date we're counting down to
+                var target_date = new Date().getTime() + <%= timer %>;
+                 
+                // variables for time units
+                var days, hours, minutes, seconds;
+                 
+                // // get tag element
+                // var countdown = document.getElementById("countdown");
+                 
+                // update the tag with id "countdown" every 1 second
+                setInterval(function () {
+                    
+                    // find the amount of "seconds" between now and target
+                    var current_date = new Date().getTime();
+                    seconds_left = (target_date - current_date) / 1000;
+                 
+                    // do some time calculations
+                    days = parseInt(seconds_left / 86400);
+                    seconds_left = seconds_left % 86400;
+                     
+                    hours = parseInt(seconds_left / 3600);
+                    seconds_left = seconds_left % 3600;
+                     
+                    minutes = parseInt(seconds_left / 60);
+                    seconds = parseInt(seconds_left % 60);
+                    if( seconds_left <= 0){
+                        socket.emit('nofault','<%= title %>');
+                        socket.emit("did",'<%= title%>','<%= Qid %>');
+                    }
+                    // // format countdown string + set tag value
+                    // countdown.innerHTML = days + "d, " + hours + "h, "
+                    // + minutes + "m, " + seconds + "s";  
+                    //socket.emit('updateTime', username,seconds_left*1000);
+                    
+                }, 1000);
+            }
+        </script>
+        <div class="container" >
+            <form  action="/showquiz"; role="form" method="post" id="frm">
+                <div> WELCOME <%= title%></div>
+
+                <div class="jumbotron" style="margin-top:30px;margin-bottom:30px">
+                    <h4 style="float:right"> WELCOME <%= title%></h4>
+                    <h3>Test for "Purpose"</h3>
+                </br>
+                <div style="float:right">
+                <script type="application/javascript">
+
+                /*1 hour = 3600 seconds
+                1 day = 86400 seconds
+                1 week = 604800 seconds
+                1 month = 2629744 seconds 
+                1 year = 31556926 seconds*/
+
+                    var myCountdown2 = new Countdown({style:"flip",time: <%= timer %>/1000, width:100, height:40, rangeHi:"hour"});
+
+                </script>
+                </div>
+
+                <div class="form-group" id="statement" style="float:left;width:60%">
+                    <%= text %>
+                </div>
+                <img src=<%= image %> >
+                <input type="hidden" name="user" value = <%= title %> >
+                <input type="hidden" name="Qid" value = <%= Qid %> >
+                <input type="hidden" name="ans" value= <%= option[  option.length-1 ] %>   > 
+                <input type="hidden" name="time"  id = "time" >                       
+                <div class="form-group" id="option" style="float:left;width:40%">
+                    <% for( var i=0;i < option.length-1 ; i++){ %>
+                        <div class="radio">
+                        </br> 
+                            <label>
+                            <input class="radio" id="set" type="radio" name="opti" value = <%= i %> > <%= option[i] %> 
+                            </label>   
+                        </br>
+                        </div>
+                    <% } %>
+
+                <div class="row" >
+                    </br></br></br>
+                    <button type="submit" class="btn btn-success" id="btn">Submit</button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </body>
+
+      
+    
+    <script>
+        var $j = jQuery.noConflict();
+        socket.on('end',function(){
+            $j('#frm').submit();
+        });
+        
+        $j(function(){
+            socket.emit('storeme','<%= title%>', '<%= Qid%>');
+            startTime();
+            $j('#btn').click(function(){
+                $j('#time').val( seconds_left * 1000 );
+                socket.emit('nofault','<%= title %>');
+            });
+        });
+    </script>
+</html>

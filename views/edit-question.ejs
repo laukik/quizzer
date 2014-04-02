@@ -1,0 +1,167 @@
+ <html>
+     <head>
+        <meta charset="utf-8">
+        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+        <script src='all.js'></script>
+        <script src="jquery.cookie.js"></script>
+    </head>
+    <body background="img/dark_exa.png">
+        <div class="container"> 
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                        <div class="navbar-header">
+                            <h3 style="color:white" >TestWiz</h3>
+                        </div>
+                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                          <form class="navbar-form navbar-right" action='/logout'>
+                                <div class="btn-group">
+                                  <button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
+                                    <span class="glyphicon glyphicon-user"></span> <%= title %> 
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                    <li ><a href="/home" ><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                                    <li><a href="/cpasswd?user=<%= title %>" ><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
+                                    <li><a href="/login"><span class="glyphicon glyphicon-wrench"></span> Change email address</a></li>
+                                    <li><a href="/edit?user=<%= title %>" ><span class="glyphicon glyphicon-pencil"></span> Edit Quiz</a></li>
+                                  </ul>
+                                </div>
+                                <button type="submit" class="btn navbar-btn btn-inverse" style="background: rgba(54, 25, 25, 0);color:#fff"><span class="glyphicon glyphicon-log-out" ></span> logout</button>
+                          </form>
+                       </div>
+                        
+                    </nav>
+                </div>
+            </div>
+            </br>
+            </br>
+
+            </br>
+            </br>
+            </br>            
+        	</br>
+        	</br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form action="/insert-edit-question" method="post" enctype="multipart/form-data" >
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <textarea class="form-control" rows="5" name="questiontt1" style="height:302px;width:100%;background: rgba(540, 250, 250, 0.1);color:#fff" >
+                                <%= Qd[0] %>
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="col-lg-4">
+                                <button type="button" class="btn btn-inverse" id="addi" style="height:42px;" ><span class="glyphicon glyphicon-plus"></span> OPTION</button>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text " class="form-control" name="opt[]" id="opt" placeholder="insert index of solution" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" value=<%= Qd[8] %> >
+                            </div>
+                            <div id="dynamic" class="col-lg-12">    
+                                <% for( var t=4; Qd[t]!="????" && t < 8 ; t++){%>
+                                    <input type="text" class="form-control"    name="opt[]"  id="opt" placeholder="option" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" value=<%= Qd[t] %>>
+                                <%}%>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div  id="datadynamic"  style="margin-top:10px" class="col-lg-12">
+                                <% if( Qd[1] != '????'){%>
+                                    <input  class="form-control" style="height:42px;width:100%;margin-top:10px;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" type="file" name="questiontt2" value=<%= Qd[1] %>>
+                                <%}%>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px" >
+                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-6">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">    
+                                                <button class="btn-lg btn-success" type="button">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                </button>
+                                            </span>
+                                            <input type="text" class="form-control" name="add"  placeholder="+ve marks" style="height:42px;background: rgba(540, 250, 250, 0.1);color:#fff" value=<%= Qd[2] %> >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">    
+                                                <button class="btn-lg btn-danger" type="button">
+                                                    <span class="glyphicon glyphicon-minus"></span>
+                                                </button>
+                                            </span>
+                                            <input type="text" class="form-control" name="sub" placeholder="-ve marks" style="height:42px;background: rgba(540, 250, 250, 0.1);color:#fff" value=<%= Qd[2] %>>    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-success" style="height:42px;width:100%" id="submit">
+                                        <span class="glyphicon glyphicon-check">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        	        	
+        </div>
+        </br></br></br></br></br></br></br></br>
+        <div class="container marketing" >
+            <div class="row"  style="color:white">
+                <div class="col-lg-2">
+                    <img src="icons/cloud-upload-wh.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Upload Questions </h2>
+                    <p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+                </div>
+                <div class="col-lg-2">
+                    <img src="icons/list-ol-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Versetility Of Questions </h2>
+                    <p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+                </div>
+                <div class="col-lg-2">
+                    <img src="icons/calendar-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Fix a Schedule </h2>
+                    <p> Provide us a date and time to propell your Quiz</p>
+                </div>
+                <div class="col-lg-2">
+                    <img src="icons/rocket-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Launch </h2>
+                    <p>  We will Launch it, on schedule provided by you...  </p>    
+                </div><div class="col-lg-2">
+                    <img src="icons/bar-chart-o-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Get The Result   </h2>
+                    <p> Get the complete statics of evalution </p>
+                </div>
+                <div class="col-lg-2">
+                    <img src="icons/thumbs-o-up-wh.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Like Us </h2>
+                    <p> Like our official page </p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        var $j = jQuery.noConflict();
+        var rotation = function (ele){
+           $j(ele).rotate({
+              angle:0, 
+              animateTo:360, 
+              callback: rotation,
+              easing: function (x,t,b,c,d){        // t: current time, b: begInnIng value, c: change In value, d: duration
+                  return c*(t/d)+b;
+              }
+           });
+        }
+        
+        $j(function(){
+        	$j('#addi').click(function(){
+        		var data = $j('<input type="text" class="form-control "  placeholder="option" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" >').attr('name',"opt[]",'id',"opt");
+        		$j('#dynamic').append(data);
+        	});
+        });
+    </script>
+</html>

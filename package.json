@@ -1,0 +1,16 @@
+{
+  "name": "quizzer",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.8",
+    "ejs": "*",
+    "connect-redis" : "*",
+    "socket.io" : "0.9.16",
+    "redis" : "*",
+    "nodemailer": "~0.6.1",
+    "mysql" : "*"
+  }
+}

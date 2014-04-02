@@ -1,0 +1,114 @@
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<title> LOG IN </title>
+		<link href="stylesheet/signin.css" rel="stylesheet">
+		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+		<script src="all.js"></script>
+	</head>
+	<body background="img/dirty_old_shirt.png" >
+		<div class="container">
+			<div class="row">
+			    <div class="col-lg-12">
+			        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			            <div class="navbar-header">
+			                <h3 style="color:white" >TestWiz</h3>
+			            </div>
+			           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			              <form class="navbar-form navbar-right" action='/logout'>
+			                    <div class="btn-group">
+			                      <button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+			                        <span class="glyphicon glyphicon-user"></span> <%= title %> 
+			                        <span class="caret"></span>
+			                      </button>
+			                      <ul class="dropdown-menu">
+			                        <li ><a href="/home" ><span class="glyphicon glyphicon-home"></span> Home</a></li>
+			                        <li><a href="/cpasswd?user=<%= title %>" ><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
+			                        <li><a href="/login"><span class="glyphicon glyphicon-wrench"></span> Change email address</a></li>
+			                      </ul>
+			                    </div>
+			                    <button type="submit" class="btn navbar-btn btn-inverse"><span class="glyphicon glyphicon-log-out"></span> logout</button>
+			              </form>
+			           </div>
+			            
+			        </nav>
+			    </div>
+			</div>
+			</br>
+			</br>
+
+			</br>
+			</br>
+			</br>
+			
+			</br>
+			</br>
+			</br>
+			
+					<div class="row" >
+						<form class="form-signin" role="form" action="/validate_quiz_id" method="post">
+							<h2 class="form-signin-heading" style="color:white"> <%= title2 %></h2>
+							<h2 class="form-signin-heading" style="color:white"> <%= title %></h2>
+							<input type="text" class="form-control" placeholder="Quiz Id Please" style="padding:10px;margin-bottom: 10px" name="Qid" required autofocus>
+							<input type="password" class="form-control" placeholder="password" name="passwd"  style="padding:10px;margin-bottom: 10px" required >
+							<button class="btn btn-lg btn-inverse btn-block" type="submit" style="float:middle"><span class="glyphicon glyphicon-log-in"></span> login</button>
+						</form>
+					</div>
+
+			
+
+				<div >
+				
+				</div>
+				</form>
+		</div>
+
+		</br></br></br></br></br></br></br></br></br></br></br>
+		<div class="container marketing" >
+		    <div class="row"  style="color:white">
+		        <div class="col-lg-2">
+		            <img src="icons/cloud-upload-wh.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+		            <h2> Upload Questions </h2>
+		            <p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+		        </div>
+		        <div class="col-lg-2">
+		            <img src="icons/list-ol-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+		            <h2> Versetility Of Questions </h2>
+		            <p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+		        </div>
+		        <div class="col-lg-2">
+		            <img src="icons/calendar-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+		            <h2> Fix a Schedule </h2>
+		            <p> Provide us a date and time to propell your Quiz</p>
+		        </div>
+		        <div class="col-lg-2">
+		            <img src="icons/rocket-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+		            <h2> Launch </h2>
+		            <p>  We will Launch it, on schedule provided by you...  </p>    
+		        </div><div class="col-lg-2">
+		            <img src="icons/bar-chart-o-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+		            <h2> Get The Result   </h2>
+		            <p> Get the complete statics of evalution </p>
+		        </div>
+		        <div class="col-lg-2">
+		            <img src="icons/thumbs-o-up-wh.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+		            <h2> Like Us </h2>
+		            <p> Like our official page </p>
+		        </div>
+		    </div>
+		</div>
+
+	</body>
+	<script>
+		var rotation = function (ele){
+		   $(ele).rotate({
+		      angle:0, 
+		      animateTo:360, 
+		      callback: rotation,
+		      easing: function (x,t,b,c,d){        // t: current time, b: begInnIng value, c: change In value, d: duration
+		          return c*(t/d)+b;
+		      }
+		   });
+		}
+	</script>
+</html>

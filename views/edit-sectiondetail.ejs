@@ -1,0 +1,141 @@
+ <html>
+    <head>
+     <meta charset="utf-8"> 
+     <script src='all.js'></script>
+     <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+    </head>
+    <body background="img/dirty_old_shirt.png">
+        <div class="container"> 
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                        <div class="navbar-header">
+                            <h3 style="color:white" >TestWiz</h3>
+                        </div>
+                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                          <form class="navbar-form navbar-right" action='/logout'>
+                                <div class="btn-group">
+                                  <button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
+                                    <span class="glyphicon glyphicon-user"></span> <%= title %> 
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                    <li ><a href="/home" ><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                                    <li><a href="/cpasswd?user=<%= title %>" ><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
+                                    <li><a href="/login"><span class="glyphicon glyphicon-wrench"></span> Change email address</a></li>
+                                    <li><a href="/edit?user=<%= title %>" ><span class="glyphicon glyphicon-pencil"></span> Edit Quiz</a></li>
+                                  </ul>
+                                </div>
+                                <button type="submit" class="btn navbar-btn btn-inverse" style="background: rgba(54, 25, 25, 0);color:#fff"><span class="glyphicon glyphicon-log-out"></span> logout</button>
+                          </form>
+                       </div>
+                        
+                    </nav>
+                </div>
+            </div>
+            </br>
+            </br></br></br></br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button class="form-control btn btn-inverse" type="submit" style="height:42px:width:1000px;margin-bottom:15px" onclick="alert('allocated Quiz-id is <%= QID %>');"> 
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="glyphicon glyphicon-arrow-right"></span>
+                            <span class="glyphicon glyphicon-briefcase"></span>
+                            <span class="glyphicon glyphicon-arrow-right"></span>
+                            <%= QID %>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <form class="form" role="form" action="/edit-sectiondetail" method="post" id="form">
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" name="rank"  placeholder=" rank of sections"
+                            style="height:42px;width:100%;padding:20px;margin-bottom: 20px" value="<%= Sd[0] %>" required>
+                            <input type="text" class="form-control" name="cutoff"  placeholder="cutoff marks if any"
+                            style="height:42px;width:100%;padding:10px;margin-bottom: 20px"  value="<%= Sd[4] %>"  required >
+                            <input type="text" class="form-control" name="name"  placeholder="name of sections"
+                            style="height:42px;width:100%;padding:10px;margin-bottom: 20px"  value="<%= Sd[1] %>" required>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="duration-days" placeholder="duration in days"
+                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px"  value="<%= DD %>" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="duration-hours" placeholder="duration in hours"
+                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px" value="<%= HH %>" required>
+                            </div>
+                            <input type="text" class="form-control" name="duration-minutes" placeholder="duration in minutes"
+                            style="height:42px;width:100%;padding:10px;margin-bottom: 20px"  value="<%= MM %>" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="text" class="form-control" name="rules"  placeholder=" something about section"
+                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px" value="<%= Sd[2] %>" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button class="btn btn-success form-control" type="submit" id="frmsub">
+                                    <span class="glyphicon glyphicon-check">
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+
+                
+        </br>
+        </br></br></br></br></br></br></br>
+        <div class="container marketing" >
+            <div class="row"  style="color:white">
+                <div class="col-lg-2">
+                    <img src="icons/cloud-upload-wh.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Upload Questions </h2>
+                    <p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+                </div>
+                <div class="col-lg-2">
+                    <img src="icons/list-ol-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Versetility Of Questions </h2>
+                    <p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+                </div>
+                <div class="col-lg-2">
+                    <img src="icons/calendar-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Fix a Schedule </h2>
+                    <p> Provide us a date and time to propell your Quiz</p>
+                </div>
+                <div class="col-lg-2">
+                    <img src="icons/rocket-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Launch </h2>
+                    <p>  We will Launch it, on schedule provided by you...  </p>    
+                </div><div class="col-lg-2">
+                    <img src="icons/bar-chart-o-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Get The Result   </h2>
+                    <p> Get the complete statics of evalution </p>
+                </div>
+                <div class="col-lg-2">
+                    <img src="icons/thumbs-o-up-wh.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+                    <h2> Like Us </h2>
+                    <p> Like our official page </p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        var rotation = function (ele){
+           $(ele).rotate({
+              angle:0, 
+              animateTo:360, 
+              callback: rotation,
+              easing: function (x,t,b,c,d){        // t: current time, b: begInnIng value, c: change In value, d: duration
+                  return c*(t/d)+b;
+              }
+           });
+        }
+    </script>
+    
+</html>

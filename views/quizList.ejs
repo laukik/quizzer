@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<title> QATAP </title>
+		<link href="stylesheet/signin.css" rel="stylesheet">
+		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
+	</head>
+	<body>
+		<div class="container">
+			<form role="form" class="form group" action="/show_incomplete" method="post">
+			<div>
+				<h1> WELCOME <%= title %> <h1>
+			</div>
+			<div class="col-lg-6">
+
+				<% for( var t=0; t< list.length; t++){ %>
+					    <div class="input-group">
+					      <span class="input-group-addon">
+					        <input type="radio"  value=<%= list[t]%> id="choice" name="choice" > QUIZ ID <%= list[t] %>
+					      </span>
+					    </div>
+				<% } %>
+			</div>
+			<input type="hidden" name="creator" value=<%= title %>>
+			<button type="submit"  class="btn btn-success">GOOO....</button>
+			</form>
+			
+		</div>
+	</body>
+	<script src="jquery-1.10.2.min.js"></script>
+	<script src='bootstrap/js/bootstrap.js'></script>
+	 <!-- <script src="/socket.io/socket.io.js"></script> -->    
+	<script>
+		var $j = jQuery.noConflict();
+        $j(function(){
+        	 
+        });
+	</script>
+</html>

@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel= 'stylesheet' href='bootstrap/css/bootstrap-datetimepicker.min.css'  type='text/css'/>
+		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
+		
+	</head>
+	<body background="img/dirty_old_shirt.png">
+		<div class="container">
+				<div class="well">
+				  <div id="datetimepicker" class="input-append">
+				    <input data-format="hh:mm:ss" type="text" ></input>
+				    <!-- <span class="add-on">
+				      <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+				    </span> -->
+				    <span class="input-group-addons" >
+				      <span  class="glyphicon glyphicon-calendar"> </span>
+				    </span>
+				  </div>
+				</div>
+							
+		</div>
+		 
+	</body>
+	<script src="jquery-1.10.2.min.js"></script>    
+    <script src='bootstrap/js/bootstrap.js'></script>
+    <script src='js/bootstrap-datetimepicker.min.js'></script>
+	<script type="text/javascript">
+	  $(function() {
+	    		var $j = jQuery.noConflict();
+
+	    		
+	    $j('#datetimepicker').datetimepicker({
+	      
+	     controlType: 'select',
+	                         dateFormat: "dd/mm/yy",
+	                         timeFormat: "hh:mm tt"
+
+	    });
+	  });
+	</script>
+</html>
+
+
+    <!-- 
+    <div id="datetimepicker" class="input-append date">
+      <input type="text"></input>
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+      </span>
+    </div>
+    <script type="text/javascript">
+      $('#datetimepicker').datetimepicker({
+        format: 'dd/MM/yyyy hh:mm:ss',
+        language: 'pt-BR'
+      });
+    </script>
+  </body>
+<html> -->

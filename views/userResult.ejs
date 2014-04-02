@@ -1,0 +1,96 @@
+<html>
+    <head>
+    <link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
+    <script src="all.js"></script>
+    </head>
+
+    <body background="img/noisy_net.png">
+        <div class="container">
+           <h1 style="color:white"> Welcome <%= title %> your result for Quiz <%= Qid %> is as follows</h1>
+            <div class="row" style="margin-top:30px">
+                <div class="col-lg-12">
+                    <% var z = 1;%>
+                    <% for( var i=0,z=1; i < table.length; i+=5,z++ ){%>
+                        <div class="row" style="color:white" >
+                            <div class="col-lg-4"> Section Name : <%= table[i+1] %></div>
+                            <div class="col-lg-4"> Section Score: <%= table[i] %></div>
+                            <div class="col-lg-4"> Section Result: <%= stat[z-1] %></div>
+                        </div>
+                        </br>
+                        </br>
+                        <div class="row" style="color:white">
+                            <table class="table table-hover" style="color:white">
+                                <tr >
+                                    <td> Problem no. </td>
+                                    <td> Your selection </td>
+                                    <td> Correct answer </td>
+                                </tr>
+                                <% var x = table[i+2].length %>
+                                <% for( var k = 0; k < x; k++){ %>
+                                    <tr class=<%= table[i+4][k] %> >
+                                        <td> <span class="badge"><%= k %></span> </td>
+                                        <td> <span class="badge"><%= table[i+2][k] %></span> </td>
+                                        <td> <span class="badge"><%= table[i+3][k] %></span> </td>
+                                    </tr>
+
+                                <% } %> 
+
+                            </table>
+                        </div>
+                        </br>
+                        </br> 
+                    <% } %>
+                    <!-- <table class="table table-hover"></table> -->
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    
+                </div>
+            </div>
+            
+
+            <script>
+                // var table = <%- JSON.stringify(table) %>;
+                
+                // var datax = { labels:[],datasets:[]
+                // };
+                // for(var t=0; t < table.length/5 ; t++){ 
+                //     datax.labels.push(table[5*t+1]);
+                //     var temp = {
+                //                     fillColor : "rgba(151,187,205,.5)",
+                //                     strokeColor : "rgba(22,22,22,1.0)",
+                //                     data:[]
+                //                 };
+                //     var arr = [0,0,0];
+                //     for(var p=0; p < table[5*t+4].length ; p++){ 
+                //         if( table[5*t+4][p] == "success" ){
+                //             arr[0]++;
+                //         }else if( table[5*t+4][p] == "danger" ){
+                //             arr[1]++;
+                //         }else{
+                //             arr[2]++;
+                //         }
+                //     }
+                //     temp['data'] = arr;
+                //     alert(temp.data);
+                //     datax.datasets.push(temp);
+                //     var ctx = document.getElementById("myChart").getContext("2d");
+                //     var myNewChart = new Chart(ctx).Bar(datax);
+                // }
+
+            </script>
+            
+        </div>
+    </body>
+    <script>
+        var $j = jQuery.noConflict();
+        //var socket = io.connect();
+        $j(function(){
+        });
+    </script>
+</html>
+
+
+

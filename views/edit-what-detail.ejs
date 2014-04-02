@@ -1,0 +1,236 @@
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<title> QATAP </title>
+		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+		<script src="all.js"></script>
+		<script src="jquery.cookie.js"></script>
+		<script>
+			var $j = jQuery.noConflict();
+			var Qdx = <%- JSON.stringify(Qd) %>;
+			var set = function (ele){
+				$j.cookie('Sid',$j(ele).val());
+			}
+			var rotation = function (ele){
+			   $j(ele).rotate({
+			      angle:0, 
+			      animateTo:360, 
+			      callback: rotation,
+			      easing: function (x,t,b,c,d){
+			      	return c*(t/d)+b;
+			      }
+			   });
+			}
+			$j(function(){
+				
+				$j('#addq').click(function(){
+					var id = parseInt($j.cookie('Sid'));
+					if( (parseInt($j('#remQ').val()) > parseInt(Qdx[id+9]))  || !($j('#remQ').val()) ){
+						alert('wrong input at edit Question');
+						$j('#remQ').val('');
+					}else{
+						$j('#addqf').submit();
+					}
+				});
+
+				$j('#rembt').click(function(){
+					var id = parseInt($j.cookie('Sid'));
+					if( (parseInt($j('#remQ').val()) > parseInt(Qdx[id+9]))  || !($j('#remQ').val()) ){
+						alert('wrong input at edit Question');
+						$j('#remQ').val('');
+					}else{
+						$j('#remy').submit();
+					}
+				});
+
+				$j('#editbt').click(function(){
+					var id = parseInt($j.cookie('Sid'));
+					var aa = parseInt($j('#editQ').val());
+					var bb = parseInt(Qdx[id+9]);
+					if( aa > bb || !($j('#editQ').val())){
+						alert('wrong input at edit Question');
+						$j('#editQ').val('');
+					}else{
+						$j('#alpha').submit();
+					}
+				});
+			});
+		</script>
+	</head>
+	<body background="img/moulin.png">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+						<div class="navbar-header">
+						    <h3 style="color:white" >TestWiz</h3>
+						</div>
+					   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					      <form class="navbar-form navbar-right" action='/logout'>
+					      		<div class="btn-group">
+					      		  <button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
+					      		    <span class="glyphicon glyphicon-user"></span> <%= title %> 
+					      		    <span class="caret"></span>
+					      		  </button>
+					      		  <ul class="dropdown-menu">
+					      		    <li ><a href="/home" ><span class="glyphicon glyphicon-home"></span> Home</a></li>
+					      		    <li ><a href="/cpasswd?user=<%= title %>" ><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
+					      		    <li><a href="/login"><span class="glyphicon glyphicon-wrench"></span> Change email address</a></li>
+								  </ul>
+					      		</div>
+					      		<button type="submit" class="btn navbar-btn btn-inverse" style="background: rgba(54, 25, 25, 0);color:#fff" ><span class="glyphicon glyphicon-log-out"></span> logout</button>
+					      </form>
+					   </div>
+						
+					</nav>
+				</div>
+			</div>
+			</br></br></br></br>
+			<div class="row">
+			    <div class="col-lg-2">
+			        <button type="submit" class="btn btn-lg btn-inverse form-control"  style="margin-bottom:22px;height:42px;background: rgba(54, 25, 25, 0);color:#fff">
+			            <span class="glyphicon glyphicon-exclamation-sign">
+			            </span> QUIZ-ID :: <%= Qid %>
+			        </button>
+			    </div>
+			    <div class="col-lg-4">
+			    </div>
+			    <div class="col-lg-4"></div>
+			</div>
+			<div class="row col-lg-12" ></br></div>
+			
+
+			<div class="row" style="background: rgba(255, 255, 255, 0.2);">
+				<div class="col-lg-2">
+					<p style="color:#fff;font-size:20px;margin-left:15px"> Quiz Detail </p>
+					<form role="form" class="create-form" action="/edit-pre-quizdetail" >
+						<button class="btn btn-lg btn-inverse btn-block" type="submit" style="float:middle;"><span class="glyphicon glyphicon-edit"></span>Edit Quiz Detail</button>
+					</form>
+					<form role="form" class="create-form" action="/del-quiz" method="post" >
+						<button class="btn btn-lg btn-danger btn-block" type="submit" style="float:middle;"><span class="glyphicon glyphicon-remove-sign"></span>Delete Quiz</button>
+					</form>
+				</div>
+				<div class="col-lg-2">
+					<p style="color:#fff;font-size:20px;margin-left:15px"> Section Detail </p>
+					<form role="form" class="create-form" action="/add-section" method='post' > 
+						<button class="btn btn-lg btn-inverse btn-block" type="submit" style="float:middle">
+							<span class="glyphicon glyphicon-plus-sign"></span>Add
+						</button>
+					</form>	
+					<form role="form" class="create-form" > 
+						<button class="btn btn-lg btn-inverse btn-block dropdown-toggle" type="submit" style="float:middle" data-toggle="dropdown" >
+							<span class="glyphicon glyphicon-remove-sign"></span> Remove  <span class="caret"></span>
+						</button>
+		      		    <ul class="dropdown-menu">
+		      		    	<% for( var i = 0 ; i < Qd[8]; i++) {%>
+		      		    		<li >
+		      		    			<a href="/remove-section?id=<%= i %>" >
+		      		    				<span class="glyphicon glyphicon-edit"></span> <%= Qd[ i + 8+ parseInt(Qd[8]) + 1]%>
+		      		    			</a>
+		      		    		<li>	
+		      		    	<%}%>
+						</ul>
+					</form>
+					<form role="form" class="create-form" > 
+						<button class="btn btn-lg btn-inverse btn-block dropdown-toggle" type="submit" style="float:middle" data-toggle="dropdown" >
+							<span class="glyphicon glyphicon-edit"></span> Edit Detail  <span class="caret"></span>
+						</button>
+		      		    <ul class="dropdown-menu">
+		      		    	<% for( var i = 0 ; i < Qd[8]; i++) {%>
+		      		    		<li >
+		      		    			<a href="/edit-section-detail?id=<%= i %>" >
+		      		    				<span class="glyphicon glyphicon-edit"></span> <%= Qd[ i + 8+ parseInt(Qd[8]) + 1]%>
+		      		    			</a>
+		      		    		<li>	
+		      		    	<%}%>
+						</ul>
+					</form>
+				</div>
+				<div class="col-lg-8">
+					<div class="col-lg-12">
+						<p style="color:#fff;font-size:20px;margin-left:300px"> Question Detail </p>
+		      		    <div class="col-lg-6 radio">
+		      		    	<% for( var i = 0 ; i < Qd[8]; i++) {%>
+		      		    		<ul style="margin-top:16px;margin-bottom:48px;color:#fff">
+		      		    			<span class="glyphicon glyphicon-edit" style="color:#fff"></span>
+		      		    			<input type="radio" class="radio" name="rad" value="<%= i%>" onclick="set(this);" required>
+		      		    			Section:<%= Qd[ i + 9 + parseInt(Qd[8])]%>:Questions:<%= Qd[i+9]%>
+		      		    		</ul>	
+		      		    	<%}%>
+		      		    </div>
+		      		    <div class="col-lg-6">
+		      		    	<form role="form" class="create-form" action="/edit-question" id="alpha" style="margin-bottom:10px"> 
+		      		    		<div class="input-group">
+		      		    			<span class="input-group-btn">
+		      		    				<button class=" btn-lg btn-inverse" type="button" style="float:middle" id="editbt">
+		      		    					<span class="glyphicon glyphicon-edit"></span>
+		      		    				</button>
+		      		    			</span>
+
+		      		    				<input type="text" placeholder="Question number to edit" style="height:42px;width:100%" class="form-control" name="editQ" id="editQ">
+		      		    		</div>
+		      		    	</form>
+		      		    	<form role="form" class="create-form" style="margin-bottom:10px" action="/remove-question"  id="remy" > 
+		      		    		<div class="input-group">
+		      		    			<span class="input-group-btn">
+		      		    				<button class=" btn-lg btn-inverse" type="button" style="float:middle;margin-top:15px" id="rembt" >
+		      		    					<span class="glyphicon glyphicon-remove-sign"></span>
+		      		    				</button>
+		      		    			</span>
+
+		      		    				<input type="text" placeholder="Question number to remove" style="height:42px;width:100%;margin-top:15px" class="form-control" name="remQ" id="remQ">
+		      		    		</div>
+		      		    	</form>
+		      		    	<form role="form" class="create-form" action="/add-question"  style="margin-bottom:15px;margin-top:15px" > 
+		      		    		<button class="btn btn-lg btn-inverse btn-block" type="submit" style="float:middle" >
+		      		    			<span class="glyphicon glyphicon-plus-sign"></span>Add Question
+		      		    		</button>
+		      		    	</form>
+		      		    </div>
+				</div>
+						
+				</div>
+
+			</div>
+
+
+
+		</br>
+		</br>
+		</br>
+
+		<div class="container marketing" >
+			<div class="row"  style="color:white">
+				<div class="col-lg-2">
+					<img src="icons/cloud-upload-wh.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Upload Questions </h2>
+					<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+				</div>
+				<div class="col-lg-2">
+					<img src="icons/list-ol-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Versetility Of Questions </h2>
+					<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+				</div>
+				<div class="col-lg-2">
+					<img src="icons/calendar-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Fix a Schedule </h2>
+					<p> Provide us a date and time to propell your Quiz</p>
+				</div>
+				<div class="col-lg-2">
+					<img src="icons/rocket-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Launch </h2>
+					<p>  We will Launch it, on schedule provided by you...  </p>	
+				</div><div class="col-lg-2">
+					<img src="icons/bar-chart-o-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Get The Result   </h2>
+					<p> Get the complete statics of evalution </p>
+				</div>
+				<div class="col-lg-2">
+					<img src="icons/thumbs-o-up-wh.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+					<h2> Like Us </h2>
+					<p> Like our official page </p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
