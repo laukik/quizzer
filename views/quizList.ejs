@@ -7,6 +7,37 @@
 	</head>
 	<body>
 		<div class="container">
+			<div class="row">
+			    <div class="col-lg-12">
+			        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			            <div class="navbar-header">
+			                <h3 style="color:white" >TestWiz</h3>
+			            </div>
+			           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			              <form class="navbar-form navbar-right" action='/logout'>
+			                    <div class="btn-group">
+			                      <button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
+			                        <span class="glyphicon glyphicon-user"></span> <%= title %> 
+			                        <span class="caret"></span>
+			                      </button>
+			                      <ul class="dropdown-menu">
+			                        <li ><a href="/home" ><span class="glyphicon glyphicon-home"></span> Home</a></li>
+			                        <li><a href="/cpasswd?user=<%= title %>" ><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
+			                        
+			                      </ul>
+			                    </div>
+			                    <button type="submit" class="btn navbar-btn btn-inverse" style="background: rgba(54, 25, 25, 0);color:#fff"><span class="glyphicon glyphicon-log-out"></span> logout</button>
+			              </form>
+			           </div>
+			            
+			        </nav>
+			    </div>
+			</div>
+			</br>
+			</br>
+			</br></br></br>
+			</br>
+			</br>
 			<form role="form" class="form group" action="/show_incomplete" method="post">
 			<div>
 				<h1> WELCOME <%= title %> <h1>
