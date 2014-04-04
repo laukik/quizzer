@@ -79,7 +79,7 @@ var range_limit = {
 };
 
 var result_sql = {
-	set_name : "result:"
+	set_name : "result_"
 };
 
 var section_schema = {
@@ -90,6 +90,17 @@ var section_schema = {
 	total_questions : 3,
 	section_cutoff : 4,section_duration : 5
 };
+
+var user_schema = {
+	password : 0,
+	email : 1,
+	activate_code: 6,
+	name: 7,
+	user_role: 8,
+	isActivated: 9,
+	activate_code_expiry: 10
+};	
+
 
 
 
@@ -242,6 +253,7 @@ module.exports = function( app, redis, db){
 				var len = result_data.length/4;
 				var userdata = [];
 				var result = [];
+				var marks = [];
 				for( var i = 0; i < len; i++){
 					!function syn(i){
 						Quiz.get_section_detail( redis, Qid, i, section_schema.section_name, section_schema.section_name, function (err, sec_name){
@@ -249,6 +261,7 @@ module.exports = function( app, redis, db){
 								Quiz.get_section_answers( redis, Qid, i, 0, -1, function ( err, correct){
 									if( !err ){
 										userdata.push(result_data[i*4]); //points
+										marks.push(result_data[i*4]);
 										userdata.push(sec_name); // section name
 										userdata.push(result_data[i*4+1].slice(1)); // user answers
 										userdata.push(correct); // correct answers
@@ -259,8 +272,15 @@ module.exports = function( app, redis, db){
 										if( i == len-1){
 											console.log(userdata);
 											req.session.destroy();
-											sql
-											res.render('userResult.ejs',{ title:user,Qid:Qid,table:userdata,stat:result});
+											User.get_user_data( redis, user, user_schema.name, user_schema.name, function ( err, user_name){
+												if( !err ){
+													sql.insert_data( db, Qid, user, user_name, marks);
+													res.render('userResult.ejs',{ title:user,Qid:Qid,table:userdata,stat:result});					
+												}else{
+													console.log("ERR AT /eval INSIDE controller.js");
+													res.redirect('/');			
+												}
+											});
 										}
 									}else{
 										console.log("ERR AT /eval INSIDE controller.js");
@@ -344,6 +364,8 @@ module.exports = function( app, redis, db){
 		
 		res.render('quiz_taking_login.ejs',{ title: req.session.userId, title2: ""});
 	});
+
+	//app.get( '/quiz_results', function ());
 
 	app.get('/remove-question', is_logged_in,function (req, res){
 		var user = req.session.userId;
@@ -927,7 +949,7 @@ module.exports = function( app, redis, db){
 		req.session.CQ = 0;
 		Quiz.insert_section_detail( redis, creator, Qid, req.session.CS, rank, sectionName, rulesBlog, totalQuestions, sectionCutoff, sectionDuration, "RFU", "RFU", function ( err, reply){
 			if( !err ){
-				sql.add_section_coloumn( db, Qid, sectionNames);
+				sql.add_section_coloumn( db, Qid, sectionName);
 				res.redirect('/question_detail_form');
 			}else{
 				console.log("ERR AT section_detail INSIDE controller.js");
