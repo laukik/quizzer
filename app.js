@@ -13,10 +13,10 @@ var redirect = require('express-redirect')(app);
 var db = require('mysql').createConnection({
     host : "localhost",
     user : "root",
-    password : "root"
+    password : "mewtwo",
+    database : "quizzer"
 });
 db.connect();
-db.query("use quizzer");
 // all environments
 app.set('port', process.env.PORT || 3001);
 app.set('views', path.join(__dirname, 'views'));
