@@ -6,6 +6,11 @@
         <script src="all.js"></script>
         <script type="text/javascript" src="js/countdown.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+        <script>
+          function preventBack(){window.history.forward();}
+          setTimeout("preventBack()", 0);
+          window.onunload=function(){null};
+        </script>
     </head>
     <body background="img/noisy_net.png">
          

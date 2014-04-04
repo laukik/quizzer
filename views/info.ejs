@@ -3,6 +3,11 @@
         <meta charset="utf-8"> 
         <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
         <script src="all-ro.js"></script>
+        <script>
+          function preventBack(){window.history.forward();}
+          setTimeout("preventBack()", 0);
+          window.onunload=function(){null};
+        </script>
     </head>
     <body background="img/noisy_net.png">
         <div class="container">

@@ -2,6 +2,11 @@
     <head>
     <link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
     <script src="all.js"></script>
+    <script>
+      function preventBack(){window.history.forward();}
+      setTimeout("preventBack()", 0);
+      window.onunload=function(){null};
+    </script>
     </head>
 
     <body background="img/tree_bark.png">
@@ -89,6 +94,9 @@
         var $j = jQuery.noConflict();
         //var socket = io.connect();
         $j(function(){
+            $j(document).bind("contextmenu",function(e){
+                    e.preventDefault();
+            });
         });
     </script>
 </html>
