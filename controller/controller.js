@@ -1,4 +1,4 @@
-//console.log("ERR AT INSIDE");
+ //console.log("ERR AT INSIDE");
 
 /*
 	This is the main controller which handles all 
@@ -1175,23 +1175,24 @@ module.exports = function( app, redis, db){
 										console.log('hahahahahahahahahaha');
 										var i;
 										console.log(" NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN ");
-										if( question_data[ question_schema.type][0]  == 'f'){
-											/*
-												Fill the solution
-												type questions
-											*/
-											if( question_data[ question_schema.img] == "????"){
-												/* Question contains no image */
-												res.redirect('/show_question_text_fill?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]);
-											}else if( question_data[ question_schema.type] == "eqsc"){
-												/* Question contains equation*/
-												res.redirect('/show_question_equation_fill?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&equation='+question_data[1]);						
-											}else{
-												/* Question contain plane text*/
-												res.redirect('/show_question_image_fill?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&img='+question_data[1]);						
-											}
+										// if( question_data[ question_schema.type][0]  == 'f'){
+										// 	/*
+										// 		Fill the solution
+										// 		type questions
+										// 	*/
+										// 	if( question_data[ question_schema.img] == "????"){
+										// 		/* Question contains no image */
+										// 		res.redirect('/show_question_text_fill?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]);
+										// 	}else if( question_data[ question_schema.type] == "eqsc"){
+										// 		 Question contains equation
+										// 		res.redirect('/show_question_equation_fill?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&equation='+question_data[1]);						
+										// 	}else{
+										// 		/* Question contain plane text*/
+										// 		res.redirect('/show_question_image_fill?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&img='+question_data[1]);						
+										// 	}
 
-										}else if( question_data[ question_schema.type] == 'essay'){
+										// }else 
+										if( question_data[ question_schema.type] == 'essay'){
 											/*
 												essay type questions
 											*/
@@ -1241,7 +1242,7 @@ module.exports = function( app, redis, db){
 		var user = req.session.userId;
 		sql.fetch_all( db, Qid, function ( err, data){
 			if( !err ){
-				
+				res.render('creator_result', { Qid : Qid, data : data,title:user });
 			}else{
 				res.redirect('/quiz_results');
 			}
