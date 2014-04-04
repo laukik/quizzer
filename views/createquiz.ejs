@@ -49,7 +49,7 @@
         	<div class="row">
 
                 <div class="btn-group">
-                  <button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
+                  <button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff" id="bgrp" >
                     <span class="glyphicon glyphicon-inbox"></span> TYPE <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" style="background: rgba(255, 255, 255, 1);color:white">
@@ -90,6 +90,7 @@
                             
                             <div id="dynamic" class="col-lg-12">   
                                 <input type="text" class="form-control"    name="opt[]"  id="opt1" placeholder="option : 0" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff">
+                                <input type="text" class="form-control"    name="opt[]"  id="opt2" placeholder="option : 1" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff">
                             </div>
                         </div>
                         <div class="row">
@@ -103,7 +104,6 @@
                             <div  id="datadynamic"  style="margin-top:20px" class="col-lg-12">
                             </div>
                         </div>
-                        
                         <div class="row" style="margin-top:10px" >
                             <div class="col-lg-12">
                                 <div class="col-lg-6">
@@ -178,8 +178,11 @@
     </body>
     <script>
         var $j = jQuery.noConflict();
-        var count = 1;
+        var count = 2;
         var limit = 4;
+        function IsNumeric(input){
+            return (input - 0) == input && (''+input).replace(/^\s+|\s+$/g, "").length > 0;
+        }
         var rotation = function (ele){
            $j(ele).rotate({
               angle:0, 
@@ -201,9 +204,7 @@
                 setTimeout(function() {
                   var latex = latexMath.mathquill('latex');
                   latexSource.val(latex);
-            //      location.hash = '#'+latex; //extremely performance-crippling in Chrome for some reason
-                  //htmlSource.text(printTree(latexMath.mathquill('html')));
-                });
+              });
               }).keydown().focus();
 
               latexSource.bind('keydown keypress', function() {
@@ -222,21 +223,37 @@
             $j('#submit').click(function(){
                 $j.cookie('a','a');
             });
+
+            $j('#opt0').blur(function(){
+                var temp = $j('#opt0').val();
+                if( IsNumeric( temp )){
+                    var num = parseInt(temp);
+                    if( num < 0 || num >= count){
+                        $j('#opt0').val('');    
+                    }
+                }else{
+                    $j('#opt0').val('');
+                }
+            });
+
             $j('#mcqsc').click(function(e){
                 limit = 4;
                 $j('#type').val('mcqsc');
+                $j('#bgrp').attr('style', 'visibility:hidden');
             });
             $j('#eqsc').click(function(e){
                 limit = 4;
                 $j('#type').val('eqsc');
                 $j('#eqscx').attr('style', 'visibility:visible;height:30px;width:100%;');
                 $j('#paths').val('1');
+                $j('#bgrp').attr('style', 'visibility:hidden');
             });
             $j('#mcqimgsc').click(function(e){
                 limit = 4;
                 $j('#type').val('mcqimgsc');
                 var data = $j('<input  class="form-control" style="height:42px;width:100%;margin-top:10px;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);" type="file" name="questiontt2" >');
                 $j('#paths').val('1');
+                $j('#bgrp').attr('style', 'visibility:hidden');
                 $j('#datadynamic').attr('style','background:rgba(540, 250, 250, 0.0)' );
                 $j('#datadynamic').append(data);
                 
@@ -247,6 +264,7 @@
                 $j('#type').val('essay');
                 $j('#opt0').val('0');
                 $j('#opt0').attr('readOnly','true');
+                $j('#bgrp').attr('style', 'visibility:hidden');
                 $j('#opt1').attr('placeholder','essay word count');
             });
 
@@ -255,6 +273,7 @@
                 $j('#type').val('fts');
                 $j('#opt0').val('0');
                 $j('#opt0').attr('readOnly','true');
+                $j('#bgrp').attr('style', 'visibility:hidden');
                 $j('#opt1').attr('placeholder','Solution');
             });
 
@@ -264,6 +283,7 @@
                $j('#opt0').val('0');
                $j('#opt0').attr('readOnly','true');
                $j('#opt1').attr('placeholder','Solution');
+               $j('#bgrp').attr('style', 'visibility:hidden');
                var data = $j('<input  class="form-control" style="height:42px;width:100%;margin-top:10px;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" type="file" name="questiontt2" >');
                $j('#paths').val('1');
                $j('#datadynamic').append(data);
@@ -275,10 +295,13 @@
                 $j('#type').val('ftseq');
                 $j('#eqscx').attr('style', "visibility:visible;height:30px;width:100%;");
                 $j('#opt0').val('0');
+                $j('#bgrp').attr('style', 'visibility:hidden');
                 $j('#opt0').attr('readOnly','true');
                 $j('#opt1').attr('placeholder','Solution');
                 $j('#paths').val('1');
             });
+
+
 
         	$j('#addi').click(function(){
         		if( count < limit ){
