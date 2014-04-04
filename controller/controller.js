@@ -107,7 +107,7 @@ var user_schema = {
 module.exports = function( app, redis, db){
 
 	/* GET request block */
-//======================================================================================================
+	//======================================================================================================
 
 	
 	app.get('/', function (req, res){
@@ -365,7 +365,16 @@ module.exports = function( app, redis, db){
 		res.render('quiz_taking_login.ejs',{ title: req.session.userId, title2: ""});
 	});
 
-	//app.get( '/quiz_results', function ());
+	app.get( '/quiz_results', function ( req, res){
+		var user = req.session.userId;
+		Quiz.get_user_quiz_list( redis, user, function ( err, list){
+			if( !err ){
+				res.render( 'result_quiz_list', { title:user, list : list});
+			}else{
+				console.log("ERR AT /quiz_results AT controller.js");
+			}
+		});
+	});
 
 	app.get('/remove-question', is_logged_in,function (req, res){
 		var user = req.session.userId;
@@ -650,7 +659,7 @@ module.exports = function( app, redis, db){
 
 
 	/* POST request block */
-//======================================================================================================
+	//======================================================================================================
 	
 
 
@@ -1214,6 +1223,11 @@ module.exports = function( app, redis, db){
 		});
 	});
 
+	app.post('/show_quiz_result', function ( req, res){
+		var Qid = req,param('choice');
+		
+	});
+
 	app.post('/signin', function ( req, res){
 		res.redirect('/login'); 
 	});
@@ -1450,7 +1464,7 @@ module.exports = function( app, redis, db){
 	});
 
 
-//---------------------------------SAYED's CODE---------------------------------------
+	//---------------------------------SAYED's CODE---------------------------------------
 
 	app.post('/activate', function (req,res){
 		var user = req.param('username');
