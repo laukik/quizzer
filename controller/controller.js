@@ -1496,14 +1496,7 @@ module.exports = function( app, redis, db){
 	 				});
 	 			}else{
 	 				var user = req.session.userId;
-	 				Quiz.get_user_quiz_list(redis , user, function (err, arr){
-	 					if(err){
-	 						console.log("ERR AT Preview Quiz INSIDE controller.js");
-	 						res.redirect('/home');
-	 					}else{
-	 						res.render("preview_quiz",{ title:user, list:arr, title2:"Invalid Password!"});
-	 					}	
-	 				});
+	 				res.render('quiz_taking_login', { title:user, title2:"Wrong Quiz-id Or Password"});
 	 			}
 	 		}else{
 	 			console.log("ERR AT /validate_quiz_id INSIDE controller.js");

@@ -51,8 +51,6 @@
                 <div class="col-lg-12">
                     <form class="form" role="form" action="/edit-sectiondetail" method="post" id="form">
                         <div class="col-lg-6">
-                            <input type="text" class="form-control" name="rank"  placeholder=" rank of sections"
-                            style="height:42px;width:100%;padding:20px;margin-bottom: 20px" value="<%= Sd[0] %>" required>
                             <input type="text" class="form-control" name="cutoff"  placeholder="cutoff marks if any"
                             style="height:42px;width:100%;padding:10px;margin-bottom: 20px"  value="<%= Sd[4] %>"  required >
                             <input type="text" class="form-control" name="name"  placeholder="name of sections"
@@ -61,7 +59,7 @@
                         <div class="col-lg-6">
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" name="duration-days" placeholder="duration in days"
-                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px"  value="<%= DD %>" required>
+                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px;visibility:hidden"  value="<%= DD %>" required>
                             </div>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" name="duration-hours" placeholder="duration in hours"
