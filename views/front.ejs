@@ -46,7 +46,7 @@
 				</div>
 				<div class="col-lg-2"></div>
 				<div class="col-lg-6 has-feedback">
-					<form class="form-signin " role="form" method="post" action="/signin" style="margin-padding: 20px;">
+					<form class="form-signin" id='signup' role="form" method="post" action="/signin" style="margin-padding: 20px;">
 						<h3 class="form-signin-heading"> <%= title2 %></h3>
 						<div class="has-feedback" id="fullname">
 							<input type="text" placeholder="Enter Your Name" name="fname" id="fname" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#fff" required autofocus>
@@ -80,7 +80,7 @@
 						</div>
 						</br>
 						</div>
-						<button type="submit" class=" form-control btn btn-custom" id="siu"> <span class="glyphicon glyphicon-user"></span>  Sign Up </button>
+						<button type="button" class=" form-control btn btn-custom" id="siu"> <span class="glyphicon glyphicon-user"></span>  Sign Up </button>
 					</form>	
 				</div>
 			</div>	
@@ -134,7 +134,11 @@
 			      }
 			   });
 			}
-			
+
+			function validateEmail(email) { 
+			    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			    return re.test(email);
+			}			
 			
 	        var socket = io.connect();
 	        $j(function(){
@@ -144,13 +148,24 @@
 	                var email = $j('#eid').val();
 	                var passwd = $j('#passwd').val();
 	                var passwrd = $j('#xpasswd').val();
-	                var role;
+	                var role;	                 
 	                if( $j('#role_creator').is(":checked") ){ // check if the radio is checked
             			role = "creator"; // retrieve the value
         			}else role = "participant"; // retrieve the value
 	                if( passwd === passwrd){
-	                	socket.emit('new_user',fname,user,passwd,email, role);
+	                	if(user.indexOf(' ')>=0){
+	                		alert("Username Can't Contain Spaces!")
+	                	}else if(passwd.length< 6){
+	                		alert("Password Can't Be Less Than 6 Characters!");
+	                	}else if(!validateEmail(email)){
+	                		alert("Email You Entered Is Invalid!");
+	                	}else{
+	                		alert("An Email With Activation Code Sent To: " + email);
+	                		socket.emit('new_user',fname,user,passwd,email, role);
+	                		$j('#signup').submit();
+	                	}
 	                }else{
+	                	alert("Passwords Didn't Match!");
 	                	$j('#passwd').val('');
 	                    $j('#xpasswd').val('');
 	                }

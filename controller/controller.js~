@@ -21,7 +21,6 @@ var User = require("../models/user_model");
 var Quiz = require("../models/quiz_model");
 var Redis = require("../models/redis_model");
 var routes = require("../routes");
-var sql = require("../models/sql_model");
 /* some frequently used variables */
 
 
@@ -33,7 +32,6 @@ var log_schema = {
 	duration : 2,
 	server_snap : 4
 }
-
 
 var proof_schema = {
 	set_name : "complete:"
@@ -78,10 +76,6 @@ var range_limit = {
 	upper_limit : -1
 };
 
-var result_sql = {
-	set_name : "result:"
-};
-
 var section_schema = {
 	set_name : "Section:",
 	rank : 0,
@@ -93,31 +87,13 @@ var section_schema = {
 
 
 
-module.exports = function( app, redis, db){
+module.exports = function( app, redis){
 
 	/* GET request block */
 //======================================================================================================
 
 	
-	app.get('/', function (req, res){
-		/* 
-			primitive request that initiates the process 
-			emmited when user hit the URL. it is the entry point.	
-		*/
-
-		//debug log to get port number where request is entertained
-		console.log("5002");
-		db.query("select * from test", function(err,rows){
-			if(!err)
-				console.log(rows[0].age);
-			else
-				console.log(err);
-		});
-		if(req.session.isLoggedIn)
-			res.redirect('/home');
-		else
-			res.render('front.ejs',{title2:""});
-	});
+	app.get('/', routes.index);
 
 	app.get('/add-question', is_logged_in,function (req, res){
 		
@@ -162,7 +138,7 @@ module.exports = function( app, redis, db){
 		Quiz.get_user_quiz_list(redis , user, function (err, arr){
 			if(err){
 				console.log("ERR AT edit-edit INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}else{
 				res.render("user_quiz_list",{ title:user, list:arr});
 			}	
@@ -176,7 +152,7 @@ module.exports = function( app, redis, db){
 				res.render('edit-prequiz-detail.ejs',{ title:req.session.userId, Qid:Qid, Qd:Qd.slice(1) });
 			}else{
 				console.log("ERR AT edit-prequiz-detail INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 		});
 	});
@@ -189,7 +165,7 @@ module.exports = function( app, redis, db){
 		Quiz.get_section_detail( redis, Qid, Sid, editQ, editQ+10,function (err, Qdata){
 			if(err){
 				console.log("ERR AT edit-question INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}else{
 				res.render('edit-question.ejs',{ title:req.session.userId, QID : req.session.Q, Qd:Qdata});		
 			}
@@ -204,7 +180,7 @@ module.exports = function( app, redis, db){
 		Quiz.get_section_detail( redis, Qid, Sid, editQ, editQ+10,function (err, Qdata){
 			if(err){
 				console.log("ERR AT edit-question INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}else{
 				res.render('edit-question.ejs',{ title:req.session.userId, QID : req.session.Q, Qd:Qdata});		
 			}
@@ -218,7 +194,7 @@ module.exports = function( app, redis, db){
 		Quiz.get_section_detail(redis, Qid, rmc,0,5,function (err,Sec){
 			if(err){
 				console.log("ERR AT /edit-section-detail INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 			else{
 				console.log('aaaaaaa');
@@ -260,25 +236,23 @@ module.exports = function( app, redis, db){
 										result.push(result_data[i*4+3]); // section status PASS or FAIL
 										if( i == len-1){
 											console.log(userdata);
-											req.session.destroy();
-											sql
 											res.render('userResult.ejs',{ title:user,Qid:Qid,table:userdata,stat:result});
 										}
 									}else{
 										console.log("ERR AT /eval INSIDE controller.js");
-										res.redirect('/home');		
+										res.redirect('/');		
 									}
 								});
 							}else{
 								console.log("ERR AT /eval INSIDE controller.js");
-								res.redirect('/home');
+								res.redirect('/');
 							}
 						});
 					}(i)
 				}
 			}else{
 				console.log("ERR AT /eval INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 		});
 	});
@@ -309,14 +283,7 @@ module.exports = function( app, redis, db){
 
 	app.get('/login', function ( req, res){
 		// page for users to signin
-		console.log("In Login");
-		if(!req.session.isLoggedIn){
-			console.log("Not already Logged in");
-			res.render('login',{ title : "Please sign in",title2 : "" });
-		}else{
-			console.log("Already Logged in");
-			res.redirect('/home');
-		}
+		res.render('login',{ title : "Please sign in",title2 : "" });
 	});
 
 	app.get('/logout', is_logged_in,function(req,res){
@@ -329,9 +296,9 @@ module.exports = function( app, redis, db){
 		Quiz.get_user_quiz_list(redis , user, function (err, arr){
 			if(err){
 				console.log("ERR AT edit-edit INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}else{
-				res.render("preview_quiz",{ title:user, list:arr, title2:""});
+				res.render("preview_quiz",{ title:user, list:arr});
 			}	
 		});
 	});
@@ -366,7 +333,7 @@ module.exports = function( app, redis, db){
 				res.redirect('/home_creator');
 			}else{
 				console.log("ERR AT /remove-question INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 		});
 	});
@@ -377,17 +344,10 @@ module.exports = function( app, redis, db){
 		var rmc = parseInt(req.param('id'));
 		Quiz.remove_section( redis, Qid, rmc, function (err, stat){
 			if( !err ){
-				Quiz.get_section_detail( redis, Qid, rmc, section_schema.section_name, section_schema.section_name, function ( err, section_name){
-					if( !err ){
-						sql.drop_section_coloumn( db, Qid, section_name);
-					}else{
-						console.log("ERR AT /remove-section INSIDE controller.js");
-					}
-				});
 				res.redirect('/home_creator');
 			}else{
 				console.log("ERR AT /remove-section INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 		});			 
 	});
@@ -648,7 +608,7 @@ module.exports = function( app, redis, db){
 		Quiz.add_section(redis, Qid, user,function (err, sec){
 			if(err){
 				console.log("ERR AT /add_section INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 			else{
 				var x = parseInt(sec);
@@ -862,18 +822,16 @@ module.exports = function( app, redis, db){
 		/*
 			storing all the meta data.....
 		*/
-
 		Quiz.insert_quiz_detail( redis, user, Quizpasswd, eventDate, eventTime, enddate, endtime, totalDuration, Quizpasswdforstud, "RFU",sectionCount, function( err, Qid){
 			if ( !err ){
 				/* Saving frequently accesible data in session*/
-				sql.create_result_table( db, Qid);
 				req.session.Qid = Qid;
 				req.session.QTS = sectionCount;
 				req.session.CS = 0;
 				res.redirect('/section_detail_form');
 			}else{
 				console.log("ERR AT /quiz_detail INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 		});	
 	});
@@ -884,7 +842,7 @@ module.exports = function( app, redis, db){
 		Redis.exists(redis, quiz_creation_backup_schema.set_name + user + ":" + Qid ,function (err, status){
 			if(err){
 				console.log("ERR AT /quiz_edit INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 			else{
 				if(status){
@@ -893,7 +851,7 @@ module.exports = function( app, redis, db){
 					Quiz.get_quiz_detail(redis, Qid,function (err, Qd){
 						if(err){
 							console.log("ERR AT /quiz_edit INSIDE controller.js");
-							res.redirect('/home');				
+							res.redirect('/');				
 						}
 						else{
 							if( req.param('passwd') == Qd[1]){
@@ -906,7 +864,7 @@ module.exports = function( app, redis, db){
 										//res.redirect('/quiz_edit_options?data='+Qd);		
 									}else{
 										console.log("ERR AT /quiz_edit INSIDE controller.js");
-										res.redirect('/home');					
+										res.redirect('/');					
 									}
 								});
 							}else{
@@ -934,14 +892,12 @@ module.exports = function( app, redis, db){
 		totalQuestions = req.param('Qno');
 		req.session.QTQ = totalQuestions;
 		req.session.CQ = 0;
-		console.log(sectionName);
 		Quiz.insert_section_detail( redis, creator, Qid, req.session.CS, rank, sectionName, rulesBlog, totalQuestions, sectionCutoff, sectionDuration, "RFU", "RFU", function ( err, reply){
 			if( !err ){
-				//sql.add_section_coloumn( db, Qid, sectionNames);
 				res.redirect('/question_detail_form');
 			}else{
 				console.log("ERR AT section_detail INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 		});
 	});
@@ -955,13 +911,13 @@ module.exports = function( app, redis, db){
 				Quiz.get_quiz_section_count( redis, Qid, function (err, section){
 					if(err){
 						console.log("ERR AT /show_incomplete INSIDE controller.js");
-						res.redirect('/home');
+						res.redirect('/');
 					}else{
 						if( (result[0] == 0) && (result[1] == 0)){
 							Redis.exists( redis, section_schema.set_name + Qid + ":" + result[0], function (err, status){
 								if(err){
 									console.log("ERR AT /showincomplete INSIDE controller.js");
-									res.redirect('/home');
+									res.redirect('/');
 								}
 								else{
 									if( status == false ){
@@ -973,7 +929,7 @@ module.exports = function( app, redis, db){
 										Quiz.get_section_question_count( redis, Qid, 0,function (err, totalQinS){
 											if(err){
 												console.log("ERR AT /showincomplete INSIDE controller.js");
-												res.redirect('/home');
+												res.redirect('/');
 											}else{
 												req.session.QTQ = totalQinS;
 												req.session.QTS = section;
@@ -989,7 +945,7 @@ module.exports = function( app, redis, db){
 							Quiz.get_section_question_count( redis, Qid, result[0],function (err, totalQinS){
 								if(err){
 									console.log("ERR AT /showincomplete INSIDE controller.js");
-									res.redirect('/home');
+									res.redirect('/');
 								}else{
 									if(result[1] == totalQinS){
 										req.session.QTS = section;
@@ -1011,7 +967,7 @@ module.exports = function( app, redis, db){
 			
 			}else{
 				console.log("ERR AT /show_incomplete INSIDE controller.js");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 		});							
 	});
@@ -1043,7 +999,7 @@ module.exports = function( app, redis, db){
 					Quiz.append_user_answer( redis, user, Qid, ans, function (err, stat){
 						if( err ){
 							console.log("ERR AT /show_quiz INSIDE controller.js block 1");
-							res.redirect('/home');
+							res.redirect('/');
 						}
 						console.log("done append");		
 					});
@@ -1099,18 +1055,18 @@ module.exports = function( app, redis, db){
 														res.redirect('/show_rules_page?name='+ sec_detail[1] + "&rule=" + sec_detail[2] + "&qc=" + sec_detail[3]);
 													}else{	
 														console.log("ERR AT /show_quiz INSIDE controller.js");
-														res.redirect('/home');
+														res.redirect('/');
 													}
 												});
 											}
 										}else{
 											console.log("ERR AT /show_quiz INSIDE controller.js");
-											res.redirect('/home');
+											res.redirect('/');
 										}
 									});		
 								}else{
 									console.log("ERR AndT /show_quiz INSIDE controller.js");
-									res.redirect('/home');	
+									res.redirect('/');	
 								}
 							});
 							
@@ -1184,20 +1140,20 @@ module.exports = function( app, redis, db){
 									
 								}else{
 									console.log("ERR AT /show_quiz INSIDE controller.js");
-									res.redirect('/home');
+									res.redirect('/');
 								}
 							});
 
 						}
 					}else{
 						console.log("ERR AT /show_quiz INSIDE controller.js");
-						res.redirect('/home');
+						res.redirect('/');
 					}
 				});
 				
 			}else{
 				console.log("ERR AT /show_quiz INSIDE controller.js block big");
-				res.redirect('/home');
+				res.redirect('/');
 			}
 		});
 	});
@@ -1328,7 +1284,7 @@ module.exports = function( app, redis, db){
 		 												}
 		 											}else{
 		 												console.log("ERR AT /show_quiz INSIDE controller.js");
-		 												res.redirect('/home');
+		 												res.redirect('/');
 		 											}
 		 										});
 	 										}else{
@@ -1347,13 +1303,13 @@ module.exports = function( app, redis, db){
 
 	 									}else{
 	 																		console.log("ERR AT /validate_quiz_id INSIDE controller.js");
-	 																		res.redirect('/home');
+	 																		res.redirect('/');
 	 																	}
 	 																});
 	 																res.redirect('/show_rules_page?name='+ sec_detail[1] + "&rule=" + sec_detail[2] + "&qc=" + sec_detail[3]);
 	 															}else{
 	 																console.log("ERR AT /validate_quiz_id INSIDE controller.js");
-	 																res.redirect('/home');
+	 																res.redirect('/');
 	 															}
 	 														});
 	 													}else{
@@ -1376,13 +1332,13 @@ module.exports = function( app, redis, db){
 					 												}
 					 											}else{
 					 												console.log("ERR AT /show_quiz INSIDE controller.js");
-					 												res.redirect('/home');
+					 												res.redirect('/');
 					 											}
 					 										});
 	 													}
 	 												}else{
 	 													console.log("ERR AT /show_quiz INSIDE controller.js");
-	 													res.redirect('/home');
+	 													res.redirect('/');
 	 												}
 	 											});
 	 										}
@@ -1397,24 +1353,24 @@ module.exports = function( app, redis, db){
 
 	 															}else{
 	 																console.log("ERR AT /validate_quiz_id INSIDE controller.js");
-	 																res.redirect('/home');
+	 																res.redirect('/');
 	 															}
 	 														});
 	 														res.redirect('/show_rules_page?name='+ sec_detail[1] + "&rule=" + sec_detail[2] + "&qc=" + sec_detail[3]);
 	 													}else{
 	 														console.log("ERR AT /validate_quiz_id INSIDE controller.js");
-	 														res.redirect('/home');
+	 														res.redirect('/');
 	 													}
 	 												});
 	 											}else{
 	 												console.log("ERR AT /validate_quiz_id INSIDE controller.js");
-	 												res.redirect('/home');
+	 												res.redirect('/');
 	 											}
 	 										});
 	 									}
 	 								}else{
 	 									console.log("ERR AT /validate_quiz_id INSIDE controller.js");
-	 									res.redirect('/home');
+	 									res.redirect('/');
 	 								}
 	 							});
 
@@ -1428,19 +1384,11 @@ module.exports = function( app, redis, db){
 	 					}
 	 				});
 	 			}else{
-	 				var user = req.session.userId;
-	 				Quiz.get_user_quiz_list(redis , user, function (err, arr){
-	 					if(err){
-	 						console.log("ERR AT Preview Quiz INSIDE controller.js");
-	 						res.redirect('/home');
-	 					}else{
-	 						res.render("preview_quiz",{ title:user, list:arr, title2:"Invalid Password!"});
-	 					}	
-	 				});
+	 				res.redirect('/quiz_login');
 	 			}
 	 		}else{
 	 			console.log("ERR AT /validate_quiz_id INSIDE controller.js");
-	 			res.redirect('/home');
+	 			res.redirect('/');
 	 		}
 	 	});
 	});
