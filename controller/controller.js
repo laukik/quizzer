@@ -35,6 +35,16 @@ var log_schema = {
 }
 
 
+var user_schema = {
+	password : 0,
+	email : 1,
+	activate_code: 6,
+	name: 7,
+	user_role: 8,
+	isActivated: 9,
+	activate_code_expiry: 10
+};	
+
 var proof_schema = {
 	set_name : "complete:"
 };
@@ -263,6 +273,7 @@ module.exports = function( app, redis, db){
 										if( i == len-1){
 											console.log(userdata);
 											req.session.destroy();
+											console.log( "user ::::::: " + user);
 											User.get_user_data( redis, user, user_schema.name, user_schema.name, function ( err, user_name){
 												if( !err ){
 													sql.insert_data( db, Qid, user, user_name, marks);
@@ -335,11 +346,13 @@ module.exports = function( app, redis, db){
 
 	app.get('/preview', is_logged_in, function (req, res){
 		var user = req.session.userId;
+		console.log(user + " inside preview" );
 		Quiz.get_user_quiz_list(redis , user, function (err, arr){
 			if(err){
 				console.log("ERR AT edit-edit INSIDE controller.js");
 				res.redirect('/home');
 			}else{
+				console.log("asdasdasdsadasd");
 				res.render("preview_quiz",{ title:user, list:arr, title2:""});
 			}	
 		});
@@ -1060,6 +1073,7 @@ module.exports = function( app, redis, db){
 							ans = "?";
 						}
 					}
+					console.log( user  + " ::::: inside show_quiz before append ans ::: Qid ::: " + ans + Qid );
 					Quiz.append_user_answer( redis, user, Qid, ans, function (err, stat){
 						if( err ){
 							console.log("ERR AT /show_quiz INSIDE controller.js block 1");
@@ -1305,22 +1319,28 @@ module.exports = function( app, redis, db){
 	 	/*
 			first of all validate qid and password
 	 	*/
+	 	console.log( user + " user inside validate_quiz_id");
 	 	Quiz.validate_quiz_credentials( redis, Qid, passwd, function ( err, status, time){
 	 		if( !err ){
+	 			console.log( req.session.userId + " user inside validate_quiz_id ::: -1");
 	 			if(status === "active" ){
 	 				/* 
 	 					if credentials is correct 
 						check if they have taken
 						it, before or not
 	 				*/
-	 				Redis.exists( redis, proof_schema.set_name + user + ":" + Qid, function (err, status){
+	 				console.log( req.session.userId + " user inside validate_quiz_id :::: 0" );
+	 	
+	 				Redis.exists( redis, proof_schema.set_name + req.session.userId + ":" + Qid, function (err, status){
 	 					if( !err ){
 	 						if( status == 0 ){
 	 							/*
 									check if user is new or
 									he was dissconnected once. 
 	 							*/
-	 							Quiz.get_log_detail_with_existance( redis, user, Qid, 0, -1, function ( err, status, log_detail){
+	 							console.log( req.session.userId + " user inside validate_quiz_id :: 1");
+	 							
+	 							Quiz.get_log_detail_with_existance( redis, req.session.userId, Qid, 0, -1, function ( err, status, log_detail){
 	 								if( !err ){
 	 									if( status == "exists"){
 	 										/*
@@ -1344,7 +1364,7 @@ module.exports = function( app, redis, db){
 		 												for( i = 4; question_data[i] != '????' && i < 8; i++);
 														var current_time = new Date().getTime();
 														req.session.time = current_time;
-												        Quiz.edit_log_detail( redis, user, Qid, log_schema.server_snap, current_time);
+												        Quiz.edit_log_detail( redis, req.session.userId, Qid, log_schema.server_snap, current_time);
 														if( question_data[ question_schema.img] == "????"){
 		 													/* Question contains no image */
 		 													res.redirect('/show_question_text?time='+log_detail[ log_schema.duration]+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&opt='+question_data.slice(4,i));
@@ -1367,10 +1387,10 @@ module.exports = function( app, redis, db){
 	 														//  if rule page
 	 														Quiz.get_section_detail( redis, Qid, sec_num, 0, 5, function ( err, sec_detail){
 	 															if( !err ){
-	 																Quiz.initilise_user_answer_list( redis, user, Qid, function (err, stat){
+	 																Quiz.initilise_user_answer_list( redis, req.session.userId, Qid, function (err, stat){
 	 																	if( !err ){
 
-	 									}else{
+	 																	}else{
 	 																		console.log("ERR AT /validate_quiz_id INSIDE controller.js");
 	 																		res.redirect('/home');
 	 																	}
@@ -1392,7 +1412,7 @@ module.exports = function( app, redis, db){
 					 												for( i = 4; question_data[i] != '????' && i < 8; i++);
 																	var current_time = new Date().getTime();
 																	req.session.time = current_time;
-															        Quiz.edit_log_detail( redis, user, Qid, log_schema.server_snap, current_time);
+															        Quiz.edit_log_detail( redis, req.session.userId, Qid, log_schema.server_snap, current_time);
 																	if( question_data[ question_schema.img] == "????"){
 					 													/* Question contains no image */
 					 													res.redirect('/show_question_text?time='+log_detail[ log_schema.duration]+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&opt='+question_data.slice(4,i));
@@ -1412,12 +1432,15 @@ module.exports = function( app, redis, db){
 	 											});
 	 										}
 	 									}else{
+	 										console.log( user + " user inside validate_quiz_id :: 2");
+	 	
 	 										req.session.Q = Qid;
 	 										Quiz.get_section_detail( redis, Qid, 0, 0, 5, function ( err, sec_detail){
 	 											if( !err ){
-	 												Quiz.set_log_detail( redis, user, Qid, 0, 0, sec_detail[ section_schema.section_duration],3, 0, function (err, status){
+	 												console.log( "section :::::: " + sec_detail + " :::: user :  " + req.session.userId);
+	 												Quiz.set_log_detail( redis, req.session.userId, Qid, 0, 0, sec_detail[ section_schema.section_duration],3, 0, function (err, status){
 	 													if( !err ){
-	 														Quiz.initilise_user_answer_list( redis, user, Qid, function (err, stat){
+	 														Quiz.initilise_user_answer_list( redis, req.session.userId, Qid, function (err, stat){
 	 															if( !err ){
 
 	 															}else{

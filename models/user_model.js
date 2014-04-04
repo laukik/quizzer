@@ -180,6 +180,17 @@ module.exports.validate_user = function( redis, user_name, user_password, user_r
 	});
 }
 
+module.exports.get_user_data = function( redis, user, lower_limit, upper_limit, callback ){
+	redis.lrange( user, lower_limit, upper_limit, function ( err, data){
+		if( !err ){
+			callback( null, data);
+		}else{
+			callback(1, null);
+		}
+	});
+}
+
+
 //-------------------------------SAYED's CODE------------------
 module.exports.activate_user = function( redis, user_name, activate_code, callback){
 	redis.lindex(user_name, user_schema.activate_code,function ( err, code){

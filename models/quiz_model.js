@@ -474,23 +474,27 @@ module.exports.get_user_quiz_list = function( redis, user, callback){
 			callback( 1, null);
 		}else{
 			var arr = [];
-			for( var i=0; i < Qc ;i++){
-				!function syn(i){
-					redis.lindex(quiz_schema.set_name + i , quiz_schema.quiz_creator ,function (err, usr){
-						if(err){
-							console.log("ERR AT get_user_quiz_list INSIDE quiz_model.js");
-							callback( 1, null);
-						}else{
-							if( usr == user){
-								arr.push(i);
-								console.log(i);
+			if( Qc != 0 ){
+				for( var i=0; i < Qc ;i++){
+					!function syn(i){
+						redis.lindex(quiz_schema.set_name + i , quiz_schema.quiz_creator ,function (err, usr){
+							if(err){
+								console.log("ERR AT get_user_quiz_list INSIDE quiz_model.js");
+								callback( 1, null);
+							}else{
+								if( usr == user){
+									arr.push(i);
+									console.log(i);
+								}
+								if( i == Qc - 1 ){
+									callback( null, arr)	
+								}			
 							}
-							if( i == Qc - 1 ){
-								callback( null, arr)	
-							}			
-						}
-					});
-				}(i);
+						});
+					}(i);
+				}
+			}else{
+				callback(1, null);
 			}
 		}
 	});
@@ -614,8 +618,9 @@ module.exports.remove_section = function( redis, Qid, rmc, callback){
 module.exports.set_log_detail = function( redis, user, Qid, section_count, question_count, duration, trials, server_snap,callback ){
 	redis.rpush( log_schema.set_name + user + ":" + Qid, section_count, question_count, duration, trials, server_snap, function (err, stat){
 		if( !err ){
+
 			callback(null, stat);
-			console.log('olla');
+			console.log(user + " inside set_log_detail username");
 		}else{
 			console.log("ERR AT set_log_detail INSIDE quiz_model.js");
 			callback( 1, null);
