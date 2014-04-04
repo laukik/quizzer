@@ -43,10 +43,12 @@
                     <form class="form" role="form" action="/quiz_detail" method="post" id="form">
                         <div class="col-lg-4">
                             <p style="color:green;margin-left:22%;">SECTION DATA</p>
-                            <input type="text" class="form-control  form-inline" style="height:42px;width:250px;padding:10px;margin-bottom: 10px" name="section" id="setion" placeholder="no. of sections">
+                            <label style="color:white"> Number Of Sections</label><input type="text" class="form-control  form-inline" style="height:42px;width:250px;padding:10px;margin-bottom: 10px" name="section" id="setion" placeholder="no. of sections">
                         </div>
                         <div class="col-lg-4">
                             <p style="color:green;margin-left:27%;">SCHEDULE DATA</p>
+            
+                            <label style="color:white;margin-top:3px;"> Activation Date And Time</label>
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <a href="javascript:NewCal('acttime','ddmmyyyy',true,24)">
@@ -54,30 +56,35 @@
                                         </button>
                                     </a>
                                 </span>
-                                <input type="text" class="form-control" name="acttime" id="acttime" style="height:42px;width:250px;padding:10px;" placeholder="Select activation date and time" maxlength="25" size="25" >
+                                <input type="text" class="form-control" name="acttime" id="acttime" style="height:42px;width:250px;padding:10px;" placeholder="Select activation date and time" maxlength="25" size="25" readonly="true">
                             </div>
+                            <label style="color:white;margin-top:10px"> End Date And Time</label>
                             <div class="input-group">
                                 <span class="input-group-btn" >
                                     <a href="javascript:NewCal('endtime','ddmmyyyy',true,24)">
-                                        <button class="btn-lg btn-success" style="margin-top: 10px" type="button" onclick='javascript:NewCal('endtime','ddmmyyyy',true,12)' >
+                                        <button class="btn-lg btn-success" style="" type="button" onclick='javascript:NewCal('endtime','ddmmyyyy',true,12)' >
                                             <span class="glyphicon glyphicon-time"></span>
                                         </button>
                                     </a>
                                 </span>
-                                <input type="text" class="form-control" style="height:42px;width:250px;margin-top: 10px" name="endtime" id="endtime" placeholder="Select completion date and time"maxlength="25" size="25">
+                                <input type="text" class="form-control" style="height:42px;width:250px;" name="endtime" id="endtime" placeholder="Select completion date and time"maxlength="25" size="25" readonly="true">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <p style="color:green;margin-left:20%;">QUIZ PASSWORD</p>
+                            <label style="color:white"> Quiz Password</label>
                             <input type="password" class="form-control" name="password" id="password" placeholder="password"
                             style="height:42px;width:250px;margin-bottom:10px;" >
+                            <label style="color:white"> Confirm Password</label>
                             <input type="password" class="form-control" name="xpassword" id="xpassword" placeholder="confirm password" style="height:42px;width:250px;margin-top: 10px;margin-bottom:10px;" >
                         </div>
                         <div class="row" >
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
                                 <p style="color:green;margin-top:60px;margin-left: 35%;">APPLICANT PASSWORD</p>
+                                <label style="color:white"> Applicant Password</label>
                                 <input type="password" class="form-control" name="password2" id="password2" placeholder="password for applicant" style="height:42px;width:100%;margin-bottom:10px;" >
+                                <label style="color:white"> Confirm Password</label>
                                 <input type="password" class="form-control" name="xpassword2" id="xpassword2" placeholder="confirm password" style="height:42px;width:100%;margin-top: 10px;margin-bottom:10px;" >
                             </div>
                             <div class="col-lg-3">
