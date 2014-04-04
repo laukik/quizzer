@@ -1213,7 +1213,7 @@ module.exports = function( app, redis, db){
 	});
 
 	app.post('/show_quiz_result', function ( req, res){
-		var Qid = req,param('choice');
+		var Qid = req.param('choice');
 		
 	});
 
