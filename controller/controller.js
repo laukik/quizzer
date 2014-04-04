@@ -666,6 +666,16 @@ module.exports = function( app, redis, db){
 
 		res.render("info.ejs",{ title : req.session.userId, Qid : req.session.Q, name : req.param('name'), rule : req.param('rule'), qc : req.param('qc')});
 	});
+
+	app.get('/view_result_list',function (req, res){
+		User.get_user_part_list( redis, req.session.userId, function ( err, list){
+			if( !err ){
+				res.render('participation_list', { title : req.session.userId, list : list, title2 : "Select Quz-Id"});		
+			}else{
+				console.log(" ERR AT view_result_list AT controller");
+			}
+		});
+	});
 	
 
 
@@ -1501,6 +1511,65 @@ module.exports = function( app, redis, db){
 	 		}
 	 	});
 	});
+
+ 	app.post('/view_result',function (req, res){
+ 		var user = req.session.userId;
+ 		var Qid = req.param('Qid');
+ 		Quiz.get_quiz_result( redis, user, Qid, 0, -1, function ( err, result_data){
+ 			if( !err ){
+ 				console.log(result_data);
+ 				var len = result_data.length/4;
+ 				var userdata = [];
+ 				var result = [];
+ 				var marks = [];
+ 				for( var i = 0; i < len; i++){
+ 					!function syn(i){
+ 						Quiz.get_section_detail( redis, Qid, i, section_schema.section_name, section_schema.section_name, function (err, sec_name){
+ 							if( !err ){
+ 								Quiz.get_section_answers( redis, Qid, i, 0, -1, function ( err, correct){
+ 									if( !err ){
+ 										userdata.push(result_data[i*4]); //points
+ 										marks.push(result_data[i*4]);
+ 										userdata.push(sec_name); // section name
+ 										userdata.push(result_data[i*4+1].slice(1)); // user answers
+ 										userdata.push(correct); // correct answers
+ 										var c = result_data[i*4+2].split(',');
+ 										console.log(c);
+ 										userdata.push(c); // color
+ 										result.push(result_data[i*4+3]); // section status PASS or FAIL
+ 										if( i == len-1){
+ 											console.log(userdata);
+ 											//req.session.destroy();
+ 											console.log( "user ::::::: " + user);
+ 											User.get_user_data( redis, user, user_schema.name, user_schema.name, function ( err, user_name){
+ 												if( !err ){
+ 													sql.insert_data( db, Qid, user, user_name, marks);
+ 													res.render('userResult.ejs',{ title:user,Qid:Qid,table:userdata,stat:result});					
+ 												}else{
+ 													console.log("ERR AT /eval INSIDE controller.js");
+ 													res.redirect('/home');			
+ 												}
+ 											});
+ 										}
+ 									}else{
+ 										console.log("ERR AT /eval INSIDE controller.js");
+ 										res.redirect('/home');		
+ 									}
+ 								});
+ 							}else{
+ 								console.log("ERR AT /eval INSIDE controller.js");
+ 								res.redirect('/home');
+ 							}
+ 						});
+ 					}(i)
+ 				}
+ 			}else{
+ 				console.log("ERR AT /eval INSIDE controller.js");
+ 				res.redirect('/home');
+ 			}
+ 		});
+
+ 	});
 
 
 	//---------------------------------SAYED's CODE---------------------------------------

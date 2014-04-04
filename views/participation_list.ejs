@@ -36,7 +36,7 @@
 		</br></br>
 			<div class="row" style="background: rgba(255, 255, 255, 0.2);color:#fff;margin-top:50px;">
 
-				<form role="form" class="form group" action="/show_quiz_result" method="post">
+				<form role="form" class="form group" action="/view_result" method="post" >
 				<div>
 					<h1 style="margin-left:325px"> <%= title2 %><h1>
 				</div>
@@ -44,7 +44,7 @@
 					<div class="col-lg-1" ></div>
 					<div class="col-lg-2" >
 						<% for( var t=0; t< list.length; t++){ %>
-							<input type="radio" style="" value=<%= list[t]%>  name="choice" required>	 
+							<input type="radio" style="" value=<%= list[t]%>  name="Qid" required>	 
 							     QUIZ ID <%= list[t] %></label>
 							 </br>
 						<% } %>

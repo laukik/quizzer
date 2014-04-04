@@ -116,6 +116,9 @@
 
 
         $j(function(){
+            $j(document).bind("contextmenu",function(e){
+                    e.preventDefault();
+            });
             socket.emit('store_me','<%= title%>','<%= Qid %>');
             startTime();
             $j('#btn').click(function(){

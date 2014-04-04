@@ -12,6 +12,10 @@ var user_schema = {
 	activate_code_expiry: 10
 };	
 
+var proof_schema = {
+	set_name : "complete:"
+}
+
 var nodemailer = require("nodemailer");
 
 
@@ -190,6 +194,20 @@ module.exports.get_user_data = function( redis, user, lower_limit, upper_limit, 
 	});
 }
 
+module.exports.get_user_part_list = function( redis, user, callback){
+	var str = proof_schema.set_name + user + ":";
+	redis.keys( str + "*", function ( err, list){
+		if( !err ){
+			for( var i=0; i < list.length; i++){
+				list[i] = list[i].replace( str, "");
+			}
+			callback( null, list);
+		}else{
+			console.log("ERR AT get_user_part_list INSIDE user_model.js");
+			callback( 1, null);
+		}
+	});
+}
 
 //-------------------------------SAYED's CODE------------------
 module.exports.activate_user = function( redis, user_name, activate_code, callback){
