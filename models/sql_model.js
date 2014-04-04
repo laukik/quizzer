@@ -10,10 +10,10 @@ module.exports.create_result_table = function ( db, Qid, callback) {
 	db.query("create table " + result_sql.set_name + Qid + "(user varchar(30) primary key, username varchar(30), total varchar(5));", function  ( err, status) {
 		if( !err ){
 			/* success in inserting data*/
-			//callback( null, 1);
+			callback( null, 1);
 		}else{
 			console.log("ERR AT create_result_table INSIDE sql_model.js");
-			//callback( 1, null);
+			callback( 1, null);
 		}
 	});
 }
@@ -23,10 +23,10 @@ function add_section_coloumn( db, Qid, section_name, callback) {
 	db.query("alter table " + result_sql.set_name + Qid + " add " + section_name + " varchar(25);", function ( err, status){
 		if( !err ){
 			/* success in updating table*/
-			//callback( null, 1);
+			callback( null, 1);
 		}else{
 			console.log("ERR AT add_section_coloumn INSIDE sql_model.js");
-			//callback( 1, null);
+			callback( 1, null);
 		}
 	});
 }
