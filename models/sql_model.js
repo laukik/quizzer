@@ -77,7 +77,9 @@ module.exports.insert_data =  function( db, Qid, user, username, marks) {
 
 
 module.exports.fetch_all = function( db, Qid, callback){
-	db.query("select  * from " + result_sql.set_name + Qid + " order by total);", function ( err, data){
+	var query = "select  * from " + result_sql.set_name + Qid + " order by total;";
+	console.log(query);
+	db.query(query, function ( err, data){
 		if( !err ){
 			/* success in updating table*/
 			callback( null, data);
