@@ -380,7 +380,7 @@ module.exports = function( app, redis, db){
 		var user = req.session.userId;
 		Quiz.get_user_quiz_list( redis, user, function ( err, list){
 			if( !err ){
-				res.render( 'result_quiz_list', { title:user, list : list});
+				res.render( 'result_quiz_list', { title:user, title2:"Select Quiz id",  list : list});
 			}else{
 				console.log("ERR AT /quiz_results AT controller.js");
 			}
@@ -1238,6 +1238,14 @@ module.exports = function( app, redis, db){
 
 	app.post('/show_quiz_result', function ( req, res){
 		var Qid = req.param('choice');
+		var user = req.session.userId;
+		sql.fetch_all( db, Qid, function ( err, data){
+			if( !err ){
+				
+			}else{
+				res.redirect('/quiz_results');
+			}
+		});
 		
 	});
 
