@@ -43,11 +43,11 @@ module.exports.add_user = function( redis, user_fname, user_name, user_password,
 					    }
 					});
 					var mailOptions = {
-					    from: "QUIZZER ✔ <sayedmannan123@gmail.com>", // sender address
+					    from: "TestWiz: Quiz Platform ✔ <sayedmannan123@gmail.com>", // sender address
 					    to: user_email, // list of receivers
-					    subject: "Hello " + user_name, // Subject line
+					    subject: "Hello " + user_fname, // Subject line
 					    text: "Activation Code: " + activate_code, // plaintext body
-					    html: "<b>Activation Code: "+activate_code+"</b>" // html body
+					    html: "<b>Activation Code: "+activate_code+" . Activate Your Account With This Code.</b>" // html body
 					};
 					smtpTransport.sendMail(mailOptions, function(error, response){
     				if(!error){
@@ -134,17 +134,6 @@ module.exports.check_user_email_exists = function( redis, user_email, callback){
 	});	
 }
 
-module.exports.get_user_data = function ( redis, user, lower_limit, upper_limit, callback){
-	redis.lrange( user, lower_limit, upper_limit, function ( err, user_data){
-		if( !err ){
-			callback( null, user_data);
-		}else{
-			callback( 1, null);
-			console.log( "ERR AT get_user_data INSIDE sql_model.js");
-		}
-	});	
-}
-
 module.exports.validate_user = function( redis, user_name, user_password, user_role, callback){
 	redis.lindex(user_name, user_schema.password,function ( err, pass){
 		if( !err ){
@@ -190,7 +179,6 @@ module.exports.validate_user = function( redis, user_name, user_password, user_r
 		}
 	});
 }
-
 
 //-------------------------------SAYED's CODE------------------
 module.exports.activate_user = function( redis, user_name, activate_code, callback){

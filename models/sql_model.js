@@ -1,8 +1,8 @@
 var result_sql = {
-	set_name : "result_"
+	set_name : "result:"
 };
 
-module.exports.create_result_table = function ( db, Qid) {
+module.exports.create_result_table = function ( db, Qid, callback) {
 	/*
 		Init for result data to be
 		inserted for Quiz Creator 
@@ -11,7 +11,6 @@ module.exports.create_result_table = function ( db, Qid) {
 		if( !err ){
 			/* success in inserting data*/
 			//callback( null, 1);
-			console.log( status + 'for Qid :::' + Qid );
 		}else{
 			console.log("ERR AT create_result_table INSIDE sql_model.js");
 			//callback( 1, null);
@@ -20,12 +19,11 @@ module.exports.create_result_table = function ( db, Qid) {
 }
 
 
-function add_section_coloumn( db, Qid, section_name) {
+function add_section_coloumn( db, Qid, section_name, callback) {
 	db.query("alter table " + result_sql.set_name + Qid + " add " + section_name + " varchar(25);", function ( err, status){
 		if( !err ){
 			/* success in updating table*/
 			//callback( null, 1);
-			console.log( status + 'of add for Qid, section_name' + Qid + section_name );
 		}else{
 			console.log("ERR AT add_section_coloumn INSIDE sql_model.js");
 			//callback( 1, null);
@@ -35,15 +33,14 @@ function add_section_coloumn( db, Qid, section_name) {
 
 module.exports.add_section_coloumn =  add_section_coloumn;
 
-function drop_section_coloumn( db, Qid, section_name) {
+function drop_section_coloumn( db, Qid, section_name ,callback) {
 	db.query("alter table " + result_sql.set_name + Qid + " drop " + section_name + ";", function ( err, status){
 		if( !err ){
 			/* success in updating table*/
-			//callback( null, 1);
-			console.log( status + 'of drop for Qid, section_name' + Qid + section_name );
+			callback( null, 1);
 		}else{
 			console.log("ERR AT drop_section_coloumn INSIDE sql_model.js");
-			//callback( 1, null);
+			callback( 1, null);
 		}
 	});
 }
@@ -51,26 +48,22 @@ function drop_section_coloumn( db, Qid, section_name) {
 module.exports.drop_section_coloumn =  drop_section_coloumn;
 
 
-module.exports.insert_data =  function( db, Qid, user, username, marks) {
-	var str = '"' + user  + '"' +','+ '"' + username + '"' + ','; 
+module.exports.insert_data =  function( db, Qid, user, username, marks, callback) {
+	var str = user + username + ","; 
 	var temp = "";
 	var total = 0;
 	for( var i = 0; i < marks.length; i++){
 		temp += marks[i]+",";
 		total += parseInt( marks[i]); 
 	}
-	str += total + "," + temp.slice( 0 , -1);
-	console.log( str);
-	var query = "insert into " + result_sql.set_name + Qid + " values(" + str + ");";
-	console.log( query);
-	db.query(query, function ( err, status){
+	str += str + total + "," + temp.slice( 0 , -1);
+	db.query("insert into table " + result_sql.set_name + Qid + " values(" + str + ");", function ( err, status){
 		if( !err ){
 			/* success in updating table*/
-			console.log( status + ' for Qid, user' + Qid + " " + user);
-			//callback( null, 1);
+			callback( null, 1);
 		}else{
 			console.log("ERR AT insert_data INSIDE sql_model.js");
-			//callback( 1, null);
+			callback( 1, null);
 		}
 	});
 }
