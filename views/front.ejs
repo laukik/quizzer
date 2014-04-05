@@ -8,7 +8,7 @@
 		<script src="all.js"></script>
 		<script src="/socket.io/socket.io.v0.9.16.js"></script>
 	</head>
-	<body background="img/escheresque_ste.png" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+	<body background="img/p2.png" >
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -49,31 +49,30 @@
 					<form class="form-signin" id='signup' role="form" method="post" action="/signin" style="margin-padding: 20px;">
 						<h3 class="form-signin-heading"> <%= title2 %></h3>
 						<div class="has-feedback" id="fullname">
-							<input type="text" placeholder="Enter Your Name" name="fname" id="fname" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#fff" required autofocus>
+							<input type="text" placeholder="Enter Your Name" name="fname" id="fname" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#aeaeae" required autofocus>
 						</div>
 						<div class="has-feedback" id="ud">
-							<input type="text" placeholder="Pick A User Name"  name="uid" id="uid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#fff" required>
+							<input type="text" placeholder="Pick A User Name"  name="uid" id="uid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#aeaeae" required>
 						</div>
 						<div class="has-feedback" id="ed">
-							<input type="text" placeholder="Enter your Email Address" name="eid" id="eid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#fff" required>
+							<input type="text" placeholder="Enter your Email Address" name="eid" id="eid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#aeaeae" required>
 						</div>
 						<div class="has-feedback" id="pass">
-							<input type="password" placeholder="Enter Your Password" class="form-control" id="passwd" name="passwd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#fff"required>
-							<input type="password" placeholder="Confirm Your Password" class="form-control" id="xpasswd" name="xpasswd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#fff"required>
+							<input type="password" placeholder="Enter Your Password" class="form-control" id="passwd" name="passwd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#aeaeae"required>
+							<input type="password" placeholder="Confirm Your Password" class="form-control" id="xpasswd" name="xpasswd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#aeaeae"required>
 						<div>
-
-						<div style="color:#fff; margin-bottom:10px">
-							Select Role
+						<div style="color:black; margin-bottom:10px;border-radius:4px; padding: 10px;background: rgba(30, 20, 20, 0.2);">
+							<h4 style="text-align:center"><b> Select Role</b></h4>
 						<div class="radio">
 						</br> 
-						    <label style="color:white">
+						    <label style="color:black">
 						    	<input class="radio"  type="radio" style="padding:2px;margin-bottom: 10px;margin-left:10%" name="role" id="role_creator" value="creator" required checked> Quiz Creator
 						    </label>   
 						</br>
 						</div>
 						<div class="radio">
 						</br> 
-						    <label style="color:white">
+						    <label style="color:black">
 						    	<input class="radio"  type="radio" style="padding:2px;margin-bottom: 10px;margin-left:10%" name="role" id="role_participant" value="participant" required > Quiz Participant
 						    </label>   
 						</br>
@@ -97,7 +96,7 @@
 				</div>
 				<div class="col-lg-2">
 					<img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Versetility Of Questions </h2>
+					<h2> Versatility Of Questions </h2>
 					<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
 				</div>
 				<div class="col-lg-2">

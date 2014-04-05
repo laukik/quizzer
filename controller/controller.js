@@ -1239,6 +1239,7 @@ module.exports = function( app, redis, db){
 												res.redirect('/show_question_text?time='+encodeURIComponent(time)+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i)));
 											}else if( question_data[ question_schema.type] == "eqsc"){
 												/* Question contains equation*/
+												console.log(question_data[1]+" Equation");
 												res.redirect('/show_question_equation?time='+encodeURIComponent(time)+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i))+'&equation='+question_data[1]);						
 											}else{
 												/* Question contain plane text*/
