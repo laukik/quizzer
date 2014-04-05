@@ -11,6 +11,7 @@
     "socket.io" : "0.9.16",
     "redis" : "*",
     "nodemailer": "~0.6.1",
-    "mysql" : "*"
+    "mysql" : "*",
+    "forever" : "*"
   }
 }
