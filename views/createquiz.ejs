@@ -74,7 +74,7 @@
                         <input type="hidden" class="form-control" name="equation" id="equation" value = "" >
                         <div class="col-lg-8">
                             <div class="row">
-                                <textarea class="form-control" rows="5" name="questiontt1" id="questiontt1" style="height:252px;width:100%;background: rgba(540, 250, 250, 0.1);color:#fff" >
+                                <textarea class="form-control" rows="5" name="questiontt1" id="questiontt1" style="height:252px;width:100%;background: rgba(540, 250, 250, 0.1);color:#fff" required>
                                 </textarea>
                             </div>
                         </div>
@@ -83,12 +83,12 @@
                                 <button type="button" class="btn btn-inverse" id="addi" style="height:42px;" ><span class="glyphicon glyphicon-plus"></span> OPTION</button>
                             </div>
                             <div class="col-lg-8">
-                                <input type="text " class="form-control" name="opt[]" id="opt0" placeholder="insert index of solution" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff">
+                                <input type="text " class="form-control" name="opt[]" id="opt0" placeholder="insert index of solution" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" required>
                             </div>
                             
                             <div id="dynamic" class="col-lg-12">   
-                                <input type="text" class="form-control"    name="opt[]"  id="opt1" placeholder="option : 0" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff">
-                                <input type="text" class="form-control"    name="opt[]"  id="opt2" placeholder="option : 1" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff">
+                                <input type="text" class="form-control"    name="opt[]"  id="opt1" placeholder="option : 0" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" required>
+                                <input type="text" class="form-control"    name="opt[]"  id="opt2" placeholder="option : 1" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" required>
                             </div>
                         </div>
                         <div class="row">
@@ -112,7 +112,7 @@
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                 </button>
                                             </span>
-                                            <input type="text" class="form-control" name="add"  placeholder="+ve marks" style="height:42px;background: rgba(540, 250, 250, 0.1);color:#fff" >
+                                            <input type="text" class="form-control" name="add" id="d1" placeholder="+ve marks" style="height:42px;background: rgba(540, 250, 250, 0.1);color:#fff" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -122,7 +122,7 @@
                                                     <span class="glyphicon glyphicon-minus"></span>
                                                 </button>
                                             </span>
-                                            <input type="text" class="form-control" name="sub" placeholder="-ve marks" style="height:42px;background: rgba(540, 250, 250, 0.1);color:#fff" >    
+                                            <input type="text" class="form-control" id="d2" name="sub" placeholder="-ve marks" style="height:42px;background: rgba(540, 250, 250, 0.1);color:#fff" required>    
                                         </div>
                                     </div>
                                 </div>
@@ -234,6 +234,33 @@
                 }
             });
 
+
+            $j('#d1').blur(function(){
+                var temp = $j('#d1').val();
+                if( IsNumeric( temp )){
+                    var num = parseInt(temp);
+                    if( num < 0 ){
+                        $j('#d1').val('');    
+                    }
+                }else{
+                    $j('#d1').val('');
+                }
+            });
+
+
+            $j('#d2').blur(function(){
+                var temp = $j('#d2').val();
+                if( IsNumeric( temp )){
+                    var num = parseInt(temp);
+                    if( num < 0 ){
+                        $j('#d2').val('');    
+                    }
+                }else{
+                    $j('#d2').val('');
+                }
+            });
+
+
             $j('#mcqsc').click(function(e){
                 limit = 4;
                 $j('#type').val('mcqsc');
@@ -264,6 +291,8 @@
                 $j('#opt0').attr('readOnly','true');
                 $j('#bgrp').attr('style', 'visibility:hidden');
                 $j('#opt1').attr('placeholder','essay word count');
+                $j('#opt2').attr('style','visibility:hidden');
+                $j('#opt2').val('0');
             });
 
             $j('#fts').click(function(e){
@@ -303,7 +332,7 @@
 
             $j('#addi').click(function(){
                 if( count < limit ){
-                    var data = $j('<input type="text" class="form-control "  placeholder="option : ' + count + '" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" >').attr('name',"opt[]",'id',"opt");
+                    var data = $j('<input type="text" class="form-control "  placeholder="option : ' + count + '" style="height:42px;width:100%;margin-bottom:10px;background: rgba(540, 250, 250, 0.1);color:#fff" required>').attr('name',"opt[]",'id',"opt");
                     count++;
                     $j('#dynamic').append(data);    
                 }else{

@@ -272,12 +272,15 @@ module.exports = function( app, redis, db){
 										result.push(result_data[i*4+3]); // section status PASS or FAIL
 										if( i == len-1){
 											console.log(userdata);
-											req.session.destroy();
+											if( req.session.role != 'creator'){
+												req.session.destroy();	
+											}
+											
 											console.log( "user ::::::: " + user);
 											User.get_user_data( redis, user, user_schema.name, user_schema.name, function ( err, user_name){
 												if( !err ){
 													sql.insert_data( db, Qid, user, user_name, marks);
-													res.render('userResult.ejs',{ title:user,Qid:Qid,table:userdata,stat:result});					
+													res.render('userResult.ejs',{ title:user,Qid:Qid,table:userdata,stat:result});				
 												}else{
 													console.log("ERR AT /eval INSIDE controller.js");
 													res.redirect('/home');			
@@ -353,7 +356,12 @@ module.exports = function( app, redis, db){
 				res.redirect('/home');
 			}else{
 				console.log("asdasdasdsadasd");
-				res.render("preview_quiz",{ title:user, list:arr, title2:""});
+				if( req.param('x') == "1"){
+					res.render("preview_quiz",{ title:user, list:arr, title2:"Wrong Password"});
+				}else{
+					res.render("preview_quiz",{ title:user, list:arr, title2:""});
+				}
+				
 			}	
 		});
 	});
@@ -503,6 +511,7 @@ module.exports = function( app, redis, db){
 	app.get('/show_question_essay', is_logged_in, function ( req, res) {
 		var user = req.session.userId;
 		var Qid = req.session.Q;
+		console.log("essay +++++++++++++++++++++++++++++++ ");
 		Quiz.get_log_detail( redis, user, Qid, 2, 2, function ( err, time){
 			if(!err){
 				var question = req.param('data');
@@ -713,15 +722,27 @@ module.exports = function( app, redis, db){
 	app.post('/edit-quizdetail', is_logged_in,function (req,res){
 		var user = req.session.userId;
 		var Qid = req.session.Q;
+		
 		var acttime = req.param('acttime');
-		var ip = acttime.indexOf(' ');
-		var eventDate = acttime.slice(0,ip);
-		var eventTime = acttime.slice(ip+1);
+		var times = acttime.split(' ');
+		var eventDate = times[0];
+		var eventTime =  times[1];
+		var date = eventDate.split("-");
+		eventDate = date[1]+"/"+date[0]+"/"+date[2];
+		console.log(eventDate +" " + eventTime);
+		/*
+			end time of quiz according to
+			the main server. 
+		*/
 		var endtimex = req.param('endtime');
-		ip = endtimex.indexOf(' ');
-		var enddate = endtimex.slice(0,ip);
-		var endtime = endtimex.slice(ip+1);
-		Quiz.edit_quiz_detail( redis, Qid, req.param('password'), eventDate, eventTime, enddate, endtime, req.param('duration'), req.param('password2') );
+		times = endtimex.split(' ');
+		var enddate = times[0];
+		var endtime = times[1];
+		date = enddate.split("-");
+		enddate = date[1]+"/"+date[0]+"/"+date[2];
+		console.log(enddate +" " + endtime);
+
+		Quiz.edit_quiz_detail( redis, Qid, req.param('password'), eventDate, eventTime, enddate, endtime, "", req.param('password2') );
 		res.redirect('/home_creator');
 	});
 
@@ -729,11 +750,11 @@ module.exports = function( app, redis, db){
 		var user = req.session.userId;
 		var Qid = req.session.Q;
 		var rmc = req.session.S;
-		var sectiondd = parseInt(req.param('duration-days'))*86400,
+		var sectiondd = 0,
 		sectionhh = parseInt(req.param('duration-hours'))*3600,
 		sectionmm = parseInt(req.param('duration-minutes'))*60,
 		sectionDuration = ( sectiondd + sectionhh + sectionmm )*1000;
-		Quiz.edit_section_detail( redis, Qid, rmc,req.param('rank'),req.param('name'), req.param('rules'), req.param('cutoff'), sectionDuration );
+		Quiz.edit_section_detail( redis, Qid, rmc,"",req.param('name'), req.param('rules'), req.param('cutoff'), sectionDuration );
 		res.redirect('/home_creator');
 	});
 
@@ -1140,7 +1161,7 @@ module.exports = function( app, redis, db){
 														Quiz.edit_log_detail( redis, user, Qid, log_schema.duration, sec_detail[5]);
 														Quiz.edit_log_detail( redis, user, Qid, log_schema.section_count, new_section);
 														Quiz.edit_log_detail( redis, user, Qid, log_schema.question_count, 0);
-														res.redirect('/show_rules_page?name='+ sec_detail[1] + "&rule=" + sec_detail[2] + "&qc=" + sec_detail[3]);
+														res.redirect('/show_rules_page?name='+ encodeURIComponent(sec_detail[1]) + "&rule=" + encodeURIComponent(sec_detail[2]) + "&qc=" + encodeURIComponent(sec_detail[3]));
 													}else{	
 														console.log("ERR AT /show_quiz INSIDE controller.js");
 														res.redirect('/home');
@@ -1207,7 +1228,7 @@ module.exports = function( app, redis, db){
 												essay type questions
 											*/
 
-											res.redirect('/show_question_essay?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+"&wc="+question_data[4]);
+											res.redirect('/show_question_essay?time='+time+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+"&wc="+encodeURIComponent(question_data[4]));
 										}else{
 											/*
 												MCQ type questions
@@ -1215,13 +1236,13 @@ module.exports = function( app, redis, db){
 											for( i = 4; question_data[i] != '????' && i < 8; i++);
 											if( question_data[ question_schema.img] == "????"){
 												/* Question contains no image */
-												res.redirect('/show_question_text?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&opt='+question_data.slice(4,i));
+												res.redirect('/show_question_text?time='+encodeURIComponent(time)+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i)));
 											}else if( question_data[ question_schema.type] == "eqsc"){
 												/* Question contains equation*/
-												res.redirect('/show_question_equation?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&opt='+question_data.slice(4,i)+'&equation='+question_data[1]);						
+												res.redirect('/show_question_equation?time='+encodeURIComponent(time)+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i))+'&equation='+question_data[1]);						
 											}else{
 												/* Question contain plane text*/
-												res.redirect('/show_question_image?time='+time+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&opt='+question_data.slice(4,i)+'&img='+question_data[1]);						
+												res.redirect('/show_question_image?time='+encodeURIComponent(time)+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i))+'&img='+encodeURIComponent(question_data[1]));						
 											}	
 										}
 
@@ -1386,9 +1407,15 @@ module.exports = function( app, redis, db){
 												        Quiz.edit_log_detail( redis, req.session.userId, Qid, log_schema.server_snap, current_time);
 														if( question_data[ question_schema.img] == "????"){
 		 													/* Question contains no image */
-		 													res.redirect('/show_question_text?time='+log_detail[ log_schema.duration]+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&opt='+question_data.slice(4,i));
+		 													res.redirect('/show_question_text?time='+encodeURIComponent(log_detail[ log_schema.duration])+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i)));
+		 												}else if( question_data[ question_schema.type] == "eqsc"){
+					 													/* Question contains no image */
+					 													res.redirect('/show_question_equation?time='+encodeURIComponent(log_detail[ log_schema.duration])+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i))+'&equation='+question_data[1]);
+					 									}else if( question_data[ question_schema.type] == 'essay'){
+		 													res.redirect('/show_question_essay?time='+encodeURIComponent(log_detail[ log_schema.duration])+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3]));						
 		 												}else{
-		 													res.redirect('/show_question_image?time='+log_detail[ log_schema.duration]+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&opt='+question_data.slice(4,i)+'&img='+question_data[1]);						
+		 													res.redirect('/show_question_image?time='+encodeURIComponent(log_detail[ log_schema.duration])+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i))+'&img='+encodeURIComponent(question_data[1]));						
+		 														
 		 												}
 		 											}else{
 		 												console.log("ERR AT /show_quiz INSIDE controller.js");
@@ -1414,7 +1441,7 @@ module.exports = function( app, redis, db){
 	 																		res.redirect('/home');
 	 																	}
 	 																});
-	 																res.redirect('/show_rules_page?name='+ sec_detail[1] + "&rule=" + sec_detail[2] + "&qc=" + sec_detail[3]);
+	 																res.redirect('/show_rules_page?name='+ encodeURIComponent(sec_detail[1]) + "&rule=" + encodeURIComponent(sec_detail[2]) + "&qc=" + encodeURIComponent(sec_detail[3]));
 	 															}else{
 	 																console.log("ERR AT /validate_quiz_id INSIDE controller.js");
 	 																res.redirect('/home');
@@ -1434,9 +1461,17 @@ module.exports = function( app, redis, db){
 															        Quiz.edit_log_detail( redis, req.session.userId, Qid, log_schema.server_snap, current_time);
 																	if( question_data[ question_schema.img] == "????"){
 					 													/* Question contains no image */
-					 													res.redirect('/show_question_text?time='+log_detail[ log_schema.duration]+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&opt='+question_data.slice(4,i));
-					 												}else{
-					 													res.redirect('/show_question_image?time='+log_detail[ log_schema.duration]+'&text='+question_data[0]+'&pos='+ question_data[2]+'&neg='+ question_data[3]+'&opt='+question_data.slice(4,i)+'&img='+question_data[1]);						
+					 													res.redirect('/show_question_text?time='+encodeURIComponent(log_detail[ log_schema.duration])+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i)));
+					 												}else if( question_data[ question_schema.type] == 'essay'){
+		 																res.redirect('/show_question_essay?time='+encodeURIComponent(log_detail[ log_schema.duration])+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3]));						
+		 															}else if( question_data[ question_schema.type] == "eqsc"){
+					 													/* Question contains no image */
+					 													res.redirect('/show_question_equation?time='+encodeURIComponent(log_detail[ log_schema.duration])+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i))+'&equation='+question_data[1]);
+					 												}
+
+		 															
+		 															else{
+					 													res.redirect('/show_question_image?time='+encodeURIComponent(log_detail[ log_schema.duration])+'&text='+encodeURIComponent(question_data[0])+'&pos='+ encodeURIComponent(question_data[2])+'&neg='+ encodeURIComponent(question_data[3])+'&opt='+encodeURIComponent(question_data.slice(4,i))+'&img='+encodeURIComponent(question_data[1]));						
 					 												}
 					 											}else{
 					 												console.log("ERR AT /show_quiz INSIDE controller.js");
@@ -1467,7 +1502,7 @@ module.exports = function( app, redis, db){
 	 																res.redirect('/home');
 	 															}
 	 														});
-	 														res.redirect('/show_rules_page?name='+ sec_detail[1] + "&rule=" + sec_detail[2] + "&qc=" + sec_detail[3]);
+	 														res.redirect('/show_rules_page?name='+ encodeURIComponent(sec_detail[1]) + "&rule=" + encodeURIComponent(sec_detail[2]) + "&qc=" + encodeURIComponent(sec_detail[3]));
 	 													}else{
 	 														console.log("ERR AT /validate_quiz_id INSIDE controller.js");
 	 														res.redirect('/home');
@@ -1495,8 +1530,18 @@ module.exports = function( app, redis, db){
 	 					}
 	 				});
 	 			}else{
-	 				var user = req.session.userId;
-	 				res.render('quiz_taking_login', { title:user, title2:"Wrong Quiz-id Or Password"});
+	 				if( req.session.role == 'creator'){
+	 					res.redirect('/preview?x=1');
+	 				}else{
+	 					if( status == "inactive"){
+	 						res.render('quiz_taking_login', { title:req.session.userId, title2:"Quiz Inactive. It will start on " + new Date(time) });	
+	 					}else if( status == "expired" ){
+	 						res.render('quiz_taking_login', { title:req.session.userId, title2:"Quiz Expired on " + new Date(time) });
+	 					}else{
+	 						var user = req.session.userId;
+	 						res.render('quiz_taking_login', { title:user, title2:"Wrong Quiz-id Or Password"});
+	 					}
+	 				}
 	 			}
 	 		}else{
 	 			console.log("ERR AT /validate_quiz_id INSIDE controller.js");

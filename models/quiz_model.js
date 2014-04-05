@@ -215,7 +215,7 @@ module.exports.edit_quiz_detail = function( redis, Qid, Quizpasswd, eventDate, e
 	redis.lset( quiz_schema.set_name + Qid , 3, eventTime);
 	redis.lset( quiz_schema.set_name + Qid , 4, enddate);
 	redis.lset( quiz_schema.set_name + Qid , 5, endtime);
-	redis.lset( quiz_schema.set_name + Qid , 6, totalDuration );
+	//redis.lset( quiz_schema.set_name + Qid , 6, totalDuration );
 	redis.lset( quiz_schema.set_name + Qid , 7, Quizpasswdforstud);
 	console.log('olla');
 }
