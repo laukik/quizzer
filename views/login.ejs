@@ -50,10 +50,9 @@
 					</nav>
 				</div>
 			</div>
-			</br></br></br>	
+			</br></br>
 			<div class="row" >
 				<form class="form-signin" role="form" action="/validate" method="post">
-					<h2 class="form-signin-heading" > <%= title2 %></h2>
 					<div style="background-color:#2C3E50; margin-bottom:10px;margin-bottom:10px;border-radius:5px; padding: 10px;">
 						<h6 style="text-align:center;color:#ECF0F1;"><b> Select Role</b></h6>
 						<div class="radio">
@@ -68,13 +67,13 @@
 			          		</label>   
 						</div>
 					</div>
-					<div class="right-inner-addon">
+					<div class="right-inner-addon has-feedback" id="ud">
 						<i class="glyphicon glyphicon-user"></i>
-						<input type="text" class="form-control" placeholder="username" style="padding:10px;border-radius:5px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:black" name="uid" required autofocus>
+						<input type="text" class="form-control" placeholder="username" style="padding:10px;border-radius:5px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:black" name="uid" id="uid" required autofocus>
 					</div>
-					<div class="right-inner-addon">
+					<div class="right-inner-addon has-feedback" id="pd" >
 						<i class="glyphicon glyphicon-lock"></i>
-						<input type="password" class="form-control" placeholder="password" name="passwd"  style="padding:10px;border-radius:5px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:black" required >	
+						<input type="password" class="form-control" placeholder="password" name="passwd"  style="padding:10px;border-radius:5px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:black" id="eid" required >	
 					</div>
 					<button class="btn btn-lg btn-inverse btn-block" type="submit" style="float:middle;background-color:#2C3E50"><span class="glyphicon glyphicon-log-in"></span> login</button>
 				</form>
@@ -128,5 +127,27 @@
 		      }
 		   });
 		}
+		$(function(){
+			if( '<%= title2%>' != "" ){
+				$('#ud').addClass('has-error');
+				$('#pd').addClass('has-error');
+
+				$('#uid').tooltip({
+					title:"<%= title2%>",
+					container:'body',
+					placement:'auto left'
+				});
+				$('#uid').tooltip('show');
+			}
+
+			    $('#uid').click(function (){
+			    	$('#ud').removeClass('has-error');
+			    	$('#uid').tooltip('hide');
+			    });
+				$('#eid').click(function(){
+			    	$('#pd').removeClass('has-error ');
+			    	$('#uid').tooltip('hide');
+			    });
+		});
 	</script>
 </html>
