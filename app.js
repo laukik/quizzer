@@ -13,7 +13,7 @@ var redirect = require('express-redirect')(app);
 var db = require('mysql').createConnection({
     host : "localhost",
     user : "root",
-    password : "root",
+    password : "mewtwo",
     database : "quizzer"
 });
 db.connect();

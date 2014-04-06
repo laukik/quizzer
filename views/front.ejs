@@ -4,22 +4,43 @@
 		<title>Home</title>
 		<link href="stylesheet/button.css" rel="stylesheet">
 		<link href="stylesheet/signin.css" rel="stylesheet">
+
+		<link href="stylesheet/ionicons.min.css" rel="stylesheet">
 		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+		<link href="css/flat-ui.css" rel="stylesheet">
 		<script src="all.js"></script>
+		<script src="js/flatui-radio.js"></script>
 		<script src="/socket.io/socket.io.v0.9.16.js"></script>
 	</head>
 	<body background="img/p2.png" >
 		<div class="container">
+			<style type="text/css">
+				.form-control {
+				  padding-right: 30px;
+				}
+
+				.form-control + .glyphicon {
+				  position: absolute;
+				  right: 0;
+				  padding: 15px 20px;
+				}
+
+				.form-control + .icon {
+				  position: absolute;
+				  right: 0;
+				  padding: 15px 20px;
+				}
+			</style>
 			<div class="row">
 				<div class="col-lg-12">
 					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 						<div class="navbar-header">
-						    <h3 style="color:white" >TestWiz</h3>
-						    <h7 style="color:white" >Quiz and Test Assessment Platform</h7>
+						    <h5 style="color:white" >TestWiz</h3>
+						    <h8 style="color:white" >Quiz and Test Assessment Platform</h8>
 						</div>
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					      	<form class="navbar-form navbar-right" action='/login'>
-	      		      		  	<button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
+	      		      		  	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
 	      		      		    	<span style="font:Purisa Bold" class="glyphicon glyphicon-user"></span> Guest 
 	      		      		    	<span class="caret"></span>
 	      		      		  	</button>
@@ -30,7 +51,7 @@
 	      		      		    		</a>
 	      		      		    	</li>
 	      					  	</ul>
-					      		<button type="submit" class="btn navbar-btn btn-inverse" style="margin-left:7px">
+					      		<button type="submit" class="btn navbar-btn" style="margin-left:7px">
 					      			<span class="glyphicon glyphicon-log-in"></span> Sign In
 					      		</button>
 					      	</form>
@@ -38,84 +59,92 @@
 					</nav>
 				</div>
 			</div>
-			</br></br></br></br></br></br></br></br>
+			</br></br></br>
 			<div class="row">
 				<div class="col-lg-2"></div>
 				<div class="col-lg-4" style="color:black" class="heading">
-					<h1> CREATE QUIZ, DEPLOY IT, GET THE RESULTS ALL OF IT WITH GREAT EASE </h1>
+					<h3> CREATE QUIZ, DEPLOY IT, GET THE RESULTS ALL OF IT WITH GREAT EASE </h3>
 				</div>
 				<div class="col-lg-2"></div>
 				<div class="col-lg-6 has-feedback">
 					<form class="form-signin" id='signup' role="form" method="post" action="/signin" style="margin-padding: 20px;">
 						<h3 class="form-signin-heading"> <%= title2 %></h3>
 						<div class="has-feedback" id="fullname">
-							<input type="text" placeholder="Enter Your Name" name="fname" id="fname" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#aeaeae" required autofocus>
+							<input type="text" placeholder="Enter Your Name" name="fname" id="fname" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" required autofocus>
+							<span class="glyphicon glyphicon-user"></span>
 						</div>
 						<div class="has-feedback" id="ud">
-							<input type="text" placeholder="Pick A User Name"  name="uid" id="uid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#aeaeae" required>
+							<input type="text" placeholder="Pick A User Name"  name="uid" id="uid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" required>
+							<span class="glyphicon glyphicon-user"></span>
 						</div>
 						<div class="has-feedback" id="ed">
-							<input type="text" placeholder="Enter your Email Address" name="eid" id="eid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#aeaeae" required>
+							<input type="text" placeholder="Enter your Email Address" name="eid" id="eid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" required>
+							<span class="glyphicon glyphicon-envelope"></span>
 						</div>
 						<div class="has-feedback" id="pass">
-							<input type="password" placeholder="Enter Your Password" class="form-control" id="passwd" name="passwd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#aeaeae"required>
-							<input type="password" placeholder="Confirm Your Password" class="form-control" id="xpasswd" name="xpasswd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#aeaeae"required>
+							<input type="password" placeholder="Enter Your Password" class="form-control" id="passwd" name="passwd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px"required>
+							<span class="glyphicon glyphicon-lock"></span>
 						<div>
-						<div style="color:black; margin-bottom:10px;border-radius:4px; padding: 10px;background: rgba(30, 20, 20, 0.2);">
-							<h4 style="text-align:center"><b> Select Role</b></h4>
-						<div class="radio">
-						</br> 
-						    <label style="color:black">
-						    	<input class="radio"  type="radio" style="padding:2px;margin-bottom: 10px;margin-left:10%" name="role" id="role_creator" value="creator" required checked> Quiz Creator
-						    </label>   
-						</br>
+
+						<div class="has-feedback">
+							<input type="password" placeholder="Confirm Your Password" class="form-control" id="xpasswd" name="xpasswd" style="padding:10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px"required>			
+
+							<span class="glyphicon glyphicon-lock"></span>
 						</div>
-						<div class="radio">
-						</br> 
-						    <label style="color:black">
-						    	<input class="radio"  type="radio" style="padding:2px;margin-bottom: 10px;margin-left:10%" name="role" id="role_participant" value="participant" required > Quiz Participant
-						    </label>   
-						</br>
-						</div>
+						<div style="background-color:#34495E; margin-bottom:10px;border-radius:4px; padding: 10px;">
+							<h6 style="text-align:center;color:#ECF0F1"><b> Select Role</b></h6>
+							<div class="radio">
+				          		<label class="radio" style="color:#ECF0F1">
+				            		<input type="radio" name="role" id="role_creator" value="creator" data-toggle="radio" checked="">
+				            		Quiz Creator
+				          		</label>
+				          		</br></br>
+				          		<label class="radio" style="color:#ECF0F1">
+				            		<input type="radio" name="role" id="role_participant" value="participant" data-toggle="radio">
+				           			 Quiz Participant
+				          		</label>   
+							</div>
 						</br>
 						</div>
 						<button type="button" class=" form-control btn btn-custom" id="siu"> <span class="glyphicon glyphicon-user"></span>  Sign Up </button>
 					</form>	
+
+
 				</div>
 			</div>	
 		</div>
 	</div>
 	</br>
-	</br></br></br></br>
-		<div class="container marketing" >
-			<div class="row"  style="color:black">
+	</br>
+		<div class="container marketing">
+			<div class="row full-width"  style="color:black;margin-top:25px">
 				<div class="col-lg-2">
 					<img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Upload Questions </h2>
+					<h4> Upload Questions </h4>
 					<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
 				</div>
 				<div class="col-lg-2">
 					<img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Versatility Of Questions </h2>
+					<h4> Versatility Of Questions </h4>
 					<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
 				</div>
 				<div class="col-lg-2">
 					<img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Fix a Schedule </h2>
+					<h4> Fix a Schedule </h4>
 					<p> Provide us a date and time to propell your Quiz</p>
 				</div>
 				<div class="col-lg-2">
 					<img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Launch </h2>
+					<h4> Launch </h4>
 					<p>  We will Launch it, on schedule provided by you...  </p>	
 				</div><div class="col-lg-2">
 					<img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Get The Result   </h2>
+					<h4> Get The Result   </h4>
 					<p> Get the complete statics of evalution </p>
 				</div>
 				<div class="col-lg-2">
 					<img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Like Us </h2>
+					<h4> Like Us </h4>
 					<p> Like our official page </p>
 				</div>
 			</div>
@@ -197,8 +226,7 @@
 	            $j('#uid').tooltip({
 	            	title:"User ID Already Taken",
 	            	container:'body',
-	            	placement:'auto left',
-	            	html:'height:42px'	
+	            	placement:'top'	
 	            });
 	            $j('#uid').tooltip('show');
 	        });
