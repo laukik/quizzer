@@ -1,18 +1,24 @@
 <html>
     <head>
         <meta charset="utf-8"> 
+        <title>Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="stylesheet/button.css" rel="stylesheet">
-        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
+        <link href="stylesheet/signin.css" rel="stylesheet">
+        <link href="stylesheet/ionicons.min.css" rel="stylesheet">
+        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+        <link href="css/flat-ui.css" rel="stylesheet">
         <script src="all.js"></script>
+        <script src="js/flatui-radio.js"></script>
+        <script src="/socket.io/socket.io.v0.9.16.js"></script>
         <script type="text/javascript" src="js/countdown.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
         <script>
           function preventBack(){window.history.forward();}
           setTimeout("preventBack()", 0);
           window.onunload=function(){null};
         </script>
     </head>
-    <body background="img/noisy_net.png">
+    <body background="img/p2.png">
          
         <script>  
             var seconds_left;      
@@ -56,7 +62,7 @@
             }
         </script>
         <div class="container">
-            <div class="row" style="color:white;margin-top:40px;margin-bottom:10px">
+            <div class="row" style="margin-top:40px;margin-bottom:10px">
                 <div class="col-lg-10">
                     <span style="font:Purisa Bold" class="glyphicon glyphicon-user">
                     <%= title%>
@@ -94,14 +100,20 @@
                         
                         <div class="radio">
                         </br> 
-                            <label>
-                                <input class="radio" id="set" type="radio" name="opti" value = <%= i %> > <span class="badge"> <%= option[i] %> </span>
+                            <label class="radio">
+                                <input  id="set" type="radio" name="opti" value = <%= i %> data-toggle="radio"><%= option[i] %>
                             </label>   
                         </br>
                         </div>
                     <% } %>
-                <div class="row" style="margin-top:50px;margin-left:500px" >
-                    <button type="button" class="btn btn-inverse"  id="btn">Submit</button>
+                <div class="row" style="margin-top:50px;margin-left:500px;width:100%" >
+                    
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4">
+                        <button type="button" class="btn btn-inverse"  id="btn">Submit</button>
+                    </div>
+                    <div class="col-lg-4"></div>
+                    
                 </div>
             </form>
         </div>

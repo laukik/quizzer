@@ -1,16 +1,24 @@
  <html>
     <head>
-     <meta charset="utf-8"> 
-     <script src='all.js'></script>
-     <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="stylesheet/button.css" rel="stylesheet">
+        <link href="stylesheet/signin.css" rel="stylesheet">
+        <link href="stylesheet/ionicons.min.css" rel="stylesheet">
+        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+        <link href="css/flat-ui.css" rel="stylesheet">
+        <script src="all.js"></script>
     </head>
-    <body background="img/pw_maze_black.png">
+    <body background="img/p2.png">
         <div class="container"> 
             <div class="row">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                         <div class="navbar-header">
-                            <h3 style="color:white" >TestWiz</h3>
+                            <h5 style="color:white" >TestWiz
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </h5>
                         </div>
                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                           <form class="navbar-form navbar-right" action='/logout'>
@@ -32,54 +40,63 @@
                     </nav>
                 </div>
             </div>
-            </br>
-            </br></br></br></br>
+       </br></br>
             <div class="row">
-                <div class="col-lg-12">
-                    <button class="form-control btn btn-inverse" type="submit" style="height:42px:width:1000px;margin-bottom:15px" onclick="alert('allocated Quiz-id is <%= QID %>');"> 
+                <div class="col-lg-2">
+                    <button class="form-control btn btn-default" type="submit" style="height:42px:width:100px;margin-bottom:15px" onclick="alert('allocated Quiz-id is <%= QID %>');"> 
                             <span class="glyphicon glyphicon-user"></span>
-                            <span class="glyphicon glyphicon-arrow-right"></span>
-                            <span class="glyphicon glyphicon-briefcase"></span>
-                            <span class="glyphicon glyphicon-arrow-right"></span>
-                            <%= QID %>
+                            Quiz id is 
+                            <span class="badge"> <%= QID %> </span>
+                            
                     </button>
                 </div>
             </div>
+
+            
+
+
             <div class="row">
 
                 <div class="col-lg-12">
                     <form class="form" role="form" action="/section_detail" method="post" id="form">
-                        <div class="col-lg-6">
-                            <label style="color:white"> Cutoff Marks</label><input type="text" class="form-control" name="cutoff"  placeholder="cutoff marks if any"
-                            style="height:42px;width:100%;padding:10px;margin-bottom: 20px" required >
-                            <label style="color:white"> Section Name</label><input type="text" class="form-control" name="name"  placeholder="name of sections"
-                            style="height:42px;width:100%;padding:10px;margin-bottom: 20px" required>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="col-lg-6">
-                                <!-- <label style="color:white"> Duration in Days</label> -->
-                                <input type="text" class="form-control" name="duration-days" placeholder="duration in days"
-                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px;visibility:hidden" value="0" required>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label style="color:black"> Cutoff Marks</label><input type="text" class="form-control" name="cutoff"  placeholder="cutoff marks if any"
+                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px" id="cutoff" required >
                             </div>
-                            <div class="col-lg-6">
-                                <label style="color:white"> Duration in Hours</label><input type="text" class="form-control" name="duration-hours" placeholder="duration in hours"
+                            <div class="col-lg-3">
+                                <label style="color:black"> Duration in Hours</label><input type="text" class="form-control" name="duration-hours" placeholder="duration in hours"
+                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px" id="hours" required>
+                            </div>
+                            <div class="col-lg-3">
+                                <label style="color:black"> Duration in Minutes</label><input type="text" class="form-control" name="duration-minutes" placeholder="duration in minutes"
+                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px" id="minutes" required>
+                            </div>
+                            <div class="col-lg-3">
+                                <label style="color:black"> Number of Questions</label><input type="text" class="form-control" name="Qno"  placeholder="number of questions"
+                                style="height:42px;width:100%;padding:10px;margin-bottom: 20px" id="quest" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label style="color:black"> Section Name</label><input type="text" class="form-control" name="name"  placeholder="name of sections"
                                 style="height:42px;width:100%;padding:10px;margin-bottom: 20px" required>
                             </div>
-                            <label style="color:white"> Duration in Minutes</label><input type="text" class="form-control" name="duration-minutes" placeholder="duration in minutes"
-                            style="height:42px;width:100%;padding:10px;margin-bottom: 20px" required>
-                            <label style="color:white"> Number of Questions</label><input type="text" class="form-control" name="Qno"  placeholder="number of questions"
-                            style="height:42px;width:100%;padding:10px;margin-bottom: 20px" required>
-                            
-                        </div>
-                        <div class="row">
+                            <!-- <div class="col-lg-6"> -->
+                                <!-- <div class="col-lg-6"> -->
+                                    <!-- <label style="color:white"> Duration in Days</label> -->
+                                    <input type="text" class="form-control" name="duration-days" placeholder="duration in days"
+                                    style="height:42px;width:100%;padding:10px;margin-bottom: 20px;visibility:hidden" value="0" required>
+                                <!-- </div> -->
                             <div class="col-lg-12">
-                                <label style="color:white"> Section Rules</label><textarea type="text" class="form-control" name="rules"  placeholder=" something about section"
-                                style="height:252px;width:100%;padding:10px;margin-bottom: 20px;white-space:normal" required></textarea>                       
+                                    <label style="color:black"> Section Rules</label>
+                                    <textarea type="text" class="form-control" name="rules"  placeholder=" something about section"
+                                    style="height:252px;width:100%;padding:10px;margin-bottom: 20px;white-space:normal" required></textarea>                       
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <button class="btn btn-success form-control" type="submit" id="frmsub">
+                                <button class="btn btn-default form-control" type="submit" id="frmsub">
                                     <span class="glyphicon glyphicon-check">
                                 </button>
                             </div>
@@ -91,39 +108,39 @@
 
                 
         </br>
-        </br></br></br></br></br></br></br>
-        <div class="container marketing" >
-            <div class="row"  style="color:white">
-                <div class="col-lg-2">
-                    <img src="icons/cloud-upload-wh.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Upload Questions </h2>
-                    <p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
-                </div>
-                <div class="col-lg-2">
-                    <img src="icons/list-ol-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Versatility Of Questions </h2>
-                    <p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
-                </div>
-                <div class="col-lg-2">
-                    <img src="icons/calendar-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Fix a Schedule </h2>
-                    <p> Provide us a date and time to propell your Quiz</p>
-                </div>
-                <div class="col-lg-2">
-                    <img src="icons/rocket-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Launch </h2>
-                    <p>  We will Launch it, on schedule provided by you...  </p>    
-                </div><div class="col-lg-2">
-                    <img src="icons/bar-chart-o-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Get The Result   </h2>
-                    <p> Get the complete statics of evalution </p>
-                </div>
-                <div class="col-lg-2">
-                    <img src="icons/thumbs-o-up-wh.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Like Us </h2>
-                    <p> Like our official page </p>
-                </div>
-            </div>
+        </br></br>
+        <div class="container marketing">
+                    <div class="row full-width"  style="color:black;margin-top:25px">
+                        <div class="col-lg-2">
+                            <img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+                            <h4> Upload Questions </h4>
+                            <p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                            <h4> Versatility Of Questions </h4>
+                            <p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                            <h4> Fix a Schedule </h4>
+                            <p> Provide us a date and time to propell your Quiz</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                            <h4> Launch </h4>
+                            <p>  We will Launch it, on schedule provided by you...  </p>    
+                        </div><div class="col-lg-2">
+                            <img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                            <h4> Get The Result   </h4>
+                            <p> Get the complete statics of evalution </p>
+                        </div>
+                        <div class="col-lg-2">
+                            <img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+                            <h4> Like Us </h4>
+                            <p> Like our official page </p>
+                        </div>
+                    </div>
         </div>
     </body>
     <script>
@@ -137,6 +154,41 @@
               }
            });
         }
+
+        $(function(){
+            $('#cutoff').change( function(){
+                var x = $('#cutoff').val();
+                if(isNaN(x) || !isFinite(x)) $('#cutoff').val("");
+            });
+            $('#hours').change( function(){
+                var x = $('#hours').val();
+                if(isNaN(x) || !isFinite(x)){
+                  $('#hours').val("");  
+                }else{
+                    x = parseInt(x);
+                    if( x < 0 || x >23){
+                      $('#hours').val("");  
+                    }
+                }
+            });
+            $('#minutes').change( function(){
+                var x = $('#minutes').val();
+                if( isNaN(x) || !isFinite(x)){
+                    $('#minutes').val("");
+                }else{
+                    x = parseInt(x);
+                    if( x<0 || x>59){
+                      $('#minutes').val("");  
+                    }
+                }
+            });
+            $('#quest').change( function(){
+                var x = $('#quest').val();
+                if(isNaN(x) || !isFinite(x)) $('#quest').val("");
+            });
+        });
+
+
     </script>
     
 </html>

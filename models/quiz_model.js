@@ -1,5 +1,5 @@
 //console.log("ERR AT INSIDE");
-
+var  nodemailer = require('nodemailer');
 var log_schema = {
 	set_name : "log:",
 	section_count : 0,
@@ -523,6 +523,35 @@ module.exports.insert_quiz_detail = function ( redis, user, Quizpasswd, eventDat
 				}else{
 					redis.rpush(quiz_creation_backup_schema.set_name + user + ":"+ Qid , 0,0);
 					redis.incr('QuizValue');
+					redis.lrange( user, 1, 1, function ( err, user_email) {
+						if( !err ){
+							var smtpTransport = nodemailer.createTransport("SMTP",{
+							    service: "Gmail",
+							    auth: {
+							        user: "laukiknirgudkar@gmail.com",
+							        pass: "noderedis"
+							    }
+							});
+							var mailOptions = {
+							    from: "TestWiz: Quiz Platform ✔ <laukiknirgudkar@gmail.com>", // sender address
+							    to: user_email, // list of receivers
+							    subject: "Hello " + user, // Subject line
+							    text: "Quiz id is: " + Qid, // plaintext body
+							    html: "<b>Quiz id is: "+Qid+".Thanks for using.</b>" // html body
+							};
+							smtpTransport.sendMail(mailOptions, function(error, response){
+			    				if(!error){
+			    					console.log("Message sent: " + response.message);
+			    				}else{
+			        				console.log(error + "Sending Message");
+			    				}
+		    				});		
+						}else{
+							console.log(" mail not sent");
+						}
+					});
+
+					
 					callback( null, Qid );
 				}
 			});

@@ -1,28 +1,37 @@
 <html>
 	<head>
 		<meta charset="utf-8"> 
-		<title> QATAP </title>
+		<title>Home</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="stylesheet/button.css" rel="stylesheet">
+		<!-- <link href="css/test.css" rel="stylesheet"> -->
+		<link href="stylesheet/signin.css" rel="stylesheet">
+		<link href="stylesheet/ionicons.min.css" rel="stylesheet">
 		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+		<link href="css/flat-ui.css" rel="stylesheet">
 		<script src="all.js"></script>
 	</head>
-	<body background="img/wild_oliva.png">
+	<body background="img/p2.png">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
-					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+					<nav class="navbar navbar-inverse navbar-fixed-top" style="color:black" role="navigation">
 						<div class="navbar-header">
-						    <h3 style="color:white" >TestWiz</h3>
+						    <h6 style="color:white" >TestWiz
+						    	<span class="glyphicon glyphicon-chevron-left"></span>
+						    	<span class="glyphicon glyphicon-pencil"></span>
+						    	<span class="glyphicon glyphicon-chevron-right"></span>
+						    </h6>
 						</div>
 					   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					      <form class="navbar-form navbar-right" action='/logout'>
 					      		<div class="btn-group">
-					      		  <button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
+					      		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
 					      		    <span class="glyphicon glyphicon-user"></span> <%= title %> 
 					      		    <span class="caret"></span>
 					      		  </button>
 					      		  <ul class="dropdown-menu">
-					      		    <li ><a href="/home" ><span class="glyphicon glyphicon-home"></span> Home</a></li>
+					      		    <li ><a href="/home_creator" ><span class="glyphicon glyphicon-home"></span> Home</a></li>
 					      		    <li ><a href="/cpasswd?user=<%= title %>" ><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
 					      		    
 								  </ul>
@@ -42,18 +51,15 @@
 				</br>
 				</br>
 				</br>
-			</br></br></br>
-				</br>
-				</br>
 			</div>
 			<div class="row">
 				<div class="col-lg-4"></div>
 				<div class="col-lg-4">
 					<form role="form" class="create-form" action="/quiz_login">
-						<button class="btn btn-lg btn-custom btn-block" type="submit" style="float:middle;"><span class="glyphicon glyphicon-hand-right"></span> Take Quiz</button>
+						<button class="btn btn-lg btn-inverse btn-block" type="submit" style="float:middle;"><span class="glyphicon glyphicon-hand-right"></span> Take Quiz</button>
 					</form>
 					<form role="form" class="create-form" action="/view_result_list" > 
-						<button class="btn btn-lg btn-custom btn-block" type="submit" style="float:middle">
+						<button class="btn btn-lg btn-inverse btn-block" type="submit" style="float:middle">
 							<span class="glyphicon glyphicon-edit"></span>View Result
 						</button>
 					</form>
@@ -71,39 +77,39 @@
 		</br>
 		</br>
 
-		<div class="container marketing" >
-			<div class="row"  style="color:black">
-				<div class="col-lg-2">
-					<img src="icons/icon_cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Upload Questions </h2>
-					<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
-				</div>
-				<div class="col-lg-2">
-					<img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Versatility Of Questions </h2>
-					<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
-				</div>
-				<div class="col-lg-2">
-					<img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Fix a Schedule </h2>
-					<p> Provide us a date and time to propell your Quiz</p>
-				</div>
-				<div class="col-lg-2">
-					<img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Launch </h2>
-					<p>  We will Launch it, on schedule provided by you...  </p>	
-				</div><div class="col-lg-2">
-					<img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Get The Result   </h2>
-					<p> Get the complete statics of evalution </p>
-				</div>
-				<div class="col-lg-2">
-					<img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h2> Like Us </h2>
-					<p> Like our official page </p>
-				</div>
-			</div>
-		</div>
+		<div class="container marketing">
+							<div class="row full-width"  style="color:black;margin-top:25px">
+								<div class="col-lg-2">
+									<img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+									<h4> Upload Questions </h4>
+									<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+								</div>
+								<div class="col-lg-2">
+									<img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+									<h4> Versatility Of Questions </h4>
+									<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+								</div>
+								<div class="col-lg-2">
+									<img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+									<h4> Fix a Schedule </h4>
+									<p> Provide us a date and time to propell your Quiz</p>
+								</div>
+								<div class="col-lg-2">
+									<img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+									<h4> Launch </h4>
+									<p>  We will Launch it, on schedule provided by you...  </p>	
+								</div><div class="col-lg-2">
+									<img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+									<h4> Get The Result   </h4>
+									<p> Get the complete statics of evalution </p>
+								</div>
+								<div class="col-lg-2">
+									<img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+									<h4> Like Us </h4>
+									<p> Like our official page </p>
+								</div>
+							</div>
+						</div>
 	</body>
 	<script>
 		var rotation = function (ele){

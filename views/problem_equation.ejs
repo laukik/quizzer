@@ -1,58 +1,63 @@
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <link href="stylesheet/button.css" rel="stylesheet">
-        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
-        <link rel= 'stylesheet' href='editor/qatapeditor.css'  type='text/css'/>
-        <script src="all.js"></script>
-        <script src="editor/qatapeditor.min.js"></script>
-        <script type="text/javascript" src="js/countdown.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script>
-          function preventBack(){window.history.forward();}
-          setTimeout("preventBack()", 0);
-          window.onunload=function(){null};
-        </script>
+        <meta charset="utf-8"> 
+                <title>Home</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link href="stylesheet/button.css" rel="stylesheet">
+                <link href="stylesheet/signin.css" rel="stylesheet">
+                <link href="stylesheet/ionicons.min.css" rel="stylesheet">
+                <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+                <link href="css/flat-ui.css" rel="stylesheet">
+                <script src="all.js"></script>
+                <script src="js/flatui-radio.js"></script>
+                <script src="/socket.io/socket.io.v0.9.16.js"></script>
+                <script type="text/javascript" src="js/countdown.js"></script>
+                <script src="editor/qatapeditor.min.js"></script>
+                <link rel= 'stylesheet' href='editor/qatapeditor.css'  type='text/css'/>    
+                <script>
+                  function preventBack(){window.history.forward();}
+                  setTimeout("preventBack()", 0);
+                  window.onunload=function(){null};
+                </script>
+                <script>  
+                    var seconds_left;      
+                    var socket = io.connect();
+                    function startTime(){
+                        
+                        // set the date we're counting down to
+                        var target_date = new Date().getTime() + <%= timer %>;
+                         
+                        // variables for time units
+                        var days, hours, minutes, seconds;
+                         
+                        // // get tag element
+                        // var countdown = document.getElementById("countdown");
+                         
+                        // update the tag with id "countdown" every 1 second
+                        setInterval(function () {
+                         
+                            // find the amount of "seconds" between now and target
+                            var current_date = new Date().getTime();
+                            seconds_left = (target_date - current_date) / 1000;
+                         
+                            // do some time calculations
+                             if( seconds_left <= 0){
+                                alert("wooh its done");
+                                socket.emit("did",'<%= title%>','<%= Qid %>');
+                             }
+                            // // format countdown string + set tag value
+                            // countdown.innerHTML = days + "d, " + hours + "h, "
+                            // + minutes + "m, " + seconds + "s";  
+                            
+                        }, 1000);
+                    }
+                </script>
     </head>
-    <body background="img/noisy_net.png">
-         
-        <script>  
-            var seconds_left;      
-            var socket = io.connect();
-            function startTime(){
-                
-                // set the date we're counting down to
-                var target_date = new Date().getTime() + <%= timer %>;
-                 
-                // variables for time units
-                var days, hours, minutes, seconds;
-                 
-                // // get tag element
-                // var countdown = document.getElementById("countdown");
-                 
-                // update the tag with id "countdown" every 1 second
-                setInterval(function () {
-                 
-                    // find the amount of "seconds" between now and target
-                    var current_date = new Date().getTime();
-                    seconds_left = (target_date - current_date) / 1000;
-                 
-                    // do some time calculations
-                     if( seconds_left <= 0){
-                        alert("wooh its done");
-                        socket.emit("did",'<%= title%>','<%= Qid %>');
-                     }
-                    // // format countdown string + set tag value
-                    // countdown.innerHTML = days + "d, " + hours + "h, "
-                    // + minutes + "m, " + seconds + "s";  
-                    
-                }, 1000);
-            }
-        </script>
+    <body background="img/p2.png">
         <div class="container">
-            <div class="row" style="color:white;margin-top:40px;margin-bottom:10px">
+            <div class="row" style="margin-top:40px;margin-bottom:10px">
                 <div class="col-lg-10">
-                    <span style="font:Purisa Bold" class="glyphicon glyphicon-user">
+                    <span class="glyphicon glyphicon-user">
                     <%= title%>
                 </div>
                 <div class="col-lg-2">
@@ -80,7 +85,8 @@
                     <div class="form-group" id="statement" style="float:left;width:60%;">
                         <%= text %>
                     </div>
-                    <div class="row" style="color:white">
+                    </br>
+                    <div class="row" style="color:#2980B9">
                         <span class="mathquill-embedded-latex"> <%= equation %> </span>
                     </div>
                 </div>
@@ -90,8 +96,8 @@
                     <% for( var i=0;i < option.length ; i++){ %>
                         <div class="radio">
                         </br> 
-                            <label>
-                                <input class="radio" id="set" type="radio" name="opti" value = <%= i %> > <span class="badge"> <%= option[i] %> </span>
+                            <label class="radio">
+                                <input id="set" type="radio" name="opti" value = <%= i %> data-toggle="radio"> <span class="badge"> <%= option[i] %> </span>
                             </label>   
                         </br>
                         </div>

@@ -117,12 +117,6 @@ module.exports = function( app, redis, db){
 
 		//debug log to get port number where request is entertained
 		console.log("5002");
-		db.query("select * from test", function(err,rows){
-			if(!err)
-				console.log(rows[0].age);
-			else
-				console.log(err);
-		});
 		if(req.session.isLoggedIn)
 			res.redirect('/home');
 		else

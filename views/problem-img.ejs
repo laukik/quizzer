@@ -1,16 +1,17 @@
 <html>
-    <script src="jquery-1.10.2.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src='bootstrap/js/bootstrap.js'></script>
-    <script type="text/javascript" src="bootstrap/js/less.js"></script>
-    <script type="text/javascript" src="js/countdown.js"></script>
-    
-    <body background="/img/dirty_old_shirt.png">
-        <head>
+    <head>
         <meta charset="utf-8"> 
+        <title>Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="stylesheet/button.css" rel="stylesheet">
         <link href="stylesheet/signin.css" rel="stylesheet">
-        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
-        </head>
+        <link href="stylesheet/ionicons.min.css" rel="stylesheet">
+        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+        <link href="css/flat-ui.css" rel="stylesheet">
+        <script src="all.js"></script>
+        <script src="js/flatui-radio.js"></script>
+        <script src="/socket.io/socket.io.v0.9.16.js"></script>
+        <script type="text/javascript" src="js/countdown.js"></script>
           <script>
 
             var seconds_left;
@@ -54,6 +55,8 @@
                 }, 1000);
             }
         </script>
+    </head>
+    <body background="img/p2.png">
         <div class="container" >
             <form  action="/showquiz"; role="form" method="post" id="frm">
                 <div> WELCOME <%= title%></div>

@@ -1,17 +1,25 @@
 <html>
 	<head>
-		<meta charset="utf-8"> 
-		<title> QATAP </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="stylesheet/button.css" rel="stylesheet">
 		<link href="stylesheet/signin.css" rel="stylesheet">
-		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
+		<link href="stylesheet/ionicons.min.css" rel="stylesheet">
+		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+		<link href="css/flat-ui.css" rel="stylesheet">
+		<script src="all.js"></script>
+		<script src="js/flatui-radio.js"></script>
 	</head>
-	<body>
+	<body background="img/p2.png">
 		<div class="container">
 			<div class="row">
 			    <div class="col-lg-12">
 			        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			            <div class="navbar-header">
-			                <h3 style="color:white" >TestWiz</h3>
+			                <h5 style="color:white" >TestWiz
+			                	<span class="glyphicon glyphicon-chevron-left"></span>
+			                	<span class="glyphicon glyphicon-pencil"></span>
+			                	<span class="glyphicon glyphicon-chevron-right"></span>
+			                </h5>
 			            </div>
 			           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			              <form class="navbar-form navbar-right" action='/logout'>
@@ -33,34 +41,39 @@
 			        </nav>
 			    </div>
 			</div>
-			</br>
-			</br>
-			</br></br></br>
-			</br>
-			</br>
+			</br></br>
 			<form role="form" class="form group" action="/show_incomplete" method="post">
 			<div>
-				<h1> WELCOME <%= title %> <h1>
+				<h3> WELCOME <%= title %> <h3>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-12">
 
 				<% for( var t=0; t< list.length; t++){ %>
-					    <div class="input-group">
-					      <span class="input-group-addon">
-					        <input type="radio"  value=<%= list[t]%> id="choice" name="choice" > QUIZ ID <%= list[t] %>
-					      </span>
+					    <div class="radio">
+					    			<label class="radio" style="color:#2C3E50;font-size:20px">
+					    	  		<input type="radio" value=<%= list[t]%> id="choice" name="choice" data-toggle="radio" checked="">
+					    	  		QUIZ ID <%= list[t] %>
+					    			</label>
 					    </div>
 				<% } %>
 			</div>
-			<input type="hidden" name="creator" value=<%= title %>>
-			<button type="submit"  class="btn btn-success">GOOO....</button>
+
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4">
+				</br></br>
+				<button type="submit" style="width:100%" class="btn btn-inverse">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+				<span class="glyphicon glyphicon-pencil"></span>
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				</button>
+				</div>
+				<div class="col-lg-4"></div>
+			</div>
 			</form>
-			
+						
 		</div>
 	</body>
-	<script src="jquery-1.10.2.min.js"></script>
-	<script src='bootstrap/js/bootstrap.js'></script>
-	 <!-- <script src="/socket.io/socket.io.js"></script> -->    
 	<script>
 		var $j = jQuery.noConflict();
         $j(function(){

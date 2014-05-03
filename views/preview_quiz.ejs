@@ -1,17 +1,25 @@
 <html>
 	<head>
-		<meta charset="utf-8">
-		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
-		<script src="all-ro.js"></script>
-		<script src="jquery.cookie.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+				<link href="stylesheet/button.css" rel="stylesheet">
+				<link href="stylesheet/signin.css" rel="stylesheet">
+				<link href="stylesheet/ionicons.min.css" rel="stylesheet">
+				<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+				<link href="css/flat-ui.css" rel="stylesheet">
+				<script src="all.js"></script>
+				<script src="js/flatui-radio.js"></script>
 	</head>
-	<body background="img/dirty_old_shirt.png" >
+	<body background="img/p2.png" >
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 						<div class="navbar-header">
-						    <h3 style="color:white" >TestWiz</h3>
+						    <h5 style="color:white" >TestWiz
+						    	<span class="glyphicon glyphicon-chevron-left"></span>
+						    	<span class="glyphicon glyphicon-pencil"></span>
+						    	<span class="glyphicon glyphicon-chevron-right"></span>
+						    </h5>
 						</div>
 					   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					      <form class="navbar-form navbar-right" action='/logout'>
@@ -33,24 +41,26 @@
 					</nav>
 				</div>
 			</div>
-		</br></br>
-			<div class="row" style="background: rgba(255, 255, 255, 0.2);color:#fff;margin-top:50px;">
+			<div class="row" style="background: rgba(255, 255, 255, 0.2);color:black;margin-top:50px;">
 
 				<form role="form" class="form group" action="/validate_quiz_id" method="post">
 				<div>
-					<h1 style="margin-left:325px"> Select Quiz And Insert Credentials <h1>
+					<h3 style="margin-left:277px"> Select Quiz And Insert Credentials <h3>
 				</div>
 				<div class="row">
 					<div class="col-lg-1" ></div>
 					<div class="col-lg-2" >
 						<% for( var t=0; t< list.length; t++){ %>
-							<input type="radio" style="" value=<%= list[t]%>  name="Qid" required>	 
-							     QUIZ ID <%= list[t] %></label>
-							 </br>
+							<div class="radio">
+								<label class="radio" style="color:#2C3E50;font-size:20px">
+						  		<input type="radio" value=<%= list[t]%>  name="Qid" data-toggle="radio" checked="">
+						  		QUIZ ID <%= list[t] %>
+								</label>
+							</div>
 						<% } %>
 					</div>
 					<div class="col-lg-4"></div>
-					<div class="col-lg-3" style="background: rgba(0, 0, 0, 0.3);color:#fff;margin-top:50px;" >
+					<div class="col-lg-3" style="color:#fff;margin-top:50px;" >
 						<h2 class="form-signin-heading" style="color:white"> <%= title2 %></h2>
 						</br>
 						<div class="input-group">

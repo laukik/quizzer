@@ -2,16 +2,21 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
-		<script src="all-ro.js"></script>
-		<script src="jquery.cookie.js"></script>
+		<link href="css/flat-ui.css" rel="stylesheet">
+		<script src="all.js"></script>
+		<script src="js/flatui-radio.js"></script>
 	</head>
-	<body background="img/dirty_old_shirt.png" >
+	<body background="img/p2.png" >
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 						<div class="navbar-header">
-						    <h3 style="color:white" >TestWiz</h3>
+						    <h5 style="color:white" >TestWiz
+						    	<span class="glyphicon glyphicon-chevron-left"></span>
+						    	<span class="glyphicon glyphicon-pencil"></span>
+						    	<span class="glyphicon glyphicon-chevron-right"></span>
+						    </h5>
 						</div>
 					   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					      <form class="navbar-form navbar-right" action='/logout'>
@@ -34,34 +39,34 @@
 				</div>
 			</div>
 		</br></br>
-			<div class="row" style="background: rgba(255, 255, 255, 0.2);color:#fff;margin-top:50px;">
+			<div class="row" style="background: rgba(255, 255, 255, 0.2);color:black;margin-top:50px;">
 
 				<form role="form" class="form group" action="/show_quiz_result" method="post">
 				<div>
-					<h1 style="margin-left:325px"> <%= title2 %><h1>
+					<h3 style="margin-left:425px"> <%= title2 %><h3>
 				</div>
 				<div class="row">
 					<div class="col-lg-1" ></div>
 					<div class="col-lg-2" >
-						<% for( var t=0; t< list.length; t++){ %>
-							<input type="radio" style="" value=<%= list[t]%>  name="choice" required>	 
-							     QUIZ ID <%= list[t] %></label>
-							 </br>
-						<% } %>
+						<div class="radio">
+							<% for( var t=0; t< list.length; t++){ %>
+								<label class="radio" style="color:black;font-size:18px" >
+								<input type="radio"  style="" value=<%= list[t]%>  name="choice" data-toggle="radio" checked="" required>	 
+								     Quiz Id <span class="badge"><%= list[t] %></span>
+								 </br>
+								 </br>
+								 </label>
+							<% } %>
+						</div>
+					</div>	
 					</div>
 					<div class="col-lg-4"></div>
-					<div class="col-lg-3" style="background: rgba(0, 0, 0, 0.3);color:#fff;margin-top:50px;" >
+					<div class="col-lg-4" style="color:#fff;margin-top:20px;" >
 						</br>
-						<!-- <div class="input-group">
-							<span class="input-group-btn">
-								<button class=" btn-lg btn-inverse" type="button" id="psb" style="float:middle;"  >
-									<span class="glyphicon glyphicon-edit" id="psbt" style="color:black"></span>
-								</button>
-							</span>
-							<input type="password" class='form-control' style="height:42px;width:100%;margin-bottom:10px;margin-top:10px" name="passwd" placeholder="Password" >
-						</div> -->
-						<button type="submit"  class="btn btn-success btn-block" style="height:42px;color:black">
-							<span class="glyphicon glyphicon-check"></span>
+						<button type="submit"  class="btn btn-default btn-block" style="height:42px;color:black">
+							<span class="glyphicon glyphicon-chevron-left"></span>
+							<span class="glyphicon glyphicon-pencil"></span>
+							<span class="glyphicon glyphicon-chevron-right"></span>
 						</button>
 						</br>
 					</div>

@@ -37,7 +37,11 @@ app.use(express.session({
   }),
   secret: '1234567890QWERTY'
 }));
-
+// app.use(express.csrf());
+// app.use(function(req, res, next){
+//     res.locals.token = req.session._csrf;
+//     next();
+// });
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 

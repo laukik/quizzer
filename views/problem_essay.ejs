@@ -1,18 +1,24 @@
 <html>
     <head>
         <meta charset="utf-8"> 
+        <title>Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="stylesheet/button.css" rel="stylesheet">
-        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.css'  type='text/css'/>
+        <link href="stylesheet/signin.css" rel="stylesheet">
+        <link href="stylesheet/ionicons.min.css" rel="stylesheet">
+        <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+        <link href="css/flat-ui.css" rel="stylesheet">
         <script src="all.js"></script>
+        <script src="js/flatui-radio.js"></script>
+        <script src="/socket.io/socket.io.v0.9.16.js"></script>
         <script type="text/javascript" src="js/countdown.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
         <script>
           function preventBack(){window.history.forward();}
           setTimeout("preventBack()", 0);
           window.onunload=function(){null};
         </script>
     </head>
-    <body background="img/noisy_net.png">
+    <body background="img/p2.png">
          
         <script>  
             var seconds_left;      
@@ -48,12 +54,20 @@
             }
         </script>
         <div class="container">
-            <div class="row" style="color:white;margin-top:40px;margin-bottom:10px">
-                <div class="col-lg-10">
-                    <span style="font:Purisa Bold" class="glyphicon glyphicon-user">
+            <div class="row" style="margin-top:40px;margin-bottom:10px">
+                <div class="col-lg-3">
+                    <span class="fui-user">
                     <%= title%>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
+                    <span class="fui-eye"> Word Count</span>
+                    <span class="badge" id="count" style="color:#2C3E50;"></span>
+                </div>
+                <div class="col-lg-1">
+                    <span class="fui-time"></span>
+                </div>
+                <div class="col-lg-4">
+                
                     <script type="application/javascript">
                         /*
                             1 hour = 3600 seconds
@@ -71,6 +85,7 @@
                         });
                         // var myCountdown2 = new Countdown({style:"flip",time: <%= timer %>/1000, width:100, height:40, rangeHi:"hour"});
                     </script>
+
                 </div>   
             </div>
             <form  action="/show_quiz"; role="form" method="post" id="frm">
@@ -81,8 +96,8 @@
                 </div>
                 <input type="hidden" name="time"  id = "time" >
                 <input type="hidden" name="type" value="essay" >                        
-                <div class="row form-group" id="option" style="margin-left:5px;width:70%">
-                    <textarea name='answer' style='height:252px;width:100%;background: rgba(540, 250, 250, 0.1);color:#fff'>
+                <div class="row form-group" id="option" style="margin-left:5px;width:97%">
+                    <textarea name='answer' id="tex" style='height:252px;width:100%;background: rgba(540, 250, 250, 0.1);color:#2C3E50'>
                     </textarea>
                 </div>
                 <div class="row" style="margin-top:50px;margin-left:500px" >
@@ -91,9 +106,6 @@
             </form>
         </div>
     </body>
-           
-      
-
     <script>
         var $j = jQuery.noConflict();
 
@@ -107,6 +119,10 @@
 
 
         $j(function(){
+            $j('#tex').val("");
+            $j('#tex').bind('input',function(){
+                $j('#count').text($j('#tex').val().length);
+            });
             $j(document).bind("contextmenu",function(e){
                     e.preventDefault();
             });

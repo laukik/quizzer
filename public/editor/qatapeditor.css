@@ -292,7 +292,7 @@
 .mathquill-rendered-math,
 .mathquill-rendered-math .mathquill-editable {
   cursor: text;
-  color : white;
+  color : #2C3E50;
   font-family: Symbola, "Times New Roman", serif;
 }
 .mathquill-rendered-math .selection,

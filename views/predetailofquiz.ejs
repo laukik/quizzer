@@ -1,16 +1,26 @@
  <html>
         <head>
-            <meta charset="utf-8"> 
-            <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/> 
-            <script src='alldt.js'></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href="stylesheet/button.css" rel="stylesheet">
+            <!-- <link href="css/test.css" rel="stylesheet"> -->
+            <link href="stylesheet/signin.css" rel="stylesheet">
+            <link href="stylesheet/ionicons.min.css" rel="stylesheet">
+            <link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css'  type='text/css'/>
+            <link href="css/flat-ui.css" rel="stylesheet">
+            <script src="alldt.js"></script>
+            <script src="/socket.io/socket.io.v0.9.16.js"></script>
         </head>
-    <body background="img/subtle_carbon.png">
+    <body background="img/random_grey_variations.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                         <div class="navbar-header">
-                            <h3 style="color:white" >TestWiz</h3>
+                            <h5 style="color:white" >TestWiz
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </h5>
                         </div>
                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                           <form class="navbar-form navbar-right" action='/logout'>
@@ -34,25 +44,23 @@
             </div>
             </br>
             </br>
-            </br></br></br>
-            </br>
-            </br>
+            
             <div class="row">
                 <!-- <div class="col-lg-3"></div> -->
                 <div class="col-lg-12">
                     <form class="form" role="form" action="/quiz_detail" method="post" id="form">
                         <div class="col-lg-4">
-                            <p style="color:green;margin-left:22%;">SECTION DATA</p>
+                            <p style="color:black;margin-left:22%;margin-top:3px">SECTION DATA</p>
                             <label style="color:white"> Number Of Sections</label><input type="text" class="form-control  form-inline" style="height:42px;width:250px;padding:10px;margin-bottom: 10px" name="section" id="setion" placeholder="no. of sections">
                         </div>
                         <div class="col-lg-4">
-                            <p style="color:green;margin-left:27%;">SCHEDULE DATA</p>
+                            <p style="color:black;margin-left:27%;">SCHEDULE DATA</p>
             
                             <label style="color:white;margin-top:3px;"> Activation Date And Time</label>
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <a href="javascript:NewCal('acttime','ddmmyyyy',true,24)">
-                                        <button class="btn-lg btn-success" type="button" onclick='javascript:NewCal('acttime','ddmmyyyy',true,12)' > <span class="glyphicon glyphicon-time"></span>
+                                        <button class="btn-lg btn-custom" type="button" onclick='javascript:NewCal('acttime','ddmmyyyy',true,12)' > <span class="glyphicon glyphicon-time"></span>
                                         </button>
                                     </a>
                                 </span>
@@ -62,7 +70,7 @@
                             <div class="input-group">
                                 <span class="input-group-btn" >
                                     <a href="javascript:NewCal('endtime','ddmmyyyy',true,24)">
-                                        <button class="btn-lg btn-success" style="" type="button" onclick='javascript:NewCal('endtime','ddmmyyyy',true,12)' >
+                                        <button class="btn-lg btn-custom" style="" type="button" onclick='javascript:NewCal('endtime','ddmmyyyy',true,12)' >
                                             <span class="glyphicon glyphicon-time"></span>
                                         </button>
                                     </a>
@@ -71,21 +79,21 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <p style="color:green;margin-left:20%;">QUIZ PASSWORD</p>
+                            <p style="color:black;margin-left:20%;margin-top:3px">QUIZ PASSWORD</p>
                             <label style="color:white"> Quiz Password</label>
                             <input type="password" class="form-control" name="password" id="password" placeholder="password"
                             style="height:42px;width:250px;margin-bottom:10px;" >
                             <label style="color:white"> Confirm Password</label>
-                            <input type="password" class="form-control" name="xpassword" id="xpassword" placeholder="confirm password" style="height:42px;width:250px;margin-top: 10px;margin-bottom:10px;" >
+                            <input type="password" class="form-control" name="xpassword" id="xpassword" placeholder="confirm password" style="height:42px;width:250px;margin-top: 0px;margin-bottom:10px;" >
                         </div>
                         <div class="row" >
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
-                                <p style="color:green;margin-top:60px;margin-left: 35%;">APPLICANT PASSWORD</p>
+                                <p style="color:black;margin-top:30px;margin-left: 35%;">APPLICANT PASSWORD</p>
                                 <label style="color:white"> Applicant Password</label>
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="password for applicant" style="height:42px;width:100%;margin-bottom:10px;" >
+                                <input type="password" class="form-control" name="password2" id="password2" placeholder="password for applicant" style="height:42px;width:100%;margin-bottom:10px;">
                                 <label style="color:white"> Confirm Password</label>
-                                <input type="password" class="form-control" name="xpassword2" id="xpassword2" placeholder="confirm password" style="height:42px;width:100%;margin-top: 10px;margin-bottom:10px;" >
+                                <input type="password" class="form-control" name="xpassword2" id="xpassword2" placeholder="confirm password" style="height:42px;width:100%;margin-top: 0px;margin-bottom:10px;" >
                             </div>
                             <div class="col-lg-3">
 
@@ -94,7 +102,7 @@
                         <div class="row">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
-                                <button class="btn-lg btn-success form-control" type="button" id="frmsub" style="height:42px;width:100%;">
+                                <button class="btn-lg btn-custom " type="button" id="frmsub" style="height:42px;width:100%;">
                                     <span class="glyphicon glyphicon-check">
                                 </button>        
                             </div>
@@ -108,43 +116,49 @@
             
         </div>
         </br>
-        </br></br></br></br></br></br></br>
-        <div class="container marketing" >
-            <div class="row"  style="color:white">
-                <div class="col-lg-2">
-                    <img src="icons/cloud-upload-wh.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Upload Questions </h2>
-                    <p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
-                </div>
-                <div class="col-lg-2">
-                    <img src="icons/list-ol-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Versatility Of Questions </h2>
-                    <p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
-                </div>
-                <div class="col-lg-2">
-                    <img src="icons/calendar-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Fix a Schedule </h2>
-                    <p> Provide us a date and time to propell your Quiz</p>
-                </div>
-                <div class="col-lg-2">
-                    <img src="icons/rocket-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Launch </h2>
-                    <p>  We will Launch it, on schedule provided by you...  </p>    
-                </div><div class="col-lg-2">
-                    <img src="icons/bar-chart-o-wh.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Get The Result   </h2>
-                    <p> Get the complete statics of evalution </p>
-                </div>
-                <div class="col-lg-2">
-                    <img src="icons/thumbs-o-up-wh.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
-                    <h2> Like Us </h2>
-                    <p> Like our official page </p>
-                </div>
+
+        
+
+       </br></br></br>
+       <div class="container marketing">
+        <div class="row full-width"  style="color:black;margin-top:25px">
+            <div class="col-lg-2">
+                <img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+                <h4> Upload Questions </h4>
+                <p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+            </div>
+            <div class="col-lg-2">
+                <img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                <h4> Versatility Of Questions </h4>
+                <p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+            </div>
+            <div class="col-lg-2">
+                <img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                <h4> Fix a Schedule </h4>
+                <p> Provide us a date and time to propell your Quiz</p>
+            </div>
+            <div class="col-lg-2">
+                <img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                <h4> Launch </h4>
+                <p>  We will Launch it, on schedule provided by you...  </p>    
+            </div><div class="col-lg-2">
+                <img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+                <h4> Get The Result   </h4>
+                <p> Get the complete statics of evalution </p>
+            </div>
+            <div class="col-lg-2">
+                <img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+                <h4> Like Us </h4>
+                <p> Like our official page </p>
             </div>
         </div>
+       </div>
     </body>
     <script>
         var $j = jQuery.noConflict();
+
+        
+
         var rotation = function (ele){
            $j(ele).rotate({
               angle:0, 
@@ -156,6 +170,10 @@
            });
         }
         $j(function(){
+            $j('#setion').change( function(){
+                var x = $j('#setion').val();
+                if(isNaN(x) || !isFinite(x)) $j('#setion').val("");
+            });
             $j('#frmsub').click(function(){
                 if( $j('#password').val() === $j('#xpassword').val() ){
                     if( $j('#password2').val() === $j('#xpassword2').val() ){
