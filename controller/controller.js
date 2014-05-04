@@ -670,6 +670,10 @@ module.exports = function( app, redis, db){
 		res.render("info.ejs",{ title : req.session.userId, Qid : req.session.Q, name : req.param('name'), rule : req.param('rule'), qc : req.param('qc')});
 	});
 
+	app.get('/update_profile', is_logged_in, function ( req, res){
+		res.render('profile',{ title: req.session.userId});
+	});
+
 	app.get('/view_result_list',function (req, res){
 		User.get_user_part_list( redis, req.session.userId, function ( err, list){
 			if( !err ){

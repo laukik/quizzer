@@ -1,5 +1,15 @@
 <html>
 	<head>
+	<style type="text/css">
+		.body {
+		   background-image:url("img/p2.png");
+		   -webkit-background-size: cover;
+		   -moz-background-size: cover;
+		   -o-background-size: cover;
+		   background-size:cover;
+		}
+
+	</style>
 		<meta charset="utf-8"> 
 		<title>Home</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +23,7 @@
 		<script src="js/flatui-radio.js"></script>
 		<script src="/socket.io/socket.io.v0.9.16.js"></script>
 	</head>
-	<body background="img/p2.png" >
+	<body  background="img/p2.png" >
 		<div class="container">
 			<style type="text/css">
 				.form-control {
@@ -31,6 +41,14 @@
 				  right: 0;
 				  padding: 15px 20px;
 				}
+				.body {
+				   background-image:url("img/p2.png");
+				   -webkit-background-size: cover;
+				   -moz-background-size: cover;
+				   -o-background-size: cover;
+				   background-size:cover;
+				}
+
 			</style>
 			<div class="row">
 				<!-- <div class="col-lg-12"> -->
@@ -116,7 +134,7 @@
 							</div>
 						
 						</div>
-						<button type="button" class=" form-control btn btn-custom" id="siu"> <span class="glyphicon glyphicon-user"></span>  Sign Up </button>
+						<button type="button" class=" form-control btn btn-inverse" style="color:white" id="siu"> <span class="fui fui-user"></span>  Sign Up </button>
 						<input type="hidden" name="_csrf" value=token>
 					</form>	
 
@@ -125,40 +143,47 @@
 			</div>	
 		</div>
 	</div>
-	</br>
-	</br>
-		<div class="container marketing">
-			<div class="row full-width"  style="color:black;margin-top:25px">
-				<div class="col-lg-2">
-					<img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h4> Upload Questions </h4>
-					<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
-				</div>
-				<div class="col-lg-2">
-					<img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h4> Versatility Of Questions </h4>
-					<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
-				</div>
-				<div class="col-lg-2">
-					<img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h4> Fix a Schedule </h4>
-					<p> Provide us a date and time to propell your Quiz</p>
-				</div>
-				<div class="col-lg-2">
-					<img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h4> Launch </h4>
-					<p>  We will Launch it, on schedule provided by you...  </p>	
-				</div><div class="col-lg-2">
-					<img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h4> Get The Result   </h4>
-					<p> Get the complete statics of evalution </p>
-				</div>
-				<div class="col-lg-2">
-					<img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
-					<h4> Like Us </h4>
-					<p> Like our official page </p>
-				</div>
-			</div>
+		
+		<div id="footer" class="footer">
+		      <div class="container narrow row-fluid">
+		        <div class="container">
+		        	<div class="row full-width"  style="color:black;margin-top:25px">
+		        		<div class="col-lg-2">
+		        			<img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+		        			<h4> Upload Questions </h4>
+		        			<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+		        		</div>
+		        		<div class="col-lg-2">
+		        			<img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+		        			<h4> Versatility Of Questions </h4>
+		        			<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+		        		</div>
+		        		<div class="col-lg-2">
+		        			<img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+		        			<h4> Fix a Schedule </h4>
+		        			<p> Provide us a date and time to propell your Quiz</p>
+		        		</div>
+		        		<div class="col-lg-2">
+		        			<img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+		        			<h4> Launch </h4>
+		        			<p>  We will Launch it, on schedule provided by you...  </p>	
+		        		</div><div class="col-lg-2">
+		        			<img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+		        			<h4> Get The Result   </h4>
+		        			<p> Get the complete statics of evalution </p>
+		        		</div>
+		        		<div class="col-lg-2">
+		        			<img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+		        			<h4> Like Us </h4>
+		        			<p> Like our official page </p>
+		        		</div>
+		        	</div>
+		        </div>
+		      </div>
+		</div>
+</div>
+
+		
 		</div>
 	</body>
 	<script>
