@@ -8,31 +8,44 @@
 	</head>
 	<body background="img/p2.png">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-						<div class="navbar-header">
-						    <h3 style="color:white" >TestWiz</h3>
+						<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+						      <div class="container">
+						        <div class="navbar-header">
+						          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						            <span class="sr-only">Toggle navigation</span>
+						            <span class="icon-bar"></span>
+						            <span class="icon-bar"></span>
+						            <span class="icon-bar"></span>
+						          </button>
+						          <h6 style="color:white">TestWiz
+						          	<span class="glyphicon glyphicon-chevron-left"></span>
+						          	<span class="glyphicon glyphicon-pencil"></span>
+						          	<span class="glyphicon glyphicon-chevron-right"></span>
+						          </h6>
+						          <h8 style="color:white">Quiz and Test Assessment Platform</h8>
+						        </div>
+						        <div class="navbar-collapse collapse">
+						          <ul class="nav navbar-nav navbar-right">
+							      	<form class="navbar-form navbar-right" action='/login'>
+			      		      		  	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
+			      		      		    	<span style="font:Purisa Bold" class="fui-user"></span> Guest 
+			      		      		    	<span class="caret"></span>
+			      		      		  	</button>
+			      		      		  	<ul class="dropdown-menu">
+			      		      		    	<li >
+			      		      		    		<a href="/home" >
+			      		      		    			<span class="glyphicon glyphicon-home"></span> Home
+			      		      		    		</a>
+			      		      		    	</li>
+			      					  	</ul>
+							      		<button type="submit" class="btn btn-primary navbar-btn" style="margin-left:7px;background: rgba(54, 25, 25, 0);color:#fff">
+							      			<span class="glyphicon glyphicon-log-in"></span>  Sign In
+							      		</button>
+							      	</form>
+						          </ul>
+						        </div><!--/.nav-collapse -->
+						      </div>
 						</div>
-					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					      	<form class="navbar-form navbar-right" action='/login'>
-	      		      		  	<button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="background: rgba(54, 25, 25, 0);color:#fff">
-	      		      		    	<span style="font:Purisa Bold" class="glyphicon glyphicon-user"></span> <%=username%>
-	      		      		    	<span class="caret"></span>
-	      		      		  	</button>
-	      		      		  	<ul class="dropdown-menu">
-	      		      		    	<li >
-	      		      		    		<a href="/" >
-	      		      		    			<span class="glyphicon glyphicon-home"></span> Home
-	      		      		    		</a>
-	      		      		    	</li>
-	      					  	</ul>
-					      		
-					      	</form>
-					    </div>
-					</nav>
-				</div>
-			</div>
 			</br></br></br></br></br></br></br>	
 			<div class="row" >
 				<form class="form-signin" role="form" action="/activate" method="post">

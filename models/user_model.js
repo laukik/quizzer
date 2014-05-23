@@ -12,6 +12,16 @@ var user_schema = {
 	activate_code_expiry: 10
 };	
 
+var profile_schema = {
+	set_name : "profile",
+	organization : "org",
+	location : "location",
+	address : "address",
+	dob : "dob",
+	resume : "resume",
+	dp : "dp"
+};
+
 var proof_schema = {
 	set_name : "complete:"
 }
@@ -208,6 +218,12 @@ module.exports.get_user_part_list = function( redis, user, callback){
 		}
 	});
 }
+
+
+module.exports.update_profile_info = function( db, user, org, location, address, dob, resume, dp, callback){
+	db.query();
+}
+
 
 //-------------------------------SAYED's CODE------------------
 module.exports.activate_user = function( redis, user_name, activate_code, callback){

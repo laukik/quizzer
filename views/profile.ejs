@@ -9,7 +9,6 @@
 	<link rel= 'stylesheet' href='bootstrap/css/bootstrap.min.css' type='text/css'/>
 	<link href="css/flat-ui.css" rel="stylesheet">
 	<script src="alldt.js"></script>
-	<script src="js/flatui-radio.js"></script>
 	<script src="/socket.io/socket.io.v0.9.16.js"></script>
 	<style type="text/css">
 		.form-control {
@@ -91,12 +90,12 @@
 	</br>
 	</br>
 	<div class="row">
-	<form action="/profile" method="post">
+	<form action="/profile" method="post" enctype="multipart/form-data">
 		<div class="col-lg-3">
 			<img src="img/p2.png"  id="dp" class="img-rounded" style="border-width:2px;border-radius:2px;border-style:solid;border-color:#2C3E50 #2C3E50;height:35%;width:100%">
 			<span class="btn btn-default btn-file" style="margin-top:10px;width:100%;color:#2C3E50" >
 			    <span class="fui-photo"></span> &nbsp Change Profile Picture
-				<input type="file">
+				<input type="file" name="dp">
 			</span>
 		</div>
 		<div class="col-lg-2">
@@ -106,7 +105,7 @@
 		<div class="col-lg-3">
 			<label> Organization &nbsp Name</label>
 			<div>
-			<input type="text" placeholder="Organization"  name="uid" id="uid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" required>
+			<input type="text" placeholder="Organization"  name="org" id="org" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" required>
 			<span class="glyphicon glyphicon-briefcase"></span>
 			</div>
 		</div>
@@ -114,7 +113,7 @@
 		<div class="col-lg-3">
 			<label>Location</label>
 			<div>
-			<input type="text" placeholder="Location"  name="uid" id="uid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" required>
+			<input type="text" placeholder="Location"  name="location" id="location" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" required>
 			<span class="glyphicon glyphicon-map-marker"></span>
 			</div>
 		</div>		
@@ -124,15 +123,72 @@
 		</div>
 
 		<div class="col-lg-6">
-			<label>Your Address</label>
+			<label>Your Permanent Address</label>
 			<div>
-			<TEXTAREA placeholder="Location"  name="uid" id="uid" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" required></TEXTAREA>
+			<TEXTAREA placeholder="Address"  name="address" id="address" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" required></TEXTAREA>
 			<span class="glyphicon glyphicon-home"></span>
 			</div>
 		</div>		
-
+		<div class="col-lg-2">
+			
+		</div>
+		<div class="col-lg-3">
+			<label>Date of Birth</label>
+			<div>
+			<input type="text" placeholder="D.O.B." readonly name="dob" id="dob" class="form-control" style="padding:10px;margin-bottom: 10px;background: rgba(54, 25, 25, 0);color:#2C3E50;border-radius:5px" onclick="javascript:NewCal('dob','ddmmyyyy',false)"  required>
+			<span class="glyphicon glyphicon-calendar" onclick="javascript:NewCal('dob','ddmmyyyy',false)"></span>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<label>Your Resume</label>
+			<div>
+			<span class="btn btn-default btn-file" style="width:100%;color:#2C3E50" >
+			    <span class="glyphicon glyphicon-file"></span> &nbsp Upload Resume
+				<input type="file" name="resume">
+			</span>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<button type="submit" class="btn-lg btn-inverse" style="color:white;width:100%;margin-top:20px">
+				<span class="glyphicon glyphicon-cloud-upload"> Update </span>
+			</button>
+		</div>
 	</form>	
 	</div>
+</div>
+</br></br></br></br>
+<div class="container marketing">
+ <div class="row full-width"  style="color:black;margin-top:25px">
+     <div class="col-lg-2">
+         <img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+         <h4> Upload Questions </h4>
+         <p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+     </div>
+     <div class="col-lg-2">
+         <img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+         <h4> Versatility Of Questions </h4>
+         <p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+     </div>
+     <div class="col-lg-2">
+         <img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+         <h4> Fix a Schedule </h4>
+         <p> Provide us a date and time to propell your Quiz</p>
+     </div>
+     <div class="col-lg-2">
+         <img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+         <h4> Launch </h4>
+         <p>  We will Launch it, on schedule provided by you...  </p>    
+     </div><div class="col-lg-2">
+         <img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+         <h4> Get The Result   </h4>
+         <p> Get the complete statics of evalution </p>
+     </div>
+     <div class="col-lg-2">
+         <img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+         <h4> Like Us </h4>
+         <p> Like our official page </p>
+     </div>
+ </div>
 </div>
 </body>
 </html>

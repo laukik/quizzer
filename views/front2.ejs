@@ -1,13 +1,7 @@
 <html>
 	<head>
 	<style type="text/css">
-		.body {
-		   background-image:url("img/p2.png");
-		   -webkit-background-size: cover;
-		   -moz-background-size: cover;
-		   -o-background-size: cover;
-		   background-size:cover;
-		}
+		
 
 	</style>
 	<style type="text/css">
@@ -26,13 +20,27 @@
 		  right: 0;
 		  padding: 15px 20px;
 		}
-		.body {
-		   background-image:url("img/p2.png");
-		   -webkit-background-size: cover;
-		   -moz-background-size: cover;
-		   -o-background-size: cover;
+		div.image {
+		   background:url("img/moux.jpg");
 		   background-size:cover;
+		   width:100%; /*width of your image*/
+		     
 		}
+		div.image2 {
+		   background:url("img/p2.png");
+		   content-size:'cover';
+		   background-size:"cover";
+		   width:100%; /*width of your image*/
+		     
+		}
+		div.image3 {
+		   background:url("img/save.jpg");
+		   content-size:'cover';
+		   background-size:"cover";
+		   width:100%; /*width of your image*/
+		     
+		}
+		
 
 	</style>
 		<meta charset="utf-8"> 
@@ -45,9 +53,10 @@
 		<link href="css/flat-ui.css" rel="stylesheet">
 		<script src="all.js"></script>
 		<script src="js/flatui-radio.js"></script>
+		<script src="parallax.min.js"></script>
 		<script src="/socket.io/socket.io.v0.9.16.js"></script>
 	</head>
-	<body  background="img/p2.png" >
+	<body  >
 		<div class="container">
 			<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			      <div class="container">
@@ -88,13 +97,20 @@
 			      </div>
 			</div>
 
+		</div>
 
 
-
-			</br></br></br>
+		<div class="container text-center image">
+		</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+		<button style="padding:10px 10px 10px 10px;border-radius:400px;background-color:rgba(0,0,0,0)" class="btn-lg btn-default text-center">
+			<span class="glyphicon glyphicon-chevron-down" style="background-color:rgba(0,0,0,0);color:black;border-color:black"></span>
+				
+		</button>
+		</div>
+		<div class="container image2">
 			<div class="row">
 				<div class="col-lg-2"></div>
-				<div class="col-lg-4" style="color:#2C3E50" class="heading">
+				<div class="col-lg-4" style="color:black" class="heading">
 					<h3> CREATE QUIZ, DEPLOY IT, GET THE RESULTS ALL OF IT WITH GREAT EASE </h3>
 					<h1>
 						<span class="glyphicon glyphicon-chevron-left"></span>
@@ -151,54 +167,60 @@
 				</div>
 			</div>	
 		</div>
-	</div>
-		
-		<div id="footer" class="footer">
-		      <div class="container narrow row-fluid">
-		        <div class="container">
-		        	<div class="row full-width"  style="color:black;margin-top:25px">
-		        		<div class="col-lg-2">
-		        			<img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
-		        			<h4> Upload Questions </h4>
-		        			<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
-		        		</div>
-		        		<div class="col-lg-2">
-		        			<img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-		        			<h4> Versatility Of Questions </h4>
-		        			<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
-		        		</div>
-		        		<div class="col-lg-2">
-		        			<img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-		        			<h4> Fix a Schedule </h4>
-		        			<p> Provide us a date and time to propell your Quiz</p>
-		        		</div>
-		        		<div class="col-lg-2">
-		        			<img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-		        			<h4> Launch </h4>
-		        			<p>  We will Launch it, on schedule provided by you...  </p>	
-		        		</div><div class="col-lg-2">
-		        			<img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
-		        			<h4> Get The Result   </h4>
-		        			<p> Get the complete statics of evalution </p>
-		        		</div>
-		        		<div class="col-lg-2">
-		        			<img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
-		        			<h4> Like Us </h4>
-		        			<p> Like our official page </p>
-		        		</div>
-		        	</div>
-		        </div>
-		      </div>
 		</div>
+		</div>
+		<div class="container image3">
+			<div id="footer" class="footer ">
+			      <div class="container narrow row-fluid">
+			        <div class="container">
+			        	<div class="row full-width"  style="color:black;margin-top:25px">
+			        		<div class="col-lg-2">
+			        			<img src="icons/cloud-upload.png" class="img-rounded image" id="image" onmouseover="rotation(this);" style="height:140px;width:140px">
+			        			<h4> Upload Questions </h4>
+			        			<p> Create Quiz by,Providing Questions to us with their solutions and we will conduct it for you</p>
+			        		</div>
+			        		<div class="col-lg-2">
+			        			<img src="icons/icon_list-ol.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+			        			<h4> Versatility Of Questions </h4>
+			        			<p> Various kind of questions like MCQ, Subjective, questions with images and many more all under the same roof</p>
+			        		</div>
+			        		<div class="col-lg-2">
+			        			<img src="icons/icon_calendar.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+			        			<h4> Fix a Schedule </h4>
+			        			<p> Provide us a date and time to propell your Quiz</p>
+			        		</div>
+			        		<div class="col-lg-2">
+			        			<img src="icons/icon_rocket.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+			        			<h4> Launch </h4>
+			        			<p>  We will Launch it, on schedule provided by you...  </p>	
+			        		</div><div class="col-lg-2">
+			        			<img src="icons/icon_bar-chart-o.png" class="img-rounded" onmouseover="rotation(this);" style="height:140px;width:140px">
+			        			<h4> Get The Result   </h4>
+			        			<p> Get the complete statics of evalution </p>
+			        		</div>
+			        		<div class="col-lg-2">
+			        			<img src="icons/icon_thumbs-o-up.png" class="img-rounded"  onmouseover="rotation(this);" style="height:140px;width:140px">
+			        			<h4> Like Us </h4>
+			        			<p> Like our official page </p>
+			        		</div>
+			        	</div>
+			        </div>
+			      </div>
+			</div>	
+		</div>
+		
 </div>
 
 		
 		</div>
 	</body>
 	<script>
-			var $j = jQuery.noConflict();
+			
+			parallax.background = $("body");
+			parallax.scaling = 0.4; //background moves 40% with the pages
+			
 			var rotation = function (ele){
-			   $j(ele).rotate({
+			   $(ele).rotate({
 			      angle:0, 
 			      animateTo:360, 
 			      callback: rotation,
@@ -213,19 +235,19 @@
 			    return re.test(email);
 			}	
 			var socket = io.connect();
-	        $j(function(){
+	        $(function(){
 
-	        	$j(document).bind("contextmenu",function(e){
+	        	$(document).bind("contextmenu",function(e){
 	        	        e.preventDefault();
 	        	});
-	        	$j('#siu').click(function(){
-	        		var fname = $j('#fname').val();
-	                var user = $j('#uid').val();
-	                var email = $j('#eid').val();
-	                var passwd = $j('#passwd').val();
-	                var passwrd = $j('#xpasswd').val();
+	        	$('#siu').click(function(){
+	        		var fname = $('#fname').val();
+	                var user = $('#uid').val();
+	                var email = $('#eid').val();
+	                var passwd = $('#passwd').val();
+	                var passwrd = $('#xpasswd').val();
 	                var role;	                 
-	                if( $j('#role_creator').is(":checked") ){ // check if the radio is checked
+	                if( $('#role_creator').is(":checked") ){ // check if the radio is checked
             			role = "creator"; // retrieve the value
         			}else role = "participant"; // retrieve the value
 	                if( passwd === passwrd){
@@ -238,55 +260,55 @@
 	                	}else{
 	                		alert("An Email With Activation Code Sent To: " + email);
 	                		socket.emit('new_user',fname,user,passwd,email, role);
-	                		$j('#signup').submit();
+	                		$('#signup').submit();
 	                	}
 	                }else{
 	                	alert("Passwords Didn't Match!");
-	                	$j('#passwd').val('');
-	                    $j('#xpasswd').val('');
+	                	$('#passwd').val('');
+	                    $('#xpasswd').val('');
 	                }
 	            });
-	            $j('#uid').blur(function(){
-	                    var name = $j('#uid').val();
+	            $('#uid').blur(function(){
+	                    var name = $('#uid').val();
 	                    socket.emit('check',name);        
 	            });
-	            $j('#eid').blur(function(){
-	                    var email = $j('#eid').val();
+	            $('#eid').blur(function(){
+	                    var email = $('#eid').val();
 	                    socket.emit('check_email',email);        
 	            });
-	            $j('#uid').click(function (){
-	            	$j('#ud').removeClass('has-error');
-	            	$j('#uid').tooltip('hide');
+	            $('#uid').click(function (){
+	            	$('#ud').removeClass('has-error');
+	            	$('#uid').tooltip('hide');
 	            });
-	        	$j('#eid').click(function(){
-	            	$j('#ed').removeClass('has-error ');
-	            	$j('#eid').tooltip('hide');
+	        	$('#eid').click(function(){
+	            	$('#ed').removeClass('has-error ');
+	            	$('#eid').tooltip('hide');
 	            });
 
 	        });
 
 	        socket.on('tell',function(val){
-	            $j('#ud').addClass('has-error');
-	            $j('#uid').val('');
-	            $j('#uid').tooltip({
+	            $('#ud').addClass('has-error');
+	            $('#uid').val('');
+	            $('#uid').tooltip({
 	            	title:"User ID Already Taken",
 	            	container:'body',
 	            	placement:'auto left'	
 	            });
-	            $j('#uid').tooltip('show');
+	            $('#uid').tooltip('show');
 	        });
 	        socket.on('tell_email',function(val){
-	            $j('#ed').addClass('has-error');
-	            $j('#eid').val('');
-	        	$j('#eid').tooltip({
+	            $('#ed').addClass('has-error');
+	            $('#eid').val('');
+	        	$('#eid').tooltip({
 	        		title:"Email Address Already Registered",
 	        		container:'body',
 	        		placement:'auto left'	
 	        	});
-	        	$j('#eid').tooltip('show');
+	        	$('#eid').tooltip('show');
 	        });
 		    socket.on('forward',function(){
-	            $j('#signup').submit();
+	            $('#signup').submit();
 	        });
 		</script>
 </html>

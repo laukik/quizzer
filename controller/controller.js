@@ -120,7 +120,7 @@ module.exports = function( app, redis, db){
 		if(req.session.isLoggedIn)
 			res.redirect('/home');
 		else
-			res.render('front.ejs',{title2:""});
+			res.render('front2.ejs',{title2:""});
 	});
 
 	app.get('/add-question', is_logged_in,function (req, res){
@@ -812,6 +812,29 @@ module.exports = function( app, redis, db){
 		res.clearCookie('Sid');
 		res.clearCookie('Eq');
 		res.redirect('/home_creator');
+	});
+
+	app.post('/profile', is_logged_in, function ( req, res){
+		var user = req.session.userId;
+		var resume = "nil",dp = "nil";
+		if(req.files.dp.path){
+			var str = req.files.dp.path;
+			var qqq = str.replace( app.get('controller_dir'), '');
+			dp = qqq.replace( 'public/', '');	
+		}
+		if(req.files.resume.path){
+			var str = req.files.resume.path;
+			var qqq = str.replace( app.get('controller_dir'), '');
+			resume = qqq.replace( 'public/', '');	
+		}
+		var org =  req.param('org');
+		var location =  req.param('location');
+		var address =  req.param('address');
+		var dob =  req.param('dob');
+		User.update_profile_info( db, user, org, location, address, dob, resume, dp, function (err, stat){
+			res.redirect('/update_profile',{ title:user});
+		});
+		
 	});
 
 	app.post('/question_detail', is_logged_in, function ( req, res){
